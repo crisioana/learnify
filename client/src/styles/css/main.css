@@ -26,7 +26,7 @@
 }
 
 .auth__right {
-  padding: 50px;
+  padding: 40px 50px;
 }
 
 .auth__right h2 {
@@ -44,6 +44,155 @@
   }
   .auth h2 {
     text-align: left;
+  }
+}
+
+.role {
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  -webkit-transition: -webkit-transform 200ms;
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.roleIcon {
+  border: 2px solid #c9c9c9;
+  padding: 20px 0;
+  margin-bottom: 7px;
+  border-radius: 5px;
+}
+
+.roleIcon svg {
+  font-size: 70px;
+}
+
+.roleIcon.active {
+  border: 4px solid #85C1E5;
+}
+
+.role p {
+  font-weight: bold;
+}
+
+.role p.active {
+  color: #85C1E5;
+}
+
+.role:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.roleModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 30px;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: opacity 300ms;
+  transition: opacity 300ms;
+}
+
+.roleModal.active {
+  opacity: 1;
+  pointer-events: all;
+  -webkit-transition: opacity 300ms;
+  transition: opacity 300ms;
+}
+
+.roleModal__box {
+  width: 100%;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 5px;
+  opacity: 0;
+  -webkit-transform: translateY(-60px);
+          transform: translateY(-60px);
+  -webkit-transition: -webkit-transform 300ms 200ms;
+  transition: -webkit-transform 300ms 200ms;
+  transition: transform 300ms 200ms;
+  transition: transform 300ms 200ms, -webkit-transform 300ms 200ms;
+}
+
+.roleModal__box.active {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  -webkit-transition: -webkit-transform 300ms;
+  transition: -webkit-transform 300ms;
+  transition: transform 300ms;
+  transition: transform 300ms, -webkit-transform 300ms;
+}
+
+.roleModal__header {
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+}
+
+.roleModal__header svg {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.roleModal__body {
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.roleModal__choice {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 30px;
+  margin-bottom: 25px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media (min-width: 700px) {
+  .roleModal__choice {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
   }
 }
 
@@ -82,6 +231,36 @@ button:hover {
 
 .inputGroup input:focus {
   outline: 3px solid #CBE2EF;
+}
+
+.inputGroup--phone {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.inputGroup--phone div {
+  background: #c4c4c4;
+  margin-top: 10px;
+  border-radius: 5px 0 0 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 25px;
+  padding: 0 8px;
+  border: 1px solid #929292;
+  border-right: none;
+}
+
+.inputGroup--phone input {
+  border-radius: 0 5px 5px 0;
+  border-left: none;
 }
 
 .inputGroup--password {

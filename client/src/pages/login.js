@@ -20,19 +20,19 @@ const Login = () => {
 
   return (
     <div className='auth'>
-      <div className="auth__left">
+      <div className='auth__left'>
         
       </div>
-      <div className="auth__right">
+      <div className='auth__right'>
         <h2>Sign In To Learnify</h2>
         <form onSubmit={handleSubmit}>
           <div className='inputGroup'>
             <label htmlFor='email'>Email address</label>
             <input type='text' name='email' id='email' value={userData.email} onChange={handleChange} autoComplete='off' />
           </div>
-          <div className="inputGroup">
+          <div className='inputGroup'>
             <label htmlFor='password'>Password</label>
-            <div className="inputGroup--password">
+            <div className='inputGroup--password'>
               <input type={showPassword ? 'text' : 'password'} name='password' id='password' value={userData.password} onChange={handleChange} />
               {
                 showPassword
