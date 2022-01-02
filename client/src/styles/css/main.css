@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&family=Source+Sans+Pro:wght@400;600&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.auth {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100vh;
+}
+
+.auth__left, .auth__right {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.auth__left {
+  background: #ccc;
+  display: none;
+}
+
+.auth__right {
+  padding: 50px;
+}
+
+.auth__right h2 {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.auth__right p {
+  margin-top: 25px;
+}
+
+@media (min-width: 700px) {
+  .auth__left {
+    display: block;
+  }
+  .auth h2 {
+    text-align: left;
+  }
+}
+
+button {
+  border: none;
+  outline: none;
+  background: #5584B1;
+  color: #fff;
+  width: 70px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: background 300ms;
+  transition: background 300ms;
+}
+
+button:hover {
+  background: #254E7B;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputGroup input {
+  width: 100%;
+  border: 1px solid #929292;
+  outline: none;
+  border-radius: 5px;
+  height: 35px;
+  text-indent: 7px;
+  padding-right: 7px;
+  margin-top: 10px;
+}
+
+.inputGroup input:focus {
+  outline: 3px solid #CBE2EF;
+}
+
+.inputGroup--password {
+  position: relative;
+}
+
+.inputGroup--password input {
+  padding-right: 40px;
+}
+
+.inputGroup--password svg {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  -webkit-transform: translateY(-4px);
+          transform: translateY(-4px);
+  cursor: pointer;
+  color: #8d8d8d;
+}
+/*# sourceMappingURL=main.css.map */

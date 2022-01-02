@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&family=Source+Sans+Pro:wght@400;600&display=swap');
+
+$primary-color: #5584B1;
+$secondary-color: #85C1E5;
+$ternary-color: #CBE2EF;
+$primary-hover: #254E7B;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+@mixin mediaDesktop {
+  @media (min-width: 700px) {
+    @content;
+  }
+}

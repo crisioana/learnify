@@ -1,0 +1,56 @@
+@import
+  './config',
+  './auth/auth';
+
+button {
+  border: none;
+  outline: none;
+  background: $primary-color;
+  color: #fff;
+  width: 70px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 300ms;
+
+  &:hover {
+    background: $primary-hover;
+  }
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+
+  input {
+    width: 100%;
+    border: 1px solid rgb(146, 146, 146);
+    outline: none;
+    border-radius: 5px;
+    height: 35px;
+    text-indent: 7px;
+    padding-right: 7px;
+    margin-top: 10px;
+
+    &:focus {
+      outline: 3px solid $ternary-color;
+    }
+  }
+  
+  &--password {
+    position: relative;
+
+    input {
+      padding-right: 40px;
+    }
+
+    svg {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-4px);
+      cursor: pointer;
+      color: rgb(141, 141, 141);
+    }
+  }
+}

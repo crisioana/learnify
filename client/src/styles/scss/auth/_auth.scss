@@ -1,0 +1,40 @@
+.auth {
+  display: flex;
+  height: 100vh;
+
+  &__left,
+  &__right {
+    flex: 1;
+  }
+  
+  &__left {
+    background: #ccc;
+    display: none;
+  }
+
+  &__right {
+    padding: 50px;
+
+    h2 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    p {
+      margin-top: 25px;
+    }
+  }
+}
+
+@include mediaDesktop {
+  .auth {
+
+    &__left {
+      display: block;
+    }
+
+    h2 {
+      text-align: left;
+    }
+  }
+}
