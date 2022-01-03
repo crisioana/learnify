@@ -447,6 +447,47 @@
   background: #e4e4e4;
 }
 
+.studentDashboard__body {
+  margin-top: 30px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 30px;
+}
+
+.classCard {
+  width: 100%;
+  background: #5584B1;
+  border-radius: 5px;
+  padding: 20px;
+  color: #fff;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-transition: -webkit-transform 150ms;
+  transition: -webkit-transform 150ms;
+  transition: transform 150ms;
+  transition: transform 150ms, -webkit-transform 150ms;
+}
+
+.classCard:hover {
+  -webkit-transform: scale(1.03);
+          transform: scale(1.03);
+}
+
+.classCard p {
+  margin: 10px 0;
+}
+
+.classCard button {
+  margin-top: 10px;
+  background: #39658D;
+}
+
+.classCard button:hover {
+  background: #385774;
+}
+
 a {
   text-decoration: none;
 }

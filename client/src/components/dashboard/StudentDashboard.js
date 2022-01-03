@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FaFilter } from 'react-icons/fa'
 import { AiOutlineSortAscending, AiOutlineSortDescending, AiOutlineSearch } from 'react-icons/ai'
+import ClassCard from './ClassCard'
 
 const StudentDashboard =  () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false)
@@ -29,8 +30,22 @@ const StudentDashboard =  () => {
           </div>
         </div>
       </div>
-      <div className="studentDashbaord__body">
-        
+      <div className="studentDashboard__body">
+        <ClassCard
+          title='Test Class Name'
+          description='Class description goes here. tralalal lorem ipsum dolor sit amet.'
+          instructor='Lecturer Name'
+        />
+        <ClassCard
+          title='Test Class Name'
+          description='Class description goes here. tralalal lorem ipsum dolor sit amet.'
+          instructor='Lecturer Name'
+        />
+        <ClassCard
+          title='Test Class Name'
+          description='Class description goes here. tralalal lorem ipsum dolor sit amet.'
+          instructor='Lecturer Name'
+        />
       </div>
     </div>
   )
