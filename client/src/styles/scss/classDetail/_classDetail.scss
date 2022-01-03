@@ -1,0 +1,134 @@
+.classDetail {
+
+  &__header p {
+    margin-top: 7px;
+  }
+
+  &__body {
+    margin-top: 20px;
+
+    &--header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+  }
+
+  &__filter {
+    position: relative;
+
+    &--close {
+      text-align: right;
+      margin-bottom: 20px;
+
+      svg {
+        cursor: pointer;
+        font-size: 22px;
+      }
+    }
+
+    &--btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+      border-radius: 5px;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    &--overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(0, 0, 0, .5);
+      z-index: 99;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms;
+
+      &.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+
+    &--sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      background: #fff;
+      height: 100vh;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+      width: 230px;
+      padding: 20px;
+      transition: left 200ms;
+
+      &.active {
+        left: 0;
+      }
+    }
+
+    &--single {
+
+      h4 {
+        margin-bottom: 15px;
+      }
+
+      .inputGroup {
+        margin-bottom: 10px !important;
+        
+        input {
+          margin-right: 10px;
+        }
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 30px;
+      }
+    }
+
+    &--noInput {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+
+      svg {
+        font-size: 22px;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  &__input {
+    flex: 1;
+    position: relative;
+    
+    input {
+      width: 100%;
+      border-radius: 5px;
+      height: 40px;
+      padding-right: 35px;
+      border: 1px solid rgb(146, 146, 146);
+      outline: none;
+      text-indent: 7px;
+
+      &:focus {
+        outline: 2px solid $secondary-color;
+      }
+    }
+
+    svg {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+    }
+  }
+}

@@ -6,7 +6,8 @@
   './auth/role',
   './auth/roleModal',
   './dashboard/studentDashboard',
-  './dashboard//classCard';
+  './dashboard//classCard',
+  './classDetail/classDetail';
 
 a {
   text-decoration: none;
@@ -36,7 +37,9 @@ button {
 .inputGroup {
   margin-bottom: 20px;
 
-  input {
+  input[type="text"],
+  input[type="password"],
+  input[type="number"] {
     width: 100%;
     border: 1px solid rgb(146, 146, 146);
     outline: none;
