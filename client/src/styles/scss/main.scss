@@ -1,8 +1,14 @@
 @import
   './config',
+  './global/navbar',
+  './global/avatar',
   './auth/auth',
   './auth/role',
   './auth/roleModal';
+
+a {
+  text-decoration: none;
+}
 
 button {
   border: none;

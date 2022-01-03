@@ -1,0 +1,109 @@
+.navbar {
+  background: $primary-color;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  color: #fff;
+
+  h2 a {
+    color: #fff;
+  }
+
+  svg {
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .5);
+    transition: opacity 200ms;
+    opacity: 0;
+    pointer-events: none;
+
+    &.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  &__links {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 200px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .5);
+    transition: right 200ms;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    button {
+      all: unset;
+    }
+
+    p {
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    &.active {
+      right: 0;
+    }
+
+    &--closeIcon {
+      text-align: right;
+      margin-bottom: 10px;
+
+      svg {
+        font-size: 25px;
+      }
+    }
+
+    &--notification {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@include mediaDesktop {
+  .navbar {
+    padding: 15px 50px;
+
+    & > svg {
+      display: none;
+    }
+    
+    &__overlay {
+      all: unset;
+    }
+
+    &__links {
+      all: unset;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+
+      &--closeIcon {
+        display: none;
+      }
+
+      p,
+      &--notification {
+        margin-bottom: 0;
+      }
+
+      &--notification {
+        transform: translateY(3px);
+      }
+    }
+  }
+}
