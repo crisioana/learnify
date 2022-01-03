@@ -21,7 +21,7 @@ const Login = () => {
   return (
     <div className='auth'>
       <div className='auth__left'>
-        
+        <img src={`${process.env.PUBLIC_URL}/images/auth.jpg`} alt='Learnify Login' />
       </div>
       <div className='auth__right'>
         <h2>Sign In To Learnify</h2>

@@ -40,7 +40,7 @@ const Register = () => {
     <>
       <div className='auth'>
         <div className='auth__left'>
-          
+          <img src={`${process.env.PUBLIC_URL}/images/auth.jpg`} alt='Learnify Register' />
         </div>
         <div className='auth__right'>
           <h2>Sign Up Learnify</h2>

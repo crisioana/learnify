@@ -10,10 +10,16 @@
   &__left {
     background: #ccc;
     display: none;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   &__right {
-    padding: 40px 50px;
+    padding: 30px 50px;
 
     h2 {
       margin-bottom: 30px;
