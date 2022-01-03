@@ -82,7 +82,11 @@ const ClassDetail = () => {
             </div>
           </div>
           <div className='classDetail__body--body'>
-
+            <div className='classDetail__input'>
+              <input type='text' placeholder='Search quiz ...' autoComplete='off' />
+              <AiOutlineSearch />
+            </div>
+            all available class quiz will goes here
           </div>
         </div>
       </div>

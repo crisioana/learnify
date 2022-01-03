@@ -12,6 +12,10 @@
       align-items: center;
       gap: 15px;
     }
+
+    &--body .classDetail__input {
+      display: none;
+    }
   }
 
   &__filter {
@@ -129,6 +133,43 @@
       top: 50%;
       right: 10px;
       transform: translateY(-50%);
+    }
+  }
+}
+
+@include mediaDesktop {
+  .classDetail__body {
+    display: flex;
+    align-items: flex-start;
+    gap: 70px;
+
+    &--body {
+      flex: 1;
+
+      .classDetail__input {
+        display: block;
+      }
+    }
+  }
+
+  .classDetail__body--header .classDetail__input {
+    display: none;
+  }
+
+  .classDetail__filter {
+    position: unset;
+
+    &--overlay {
+      all: unset;
+    }
+
+    &--btn,
+    &--close {
+      display: none;
+    }
+
+    &--sidebar {
+      all: unset;
     }
   }
 }
