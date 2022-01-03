@@ -57,6 +57,8 @@
       transform: scaleY(0);
       transform-origin: top;
       transition: transform 200ms;
+      background: #fff;
+      z-index: 99;
       
       &.active {
         transform: scaleY(1);

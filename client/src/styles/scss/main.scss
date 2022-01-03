@@ -5,9 +5,10 @@
   './auth/auth',
   './auth/role',
   './auth/roleModal',
-  './dashboard/studentDashboard',
-  './dashboard//classCard',
-  './classDetail/classDetail';
+  './dashboard/student/studentDashboard',
+  './dashboard/student/classCard',
+  './classDetail/classDetail',
+  './classDetail/filterSearch';
 
 a {
   text-decoration: none;
@@ -71,8 +72,8 @@ button {
     }
 
     input {
-      border-radius: 0 5px 5px 0;
-      border-left: none;
+      border-radius: 0 5px 5px 0 !important;
+      border-left: none !important;
     }
   }
   

@@ -25,6 +25,7 @@
     transition: opacity 200ms;
     opacity: 0;
     pointer-events: none;
+    z-index: 100;
 
     &.active {
       opacity: 1;

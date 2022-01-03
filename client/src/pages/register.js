@@ -74,7 +74,7 @@ const Register = () => {
               </div>
             </div>
             <div className='inputGroup'>
-              <label htmlFor='password'>Password</label>
+              <label htmlFor='password'>Confirm Password</label>
               <div className='inputGroup--password'>
                 <input type={showConfirmPassword ? 'text' : 'password'} name='confirmPassword' id='confirmPassword' value={userData.confirmPassword} onChange={handleChange} />
                 {

@@ -1,4 +1,4 @@
-import StudentDashboard from './../components/dashboard/StudentDashboard'
+import StudentDashboard from './../components/dashboard/student/StudentDashboard'
 import Navbar from './../components/global/Navbar'
 
 const Dashboard = () => {
