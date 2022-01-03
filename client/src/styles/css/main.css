@@ -340,6 +340,57 @@
   }
 }
 
+.studentDashboard__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 30px;
+}
+
+.studentDashboard__header input {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 40px;
+  border-radius: 5px;
+  text-indent: 7px;
+  padding-right: 7px;
+  border: 1px solid #929292;
+  outline: none;
+}
+
+.studentDashboard__header input:focus {
+  outline: 2px solid #85C1E5;
+}
+
+.studentDashboard__filter {
+  position: relative;
+}
+
+.studentDashboard__filter--btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  padding: 10px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.studentDashboard__filter--dropdown {
+  position: absolute;
+  top: 100%;
+  margin-top: 10px;
+}
+
 a {
   text-decoration: none;
 }
@@ -360,6 +411,10 @@ button {
 
 button:hover {
   background: #254E7B;
+}
+
+.container {
+  padding: 20px 30px;
 }
 
 .inputGroup {
@@ -427,5 +482,11 @@ button:hover {
           transform: translateY(-4px);
   cursor: pointer;
   color: #8d8d8d;
+}
+
+@media (min-width: 700px) {
+  .container {
+    padding: 30px 50px;
+  }
 }
 /*# sourceMappingURL=main.css.map */

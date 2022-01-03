@@ -4,7 +4,8 @@
   './global/avatar',
   './auth/auth',
   './auth/role',
-  './auth/roleModal';
+  './auth/roleModal',
+  './dashboard/studentDashboard';
 
 a {
   text-decoration: none;
@@ -25,6 +26,10 @@ button {
   &:hover {
     background: $primary-hover;
   }
+}
+
+.container {
+  padding: 20px 30px;
 }
 
 .inputGroup {
@@ -82,5 +87,11 @@ button {
       cursor: pointer;
       color: rgb(141, 141, 141);
     }
+  }
+}
+
+@include mediaDesktop {
+  .container {
+    padding: 30px 50px;
   }
 }

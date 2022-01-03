@@ -1,0 +1,42 @@
+.studentDashboard {
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    input {
+      flex: 1;
+      height: 40px;
+      border-radius: 5px;
+      text-indent: 7px;
+      padding-right: 7px;
+      border: 1px solid rgb(146, 146, 146);
+      outline: none;
+
+      &:focus {
+        outline: 2px solid $secondary-color;
+      }
+    }
+  }
+
+  &__filter {
+    position: relative;
+
+    &--btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+      padding: 10px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    &--dropdown {
+      position: absolute;
+      top: 100%;
+      margin-top: 10px;
+    }
+  }
+}
