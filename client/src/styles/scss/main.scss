@@ -2,17 +2,17 @@
   './config',
   './global/navbar',
   './global/avatar',
+  './global/questionBox',
   './auth/auth',
   './auth/role',
   './auth/roleModal',
-  './dashboard/student/studentDashboard',
-  './dashboard/student/classCard',
-  './classDetail/classDetail',
-  './classDetail/filterSearch',
-  './classDetail/quizCard',
-  './classDetail/gradeModal',
-  './quiz/quizDetail',
-  './quiz/questionBox';
+  './student/dashboard/studentDashboard',
+  './student/dashboard/classCard',
+  './student/classDetail/classDetail',
+  './student/classDetail/filterSearch',
+  './student/classDetail/quizCard',
+  './student/classDetail/gradeModal',
+  './quiz/quizDetail';
 
 a {
   text-decoration: none;

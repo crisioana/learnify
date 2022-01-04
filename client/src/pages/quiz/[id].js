@@ -1,5 +1,5 @@
 import Navbar from './../../components/global/Navbar'
-import QuestionBox from './../../components/quiz/QuestionBox'
+import QuestionBox from './../../components/global/QuestionBox'
 
 const QuizDetail = () => {
   return (

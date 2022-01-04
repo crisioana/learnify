@@ -1,7 +1,7 @@
 import { AiOutlineSearch } from 'react-icons/ai'
 import Navbar from './../../components/global/Navbar'
-import FilterSearch from './../../components/classDetail/FilterSearch'
-import QuizCard from './../../components/classDetail/QuizCard'
+import FilterSearch from './../../components/student/classDetail/FilterSearch'
+import QuizCard from './../../components/student/classDetail/QuizCard'
 
 const ClassDetail = () => {
   return (
@@ -23,7 +23,7 @@ const ClassDetail = () => {
             </div>
             <div className='classDetail__quizList'>
               <QuizCard />
-              {/* <QuizCard /> */}
+              <QuizCard />
             </div>
           </div>
         </div>
