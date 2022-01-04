@@ -1,6 +1,7 @@
 import { AiOutlineSearch } from 'react-icons/ai'
 import Navbar from './../../components/global/Navbar'
 import FilterSearch from './../../components/classDetail/FilterSearch'
+import QuizCard from './../../components/classDetail/QuizCard'
 
 const ClassDetail = () => {
   return (
@@ -20,7 +21,10 @@ const ClassDetail = () => {
               <input type='text' placeholder='Search quiz ...' autoComplete='off' />
               <AiOutlineSearch />
             </div>
-            all available class quiz will goes here
+            <div className='classDetail__quizList'>
+              <QuizCard />
+              <QuizCard />
+            </div>
           </div>
         </div>
       </div>

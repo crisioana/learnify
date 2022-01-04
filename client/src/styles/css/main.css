@@ -542,6 +542,10 @@
           transform: translateY(-50%);
 }
 
+.classDetail__quizList {
+  margin-top: 30px;
+}
+
 @media (min-width: 700px) {
   .classDetail__body {
     display: -webkit-box;
@@ -679,6 +683,38 @@
   .filterSearch--sidebar {
     all: unset;
   }
+}
+
+.quizCard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.quizCard:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.quizCard h4 a {
+  color: #5858ff;
+  text-decoration: underline;
+}
+
+.quizCard__right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
 }
 
 a {

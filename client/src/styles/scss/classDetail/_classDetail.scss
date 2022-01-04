@@ -43,6 +43,10 @@
       transform: translateY(-50%);
     }
   }
+
+  &__quizList {
+    margin-top: 30px;
+  }
 }
 
 @include mediaDesktop {
