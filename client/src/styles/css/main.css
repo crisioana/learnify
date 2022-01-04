@@ -717,6 +717,52 @@
   gap: 10px;
 }
 
+.quizDetail__header > * + * {
+  margin-top: 10px;
+}
+
+.quizDetail__body {
+  margin-top: 30px;
+  height: 60vh;
+  overflow: auto;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  padding: 15px 20px;
+}
+
+.quizDetail__body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.quizDetail__body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.quizDetail__body::-webkit-scrollbar-thumb {
+  background: #CBE2EF;
+  border-radius: 50px;
+}
+
+.quizDetail__question:not(:last-child) {
+  margin-bottom: 40px;
+}
+
+.questionBox {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.questionBox__answer {
+  margin-top: 15px;
+}
+
+.questionBox__answer .inputGroup label {
+  margin-left: 7px;
+}
+
 a {
   text-decoration: none;
 }
