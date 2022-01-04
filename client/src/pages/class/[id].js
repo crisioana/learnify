@@ -23,7 +23,7 @@ const ClassDetail = () => {
             </div>
             <div className='classDetail__quizList'>
               <QuizCard />
-              <QuizCard />
+              {/* <QuizCard /> */}
             </div>
           </div>
         </div>

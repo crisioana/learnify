@@ -717,6 +717,116 @@
   gap: 10px;
 }
 
+.quizCard__right p:first-child {
+  cursor: pointer;
+}
+
+.gradeModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: opacity 250ms;
+  transition: opacity 250ms;
+}
+
+.gradeModal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.gradeModal__box {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 5px;
+  height: 85vh;
+  overflow: auto;
+  -webkit-transform: translateY(-80px);
+          transform: translateY(-80px);
+  opacity: 0;
+  -webkit-transition: -webkit-transform 200ms 200ms;
+  transition: -webkit-transform 200ms 200ms;
+  transition: transform 200ms 200ms;
+  transition: transform 200ms 200ms, -webkit-transform 200ms 200ms;
+}
+
+.gradeModal__box.active {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  -webkit-transition: -webkit-transform 200ms;
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.gradeModal__box::-webkit-scrollbar {
+  width: 13px;
+}
+
+.gradeModal__box::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.gradeModal__box::-webkit-scrollbar-thumb {
+  background: #CBE2EF;
+  border-radius: 50px;
+}
+
+.gradeModal__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.gradeModal__header svg {
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.gradeModal__body {
+  padding: 15px 20px;
+}
+
+.gradeModal__body > h4 {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.gradeModal__body .questionBox {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  padding: 0;
+}
+
+.gradeModal__question:not(:last-child) {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ccc;
+}
+
 .quizDetail__header > * + * {
   margin-top: 10px;
 }
