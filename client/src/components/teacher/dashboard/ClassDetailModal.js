@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
+import PeopleList from './../people/PeopleList'
 import QuizList from './../quizes/QuizList'
 
 const ClassDetailModal = () => {
@@ -35,6 +36,7 @@ const ClassDetailModal = () => {
           </div>
           <div className='classDetailModal__body--bottom'>
             {currentMenu === 'Quizes' && <QuizList />}
+            {currentMenu === 'People' && <PeopleList />}
           </div>
         </div>
       </div>
