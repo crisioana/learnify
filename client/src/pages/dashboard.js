@@ -1,4 +1,5 @@
-import StudentDashboard from './../components/student/dashboard/StudentDashboard'
+// import StudentDashboard from './../components/student/dashboard/StudentDashboard'
+import TeacherDashboard from './../components/teacher/dashboard/TeacherDashboard'
 import Navbar from './../components/global/Navbar'
 
 const Dashboard = () => {
@@ -6,7 +7,7 @@ const Dashboard = () => {
     <>
       <Navbar />
       <div className='container'>
-        <StudentDashboard />
+        <TeacherDashboard />
       </div>
     </>
   )

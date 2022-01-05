@@ -1,0 +1,18 @@
+.infoCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: $secondary-color;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+  padding: 15px 25px;
+  color: #fff;
+
+  &__left h2 {
+    margin-bottom: 10px;
+  }
+
+  &__right svg {
+    font-size: 28px;
+  }
+}

@@ -3,6 +3,7 @@
   './global/navbar',
   './global/avatar',
   './global/questionBox',
+  './global/infoCard',
   './auth/auth',
   './auth/role',
   './auth/roleModal',
@@ -12,7 +13,8 @@
   './student/classDetail/filterSearch',
   './student/classDetail/quizCard',
   './student/classDetail/gradeModal',
-  './quiz/quizDetail';
+  './quiz/quizDetail',
+  './teacher/dashboard/teacherDashboard';
 
 a {
   text-decoration: none;
