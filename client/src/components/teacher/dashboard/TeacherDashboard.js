@@ -1,6 +1,6 @@
 import { AiOutlineSearch } from 'react-icons/ai'
 import InfoCard from './../../global/InfoCard'
-import ClassCard from './../../student/dashboard/ClassCard'
+import ClassCard from './../../global/ClassCard'
 
 const TeacherDashboard = () => {
   return (

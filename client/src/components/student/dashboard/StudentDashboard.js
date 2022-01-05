@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { FaFilter } from 'react-icons/fa'
 import { AiOutlineSortAscending, AiOutlineSortDescending, AiOutlineSearch } from 'react-icons/ai'
-import ClassCard from './ClassCard'
+import ClassCard from './../../global/ClassCard'
 
 const StudentDashboard =  () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false)

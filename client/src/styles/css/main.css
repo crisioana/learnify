@@ -187,6 +187,50 @@
   font-size: 28px;
 }
 
+.classCard {
+  width: 100%;
+  background: #5584B1;
+  border-radius: 5px;
+  padding: 20px;
+  color: #fff;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-transition: -webkit-transform 150ms;
+  transition: -webkit-transform 150ms;
+  transition: transform 150ms;
+  transition: transform 150ms, -webkit-transform 150ms;
+}
+
+.classCard:hover {
+  -webkit-transform: scale(1.03);
+          transform: scale(1.03);
+}
+
+.classCard p {
+  margin: 10px 0;
+}
+
+.classCard button {
+  margin-top: 10px;
+  background: #39658D;
+}
+
+.classCard button:hover {
+  background: #385774;
+}
+
+.classCard__teacherInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .auth {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -499,50 +543,6 @@
   -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 30px;
-}
-
-.classCard {
-  width: 100%;
-  background: #5584B1;
-  border-radius: 5px;
-  padding: 20px;
-  color: #fff;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  -webkit-transition: -webkit-transform 150ms;
-  transition: -webkit-transform 150ms;
-  transition: transform 150ms;
-  transition: transform 150ms, -webkit-transform 150ms;
-}
-
-.classCard:hover {
-  -webkit-transform: scale(1.03);
-          transform: scale(1.03);
-}
-
-.classCard p {
-  margin: 10px 0;
-}
-
-.classCard button {
-  margin-top: 10px;
-  background: #39658D;
-}
-
-.classCard button:hover {
-  background: #385774;
-}
-
-.classCard__teacherInfo {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 
 .classDetail__header p {
@@ -900,6 +900,7 @@
 
 .quizDetail__body::-webkit-scrollbar-track {
   background: #f1f1f1;
+  border-radius: 50px;
 }
 
 .quizDetail__body::-webkit-scrollbar-thumb {

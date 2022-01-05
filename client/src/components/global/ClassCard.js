@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ClassDetailModal from './../../teacher/dashboard/ClassDetailModal'
+import ClassDetailModal from './../teacher/dashboard/ClassDetailModal'
 
 const ClassCard = ({isTeacher, title, description, instructor, totalQuiz, totalStudent}) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
