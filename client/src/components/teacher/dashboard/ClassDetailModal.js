@@ -3,15 +3,15 @@ import { AiOutlineClose } from 'react-icons/ai'
 import PeopleList from './../people/PeopleList'
 import QuizList from './../quizes/QuizList'
 
-const ClassDetailModal = () => {
+const ClassDetailModal = ({isOpenModal, setIsOpenModal}) => {
   const [currentMenu, setCurrentMenu] = useState('Quizes')
 
   return (
-    <div className='classDetailModal'>
-      <div className='classDetailModal__box'>
+    <div className={`classDetailModal ${isOpenModal ? 'active' : undefined}`}>
+      <div className={`classDetailModal__box ${isOpenModal ? 'active' : undefined}`}>
         <div className='classDetailModal__header'>
           <h3>Class Title Goes Here</h3>
-          <AiOutlineClose />
+          <AiOutlineClose onClick={() => setIsOpenModal(false)} />
         </div>
         <div className='classDetailModal__body'>
           <div className='classDetailModal__body--top'>

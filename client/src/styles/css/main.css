@@ -1007,6 +1007,15 @@
       -ms-flex-pack: center;
           justify-content: center;
   background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: opacity 200ms;
+  transition: opacity 200ms;
+}
+
+.classDetailModal.active {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .classDetailModal__box {
@@ -1015,6 +1024,23 @@
   background: #fff;
   border-radius: 5px;
   height: 90vh;
+  -webkit-transform: translateY(-80px);
+          transform: translateY(-80px);
+  opacity: 0;
+  -webkit-transition: -webkit-transform 200ms;
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.classDetailModal__box.active {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  opacity: 1;
+  -webkit-transition: -webkit-transform 200ms;
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
 }
 
 .classDetailModal__header {
