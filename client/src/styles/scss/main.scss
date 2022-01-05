@@ -104,6 +104,32 @@ button {
   }
 }
 
+.searchInput {
+  position: relative;
+  margin-bottom: 20px;
+
+  input {
+    width: 100%;
+    border: 1px solid rgb(146, 146, 146);
+    outline: none;
+    border-radius: 5px;
+    height: 35px;
+    padding-right: 30px;
+    text-indent: 7px;
+
+    &:focus {
+      outline: 2px solid $secondary-color;
+    }
+  }
+
+  svg {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+}
+
 @include mediaDesktop {
   .container {
     padding: 30px 50px;
