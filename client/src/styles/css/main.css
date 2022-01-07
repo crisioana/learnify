@@ -1314,6 +1314,47 @@
   background: #d12a2a;
 }
 
+.submission__header > * + * {
+  margin-top: 10px;
+}
+
+.submission__body {
+  margin-top: 25px;
+  height: 60vh;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 15px;
+  overflow: auto;
+}
+
+.submission__body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.submission__body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 50px;
+}
+
+.submission__body::-webkit-scrollbar-thumb {
+  background: #CBE2EF;
+  border-radius: 50px;
+}
+
+.submission__body table tr td button:first-child {
+  width: 60px;
+  margin-right: 12px;
+}
+
+.submission__body table tr td button:last-child {
+  background: #3fbd3f;
+}
+
+.submission__body table tr td button:last-child:hover {
+  background: #2d9d2d;
+}
+
 a {
   text-decoration: none;
 }
@@ -1338,6 +1379,29 @@ button:hover {
 
 .container {
   padding: 20px 30px;
+}
+
+table {
+  width: 100%;
+}
+
+table thead tr th {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+table tbody tr td {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  text-align: center;
+}
+
+table tbody tr td button {
+  font-size: 12px !important;
+  width: 100px;
+  height: 25px;
+  line-height: 25px;
 }
 
 .inputGroup {

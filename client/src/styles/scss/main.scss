@@ -18,7 +18,8 @@
   './teacher/dashboard/teacherDashboard',
   './teacher/dashboard/classDetailModal',
   './teacher/quizes/quizCard',
-  './teacher/people/peopleCard';
+  './teacher/people/peopleCard',
+  './submission/submission';
 
 a {
   text-decoration: none;
@@ -43,6 +44,35 @@ button {
 
 .container {
   padding: 20px 30px;
+}
+
+table {
+  width: 100%;
+
+  thead {
+
+    tr th {
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+  }
+
+  tbody {
+    
+    tr td {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+      text-align: center;
+
+      button {
+        font-size: 12px !important;
+        width: 100px;
+        height: 25px;
+        line-height: 25px;
+      }
+    }
+  }
 }
 
 .inputGroup {
