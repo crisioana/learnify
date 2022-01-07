@@ -1,5 +1,5 @@
 import { AiOutlineClose } from 'react-icons/ai'
-import QuestionBox from './../../global/QuestionBox'
+import QuestionBox from './QuestionBox'
 
 const GradeModal = ({isOpenGrade, setIsOpenGrade}) => {
   return (

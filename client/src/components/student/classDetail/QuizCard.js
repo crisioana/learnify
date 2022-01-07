@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import GradeModal from './GradeModal'
+import GradeModal from './../../global/GradeModal'
 
 const QuizCard = () => {
   const [isOpenGrade, setIsOpenGrade] = useState(false)

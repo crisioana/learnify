@@ -8,6 +8,7 @@ const Dashboard = () => {
       <Navbar />
       <div className='container'>
         <TeacherDashboard />
+        {/* <StudentDashboard /> */}
       </div>
     </>
   )

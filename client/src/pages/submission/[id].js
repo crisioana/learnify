@@ -1,4 +1,5 @@
 import Navbar from './../../components/global/Navbar'
+import TableRow from './../../components/submission/TableRow'
 
 const Submission = () => {
   return (
@@ -23,17 +24,7 @@ const Submission = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Test</td>
-                <td>30/40</td>
-                <td>75%</td>
-                <td>4 January 2022</td>
-                <td>
-                  <button>VIEW</button>
-                  <button>VERIFY SCORE</button>
-                </td>
-              </tr>
+              <TableRow />
             </tbody>
           </table>
         </div>
