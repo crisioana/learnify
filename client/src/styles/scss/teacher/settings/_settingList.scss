@@ -1,0 +1,22 @@
+.settingList {
+
+  .restrictGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  }
+
+  form {
+    margin-bottom: 25px;
+  }
+
+  .deleteBtn {
+    width: 100%;
+    background: rgb(230, 42, 42);
+
+    &:hover {
+      background: rgb(201, 51, 51);
+    }
+  }
+}

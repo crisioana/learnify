@@ -1314,6 +1314,32 @@
   background: #d12a2a;
 }
 
+.settingList .restrictGroup {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.settingList form {
+  margin-bottom: 25px;
+}
+
+.settingList .deleteBtn {
+  width: 100%;
+  background: #e62a2a;
+}
+
+.settingList .deleteBtn:hover {
+  background: #c93333;
+}
+
 .submission__header > * + * {
   margin-top: 10px;
 }
@@ -1500,6 +1526,53 @@ table tbody tr td button {
   right: 10px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+}
+
+.switchOuter {
+  width: 76px;
+  height: 27px;
+  border-radius: 50px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 8px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+.switchOuter p {
+  font-size: 14px;
+}
+
+.switchOuter.active {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.switchOuter.active .switchInner {
+  background: #1bbf1b;
+}
+
+.switchOuter .switchInner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e43b3b;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 @media (min-width: 700px) {

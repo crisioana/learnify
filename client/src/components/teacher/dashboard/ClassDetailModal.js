@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
-import PeopleList from './../people/PeopleList'
 import QuizList from './../quizes/QuizList'
+import PeopleList from './../people/PeopleList'
+import SettingList from './../settings/SettingList'
 
 const ClassDetailModal = ({isOpenModal, setIsOpenModal}) => {
   const [currentMenu, setCurrentMenu] = useState('Quizes')
@@ -37,6 +38,7 @@ const ClassDetailModal = ({isOpenModal, setIsOpenModal}) => {
           <div className='classDetailModal__body--bottom'>
             {currentMenu === 'Quizes' && <QuizList />}
             {currentMenu === 'People' && <PeopleList />}
+            {currentMenu === 'Settings' && <SettingList />}
           </div>
         </div>
       </div>

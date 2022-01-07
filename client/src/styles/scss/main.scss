@@ -19,6 +19,7 @@
   './teacher/dashboard/classDetailModal',
   './teacher/quizes/quizCard',
   './teacher/people/peopleCard',
+  './teacher/settings/settingList',
   './submission/submission';
 
 a {
@@ -158,6 +159,39 @@ table {
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
+  }
+}
+
+.switchOuter {
+  width: 76px;
+  height: 27px;
+  border-radius: 50px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  flex-direction: row-reverse;
+
+  p {
+    font-size: 14px;
+  }
+
+  &.active {
+    flex-direction: row;
+  }
+
+  &.active .switchInner {
+    background: rgb(27, 191, 27);
+  }
+
+  .switchInner {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgb(228, 59, 59);
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
   }
 }
 
