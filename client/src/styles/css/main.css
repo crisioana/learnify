@@ -1205,6 +1205,82 @@
   border-radius: 50px;
 }
 
+.createClass {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 0 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: opacity 200ms;
+  transition: opacity 200ms;
+}
+
+.createClass.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.createClass__box {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 5px;
+  background: #fff;
+  -webkit-transform: translateY(-80px);
+          transform: translateY(-80px);
+  opacity: 0;
+  -webkit-transition: -webkit-transform 200ms;
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.createClass__box.active {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  opacity: 1;
+  -webkit-transition: -webkit-transform 200ms;
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.createClass__header {
+  padding: 15px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+}
+
+.createClass__header svg {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.createClass__body {
+  padding: 15px 20px;
+}
+
 .teacherQuizCard {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1436,7 +1512,8 @@ table tbody tr td button {
 
 .inputGroup input[type="text"],
 .inputGroup input[type="password"],
-.inputGroup input[type="number"] {
+.inputGroup input[type="number"],
+.inputGroup textarea {
   width: 100%;
   border: 1px solid #929292;
   outline: none;
@@ -1449,8 +1526,15 @@ table tbody tr td button {
 
 .inputGroup input[type="text"]:focus,
 .inputGroup input[type="password"]:focus,
-.inputGroup input[type="number"]:focus {
+.inputGroup input[type="number"]:focus,
+.inputGroup textarea:focus {
   outline: 3px solid #CBE2EF;
+}
+
+.inputGroup textarea {
+  text-indent: 0;
+  padding: 7px;
+  height: 150px;
 }
 
 .inputGroup--phone {

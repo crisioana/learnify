@@ -4,11 +4,13 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { FaBell } from 'react-icons/fa'
 import JoinClass from './../student/dashboard/JoinClass'
+import CreateClass from './../teacher/dashboard/CreateClass'
 import Avatar from './Avatar'
 
 const Navbar = () => {
   const [isOpenNavbar, setIsOpenNavbar] = useState(false)
   const [openJoinClass, setOpenJoinClass] = useState(false)
+  const [openCreateClass, setOpenCreateClass] = useState(false)
 
   return (
     <>
@@ -23,6 +25,7 @@ const Navbar = () => {
               <AiOutlineClose onClick={() => setIsOpenNavbar(false)} />
             </div>
             <p onClick={() => setOpenJoinClass(true)}>Join Class</p>
+            <p onClick={() => setOpenCreateClass(true)}>Create Class</p>
             <p>Message</p>
             <div className='navbar__links--notification'>
               <FaBell />
@@ -37,6 +40,11 @@ const Navbar = () => {
       <JoinClass
         openJoinClass={openJoinClass}
         setOpenJoinClass={setOpenJoinClass}
+      />
+
+      <CreateClass
+        openCreateClass={openCreateClass}
+        setOpenCreateClass={setOpenCreateClass}
       />
     </>
   )
