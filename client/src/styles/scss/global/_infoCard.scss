@@ -2,11 +2,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: $secondary-color;
+  background: $primary-color;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, .5);
   padding: 15px 25px;
   color: #fff;
+
+  &--green {
+    background: rgb(51, 221, 51);
+  }
+
+  &--red {
+    background: rgb(232, 63, 63);
+  }
+
+  &--violet {
+    background: rgb(163, 50, 163);
+  }
 
   &__left h2 {
     margin-bottom: 10px;

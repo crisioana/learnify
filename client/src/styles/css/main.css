@@ -171,12 +171,24 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  background: #85C1E5;
+  background: #5584B1;
   border-radius: 5px;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
           box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   padding: 15px 25px;
   color: #fff;
+}
+
+.infoCard--green {
+  background: #33dd33;
+}
+
+.infoCard--red {
+  background: #e83f3f;
+}
+
+.infoCard--violet {
+  background: #a332a3;
 }
 
 .infoCard__left h2 {

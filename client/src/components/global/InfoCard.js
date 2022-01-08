@@ -1,14 +1,12 @@
-import { AiOutlineClose } from 'react-icons/ai'
-
-const InfoCard = () => {
+const InfoCard = ({title, description, color, Icon}) => {
   return (
-    <div className='infoCard'>
+    <div className={`infoCard infoCard--${color}`}>
       <div className='infoCard__left'>
-        <h2>Title</h2>
-        <h4>40 Students</h4>
+        <h2>{title}</h2>
+        <h4>{description}</h4>
       </div>
       <div className='infoCard__right'>
-        <AiOutlineClose />
+        <Icon />
       </div> 
     </div>
   )
