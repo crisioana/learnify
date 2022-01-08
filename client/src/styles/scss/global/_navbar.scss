@@ -72,6 +72,62 @@
     &--notification {
       margin-bottom: 20px;
     }
+
+    &--profile {
+      position: relative;
+
+      img {
+        cursor: pointer;
+      }
+
+      &Dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #fff;
+        width: 150px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 200ms;
+        margin-top: 10px;
+
+        &.active {
+          transform: scaleY(1);
+        }
+        
+        a {
+          display: flex;
+          padding: 10px 15px;
+          align-items: center;
+          gap: 10px;
+          color: #000;
+
+          svg {
+            font-size: 17px;
+          }
+
+          &:not(:last-child) {
+            border-bottom: 1px solid #ccc;
+          }
+
+          &:hover {
+            background: rgb(235, 235, 235);
+          }
+
+          &:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+          }
+
+          &:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+          }
+        }
+      }
+    }
   }
 }
 

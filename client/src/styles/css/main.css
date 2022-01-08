@@ -98,6 +98,73 @@
   margin-bottom: 20px;
 }
 
+.navbar__links--profile {
+  position: relative;
+}
+
+.navbar__links--profile img {
+  cursor: pointer;
+}
+
+.navbar__links--profileDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  width: 150px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  -webkit-transition: -webkit-transform 200ms;
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
+  margin-top: 10px;
+}
+
+.navbar__links--profileDropdown.active {
+  -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+}
+
+.navbar__links--profileDropdown a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px 15px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  color: #000;
+}
+
+.navbar__links--profileDropdown a svg {
+  font-size: 17px;
+}
+
+.navbar__links--profileDropdown a:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.navbar__links--profileDropdown a:hover {
+  background: #ebebeb;
+}
+
+.navbar__links--profileDropdown a:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.navbar__links--profileDropdown a:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 @media (min-width: 700px) {
   .navbar {
     padding: 15px 50px;

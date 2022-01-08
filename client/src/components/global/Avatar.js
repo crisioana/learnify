@@ -1,6 +1,6 @@
-const Avatar = ({src, alt}) => {
+const Avatar = ({src, alt, onClick}) => {
   return (
-    <div className='avatar'>
+    <div className='avatar' onClick={onClick}>
       <img src={src} alt={alt} />
     </div>
   )

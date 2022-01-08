@@ -2,13 +2,15 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AiOutlineClose } from 'react-icons/ai'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { FaBell } from 'react-icons/fa'
+import { MdLogout } from 'react-icons/md'
+import { FaBell, FaUserAlt } from 'react-icons/fa'
 import JoinClass from './../student/dashboard/JoinClass'
 import CreateClass from './../teacher/dashboard/CreateClass'
 import Avatar from './Avatar'
 
 const Navbar = () => {
   const [isOpenNavbar, setIsOpenNavbar] = useState(false)
+  const [isOpenAvatarDropdown, setIsOpenAvatarDropdown] = useState(false)
   const [openJoinClass, setOpenJoinClass] = useState(false)
   const [openCreateClass, setOpenCreateClass] = useState(false)
 
@@ -31,7 +33,17 @@ const Navbar = () => {
               <FaBell />
             </div>
             <div className='navbar__links--profile'>
-              <Avatar />
+              <Avatar onClick={() => setIsOpenAvatarDropdown(!isOpenAvatarDropdown)} />
+              <div className={`navbar__links--profileDropdown ${isOpenAvatarDropdown ? 'active' : undefined}`}>
+                <Link to='/'>
+                  <FaUserAlt />
+                  Edit Profile
+                </Link>
+                <Link to='/'>
+                  <MdLogout />
+                  Logout
+                </Link>
+              </div>
             </div>
           </div>
         </div>
