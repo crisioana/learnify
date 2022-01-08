@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const SettingList = () => {
   const [name, setName] = useState('');
   const [broadcast, setBroadcast] = useState('')
   const [isRestrict, setIsRestrict] = useState(false)
+
+  const navigate = useNavigate()
 
   const handleRename = e => {
     e.preventDefault()
@@ -11,6 +14,10 @@ const SettingList = () => {
 
   const handleBroadcast = e => {
     e.preventDefault()
+  }
+
+  const handleCreateQuiz = () => {
+    navigate('/create_quiz/dsdfs')
   }
 
   return (
@@ -39,6 +46,7 @@ const SettingList = () => {
         <button type='submit'>Broadcast</button>
       </form>
 
+      <button onClick={handleCreateQuiz} className='createQuizBtn'>Create Quiz for "Class Title Goes Here" Class</button>
       <button className='deleteBtn'>Delete "Class Title Goes Here" Class</button>
     </div>
   )
