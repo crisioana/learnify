@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: 'Student'
+    required: true
   },
   gender: {
     type: String,
