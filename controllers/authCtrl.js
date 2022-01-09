@@ -68,6 +68,17 @@ const authCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  logout: async(req, res) => {
+    try {
+      res.clearCookie('learnify_rfToken', {
+        path: '/api/v1/auth/refresh_token'
+      })
+
+      return res.status(200).json({msg: 'Logout success.'})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
   }
 }
 
