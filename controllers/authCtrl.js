@@ -1,7 +1,7 @@
 const User = require('./../models/User')
 const bcrypt = require('bcrypt')
 const { checkEmail, checkPhone } = require('./../utils/validator')
-const { generateActivationToken } = require('./../utils/generateToken')
+const { generateAccessToken, generateRefreshToken, generateActivationToken } = require('./../utils/generateToken')
 
 const authCtrl = {
   register: async(req, res) => {
@@ -21,6 +21,9 @@ const authCtrl = {
   
       if (!checkPhone(phone))
         return res.status(400).json({msg: 'Phone number should start with + sign.'})
+
+      if (password.length < 8)
+        return res.status(400).json({msg: 'Password length should be at least 8 characters.'})
   
       const findRegisteredEmail = await User.findOne({email})
       if (findRegisteredEmail)
@@ -46,7 +49,50 @@ const authCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  login: async(req, res) => {
+    try {
+      const {email, password} = req.body
+
+      if (!email || !password)
+        return res.status(400).json({msg: 'Please provide every field.'})
+
+      if (!checkEmail(email))
+        return res.status(400).json({msg: 'Please provide correct email.'})
+      
+      const user = await User.findOne({email})
+      if (!user)
+        return res.status(403).json({msg: 'Invalid authentication'})
+
+      loginUser(res, password, user)
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
   }
+}
+
+const loginUser = async(res, password, user) => {
+  const isPwMatch = await bcrypt.compare(password, user.password)
+  if (!isPwMatch)
+    return res.status(403).json({msg: 'Invalid authentication'})
+
+  const accessToken = generateAccessToken({id: user._id})
+  const refreshToken = generateRefreshToken({id: user._id})
+
+  res.cookie('learnify_rfToken', refreshToken, {
+    httpOnly: 'true',
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    path: '/api/v1/auth/refresh_token'
+  })
+
+  return res.status(200).json({
+    msg: `Authenticated as ${user.name}`,
+    user: {
+      ...user._doc,
+      password: ''
+    },
+    accessToken
+  })
 }
 
 module.exports = authCtrl
