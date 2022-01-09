@@ -1,5 +1,6 @@
 const User = require('./../models/User')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const { checkEmail, checkPhone } = require('./../utils/validator')
 const { generateAccessToken, generateRefreshToken, generateActivationToken } = require('./../utils/generateToken')
 
@@ -62,7 +63,7 @@ const authCtrl = {
       
       const user = await User.findOne({email})
       if (!user)
-        return res.status(403).json({msg: 'Invalid authentication'})
+        return res.status(403).json({msg: 'Invalid authentication.'})
 
       loginUser(res, password, user)
     } catch (err) {
@@ -79,13 +80,40 @@ const authCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  refreshToken: async(req, res) => {
+    try {
+      const rfToken = req.cookies.learnify_rfToken
+      if (!rfToken)
+        return res.status(403).json({msg: 'Invalid authentication.'})
+
+      const decoded = jwt.verify(rfToken, process.env.REFRESH_TOKEN_SECRET)
+      if (!decoded.id)
+        return res.status(403).json({msg: 'Invalid authentication.'})
+
+      const user = await User.findById(decoed.id)
+      if (!user)
+        return res.status(403).json({msg: 'Invalid authentication.'})
+
+      const accessToken = generateAccessToken({id: user._id})
+      
+      return res.status(200).json({
+        user: {
+          ...user._doc,
+          password: ''
+        },
+        accessToken
+      })
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
   }
 }
 
 const loginUser = async(res, password, user) => {
   const isPwMatch = await bcrypt.compare(password, user.password)
   if (!isPwMatch)
-    return res.status(403).json({msg: 'Invalid authentication'})
+    return res.status(403).json({msg: 'Invalid authentication.'})
 
   const accessToken = generateAccessToken({id: user._id})
   const refreshToken = generateRefreshToken({id: user._id})
