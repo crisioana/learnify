@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { BsPlus } from 'react-icons/bs'
+import { GLOBAL_TYPES } from './../redux/types/globalTypes'
+import { register } from './../redux/actions/authActions'
+import { checkEmail, checkPhone } from './../utils/formatChecker'
 import RoleModal from './../components/auth/RoleModal'
 
 const Register = () => {
@@ -17,6 +21,8 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [onChooseRole, setOnChooseRole] = useState(false)
 
+  const dispatch = useDispatch()
+
   const handleChange = e => {
     const { name, value } = e.target
     setUserData({...userData, [name]: value})
@@ -31,9 +37,57 @@ const Register = () => {
     setOnChooseRole(true)
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    console.log(userData)
+    if (
+      !userData.name ||
+      !userData.email ||
+      !userData.phone ||
+      !userData.password ||
+      !userData.confirmPassword ||
+      !userData.role
+    )
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Please provide every field.'
+        }
+      })
+
+    if (userData.password.length < 8)
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Password length should be at least 8 characters.'
+        }
+      })
+
+    if (userData.password !== userData.confirmPassword)
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Password confirmation doesn\'t match.'
+        }
+      })
+
+    if (!checkEmail(userData.email))
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Please provide a valid email.'
+        }
+      })
+
+    if (!checkPhone(`+${userData.phone}`))
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Please provide a valid phone.'
+        }
+      })
+
+    await dispatch(register({...userData, phone: `+${userData.phone}`}))
+    setOnChooseRole(false)
   }
 
   return (
