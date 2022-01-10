@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { AiOutlineClose } from 'react-icons/ai'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdLogout } from 'react-icons/md'
 import { FaBell, FaUserAlt } from 'react-icons/fa'
+import { logout } from './../../redux/actions/authActions'
 import JoinClass from './../student/dashboard/JoinClass'
 import CreateClass from './../teacher/dashboard/CreateClass'
 import Avatar from './Avatar'
@@ -13,6 +15,8 @@ const Navbar = () => {
   const [isOpenAvatarDropdown, setIsOpenAvatarDropdown] = useState(false)
   const [openJoinClass, setOpenJoinClass] = useState(false)
   const [openCreateClass, setOpenCreateClass] = useState(false)
+
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -39,7 +43,7 @@ const Navbar = () => {
                   <FaUserAlt />
                   Edit Profile
                 </Link>
-                <Link to='/'>
+                <Link to='/' onClick={() => dispatch(logout())}>
                   <MdLogout />
                   Logout
                 </Link>

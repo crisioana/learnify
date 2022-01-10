@@ -97,3 +97,28 @@ export const refreshToken = () => async(dispatch) => {
     })
   }
 }
+
+export const logout = () => async(dispatch) => {
+  try {
+    const res = await getDataAPI('auth/logout')
+    localStorage.removeItem('islogged-learnify')
+    dispatch({
+      type: GLOBAL_TYPES.AUTH,
+      payload: {}
+    })
+
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
