@@ -122,7 +122,7 @@ const authCtrl = {
       if (!decoded.id)
         return res.status(403).json({msg: 'Invalid authentication.'})
 
-      const user = await User.findById(decoed.id)
+      const user = await User.findById(decoded.id)
       if (!user)
         return res.status(403).json({msg: 'Invalid authentication.'})
 

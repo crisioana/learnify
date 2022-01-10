@@ -1,14 +1,24 @@
-// import StudentDashboard from './../components/student/dashboard/StudentDashboard'
+import { useSelector } from 'react-redux'
+import StudentDashboard from './../components/student/dashboard/StudentDashboard'
 import TeacherDashboard from './../components/teacher/dashboard/TeacherDashboard'
 import Navbar from './../components/global/Navbar'
 
 const Dashboard = () => {
+  const { auth } = useSelector(state => state)
+
   return (
     <>
       <Navbar />
       <div className='container'>
-        <TeacherDashboard />
-        {/* <StudentDashboard /> */}
+        {
+          auth.user?.role === 'Student' &&
+          <StudentDashboard />
+        }
+
+        {
+          auth.user?.role === 'Instructor' &&
+          <TeacherDashboard />
+        }
       </div>
     </>
   )
