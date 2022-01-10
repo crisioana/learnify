@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { BsPlus } from 'react-icons/bs'
 import { GLOBAL_TYPES } from './../redux/types/globalTypes'
@@ -21,7 +21,9 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [onChooseRole, setOnChooseRole] = useState(false)
 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { auth } = useSelector(state => state)
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -89,6 +91,11 @@ const Register = () => {
     await dispatch(register({...userData, phone: `+${userData.phone}`}))
     setOnChooseRole(false)
   }
+
+  useEffect(() => {
+    if (auth.user)
+      navigate('/')
+  }, [auth, navigate])
 
   return (
     <>

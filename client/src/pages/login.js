@@ -1,6 +1,10 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { GLOBAL_TYPES } from './../redux/types/globalTypes'
+import { checkEmail } from './../utils/formatChecker'
+import { login } from './../redux/actions/authActions'
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -9,6 +13,10 @@ const Login = () => {
   })
   const [showPassword, setShowPassword] = useState(false)
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { auth } = useSelector(state => state)
+
   const handleChange = e => {
     const { name, value } = e.target
     setUserData({...userData, [name]: value})
@@ -16,7 +24,37 @@ const Login = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
+    if (!userData.email || !userData.password)
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Please provide every field'
+        }
+      })
+
+    if (!checkEmail(userData.email))
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Please provide valid email address.'
+        }
+      })
+
+    if (userData.password.length < 8)
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Password length should be at least 8 characters.'
+        }
+      })
+
+    dispatch(login(userData))
   }
+
+  useEffect(() => {
+    if (auth.user)
+      navigate('/')
+  }, [auth, navigate])
 
   return (
     <div className='auth'>
