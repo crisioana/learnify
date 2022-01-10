@@ -55,6 +55,33 @@ const authCtrl = {
       return res.status(500).json({msg: err.message})
     }
   },
+  activateAccount: async(req, res) => {
+    try {
+      const { token } = req.body
+
+      if (!token)
+        return res.status(400).json({msg: 'Activation token is invalid.'})
+  
+      const user = jwt.verify(token, process.env.ACTIVATION_TOKEN_SECRET)
+      if (!user)
+        return res.status(400).json({msg: 'Account activation data not found.'})
+      
+      const findRegisteredEmail = await User.findOne({email: user.email})
+      if (findRegisteredEmail)
+        return res.status(400).json({msg: 'Email has been registered before.'})
+  
+      const findRegisteredPhone = await User.findOne({phone: user.phone})
+      if (findRegisteredPhone)
+        return res.status(400).json({msg: 'Phone has been registered before.'})
+  
+      const newUser = new User(user)
+      await newUser.save()
+      
+      return res.status(200).json({msg: 'Account activated successfully.'})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
   login: async(req, res) => {
     try {
       const {email, password} = req.body
