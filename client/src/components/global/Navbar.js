@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { AiOutlineClose } from 'react-icons/ai'
 import { GiHamburgerMenu } from 'react-icons/gi'
@@ -17,6 +17,7 @@ const Navbar = () => {
   const [openCreateClass, setOpenCreateClass] = useState(false)
 
   const dispatch = useDispatch()
+  const { auth } = useSelector(state => state)
 
   return (
     <>
@@ -30,14 +31,19 @@ const Navbar = () => {
             <div className='navbar__links--closeIcon'>
               <AiOutlineClose onClick={() => setIsOpenNavbar(false)} />
             </div>
-            <p onClick={() => setOpenJoinClass(true)}>Join Class</p>
-            <p onClick={() => setOpenCreateClass(true)}>Create Class</p>
+            {
+              auth.user?.role === 'Student' && <p onClick={() => setOpenJoinClass(true)}>Join Class</p>
+            }
+
+            {
+              auth.user?.role === 'Instructor' && <p onClick={() => setOpenCreateClass(true)}>Create Class</p>
+            }
             <p>Message</p>
             <div className='navbar__links--notification'>
               <FaBell />
             </div>
             <div className='navbar__links--profile'>
-              <Avatar onClick={() => setIsOpenAvatarDropdown(!isOpenAvatarDropdown)} />
+              <Avatar src={auth.user?.avatar} alt={auth.user?.name} onClick={() => setIsOpenAvatarDropdown(!isOpenAvatarDropdown)} />
               <div className={`navbar__links--profileDropdown ${isOpenAvatarDropdown ? 'active' : undefined}`}>
                 <Link to='/'>
                   <FaUserAlt />

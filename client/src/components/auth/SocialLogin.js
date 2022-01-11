@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { FACEBOOK_APP_ID, GOOGLE_CLIENT_ID } from './../../utils/constant'
-import { googleLogin } from './../../redux/actions/authActions'
+import { googleLogin, facebookLogin } from './../../redux/actions/authActions'
 import GoogleLogin from 'react-google-login-lite'
 import FacebookLogin from 'react-facebook-login-lite'
 
@@ -13,7 +13,8 @@ const SocialLogin = () => {
   }
 
   const onFacebookSuccess = response => {
-
+    const { accessToken, userID } = response.authResponse
+    dispatch(facebookLogin(accessToken, userID))
   }
 
   return (

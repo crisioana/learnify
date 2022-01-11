@@ -1,6 +1,7 @@
 const User = require('./../models/User')
 const sendMail = require('./../utils/sendMail')
 const bcrypt = require('bcrypt')
+const fetch = require('cross-fetch')
 const jwt = require('jsonwebtoken')
 const { checkEmail, checkPhone } = require('./../utils/validator')
 const { generateAccessToken, generateRefreshToken, generateActivationToken } = require('./../utils/generateToken')
@@ -162,11 +163,42 @@ const authCtrl = {
         const newUser = {
           name,
           email,
-          phone: '+123456789009918127272727727',
           password: passwordHash,
           role: 'Student',
           avatar: picture,
           type: 'google'
+        }
+        registerUser(newUser, res)
+      }
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
+  facebookLogin: async(req, res) => {
+    try {
+      const { accessToken, userID } = req.body
+      const url = `https://graph.facebook.com/v3.0/${userID}/?fields=id,name,email,picture&access_token=${accessToken}`
+
+      const data = await fetch(url)
+        .then(res => res.json())
+        .then(res => {return res})
+
+      const { name, email, picture } = data
+
+      const password = '___---__-++====yYYoooUURRrrRGFaceeBBookOKPasssswordddD' + email
+      const passwordHash = await bcrypt.hash(password, 12)
+
+      const user = await User.findOne({email})
+      if (user) {
+        loginUser(res, password, user)
+      } else {
+        const newUser = {
+          name,
+          email,
+          password: passwordHash,
+          role: 'Student',
+          avatar: picture.data.url,
+          type: 'facebook'
         }
         registerUser(newUser, res)
       }
