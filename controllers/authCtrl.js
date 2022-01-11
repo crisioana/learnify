@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { checkEmail, checkPhone } = require('./../utils/validator')
 const { generateAccessToken, generateRefreshToken, generateActivationToken } = require('./../utils/generateToken')
+const { OAuth2Client } = require('google-auth-library')
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
 const authCtrl = {
   register: async(req, res) => {
@@ -138,19 +141,58 @@ const authCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  googleLogin: async(req, res) => {
+    try {
+      const { token } = req.body
+      const verify = await client.verifyIdToken({idToken: token, audience: process.env.GOOGLE_CLIENT_ID})
+
+      const { name, email, email_verified, picture } = verify.getPayload()
+
+      if (!email_verified)
+        return res.status(403).json({msg: 'Your email hasn\'t been verified yet.'})
+
+      const password = '__--___=++=++yOOuuuURRGoooglLELEEELPaassw' + email
+      const passwordHash = await bcrypt.hash(password, 12)
+
+      const user = await User.findOne({email})
+      if (user) {
+        loginUser(res, password, user)
+      } else {
+        const newUser = {
+          name,
+          email,
+          phone: '+123456789009918127272727727',
+          password: passwordHash,
+          role: 'Student',
+          avatar: picture,
+          type: 'google'
+        }
+        registerUser(newUser, res)
+      }
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
   }
 }
 
 const loginUser = async(res, password, user) => {
   const isPwMatch = await bcrypt.compare(password, user.password)
+
+  let msg = ''
+  if (user.type !== 'register')
+    msg = `This user login using ${user.type} account.`
+  else
+    msg = 'Invalid authentication.'
+
   if (!isPwMatch)
-    return res.status(403).json({msg: 'Invalid authentication.'})
+    return res.status(403).json({msg})
 
   const accessToken = generateAccessToken({id: user._id})
   const refreshToken = generateRefreshToken({id: user._id})
 
   res.cookie('learnify_rfToken', refreshToken, {
-    httpOnly: 'true',
+    httpOnly: true,
     maxAge: 30 * 24 * 60 * 60 * 1000,
     path: '/api/v1/auth/refresh_token'
   })
@@ -163,6 +205,33 @@ const loginUser = async(res, password, user) => {
     },
     accessToken
   })
+}
+
+const registerUser = async(newUser, res) => {
+  try {
+    const user = new User(newUser)
+    await user.save()
+
+    const accessToken = generateAccessToken({id: user._id})
+    const refreshToken = generateRefreshToken({id: user._id})
+
+    res.cookie('learnify_rfToken', refreshToken, {
+      httpOnly: true,
+      path: '/api/v1/auth/refresh_token',
+      maxAge: 30 * 24 * 60 * 60 * 1000
+    })
+
+    return res.status(200).json({
+      msg: `Authenticated as ${user.name}`,
+      user: {
+        ...user._doc,
+        password: ''
+      },
+      accessToken
+    })
+  } catch (err) {
+    return res.status(500).json({msg: err.message})
+  }
 }
 
 module.exports = authCtrl
