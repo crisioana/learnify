@@ -6,6 +6,7 @@
   './global/infoCard',
   './global/classCard',
   './global/gradeModal',
+  './global/loader',
   './auth/auth',
   './auth/role',
   './auth/roleModal',
@@ -26,6 +27,12 @@
 
 a {
   text-decoration: none;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button {

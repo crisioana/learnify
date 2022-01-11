@@ -92,6 +92,7 @@
         transform-origin: top;
         transition: transform 200ms;
         margin-top: 10px;
+        z-index: 50;
 
         &.active {
           transform: scaleY(1);

@@ -150,7 +150,7 @@ const Register = () => {
           <p>Already have an account? Click <Link to='/login'>here</Link></p>
         </div>
       </div>
-
+      
       <RoleModal
         cb={handleChangeRole}
         currentRole={userData.role}

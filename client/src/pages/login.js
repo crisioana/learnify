@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { GLOBAL_TYPES } from './../redux/types/globalTypes'
 import { checkEmail } from './../utils/formatChecker'
 import { login } from './../redux/actions/authActions'
+import Loader from './../components/global/Loader'
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -15,7 +16,7 @@ const Login = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { auth } = useSelector(state => state)
+  const { alert, auth } = useSelector(state => state)
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -79,7 +80,17 @@ const Login = () => {
               }
             </div>
           </div>
-          <button type='submit'>Sign In</button>
+          <button type='submit' disabled={alert.loading ? true : false}>
+            {
+              alert.loading
+              ? (
+                <div className='center'>
+                  <Loader width='20px' height='20px' border='2px' />
+                </div>
+              )
+              : 'Sign In'
+            }
+          </button>
         </form>
         <p>Don't have an account yet? Click <Link to='/register'>here</Link></p>
       </div>
