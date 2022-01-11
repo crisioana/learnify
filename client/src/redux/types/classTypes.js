@@ -1,0 +1,3 @@
+export const CLASS_TYPES = {
+  CREATE_CLASS: 'CREATE_CLASS'
+}
