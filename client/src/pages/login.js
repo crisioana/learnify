@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { GLOBAL_TYPES } from './../redux/types/globalTypes'
 import { checkEmail } from './../utils/formatChecker'
 import { login } from './../redux/actions/authActions'
+import SocialLogin from './../components/auth/SocialLogin'
 import Loader from './../components/global/Loader'
 
 const Login = () => {
@@ -64,6 +65,7 @@ const Login = () => {
       </div>
       <div className='auth__right'>
         <h2>Sign In To Learnify</h2>
+        <SocialLogin />
         <form onSubmit={handleSubmit}>
           <div className='inputGroup'>
             <label htmlFor='email'>Email address</label>

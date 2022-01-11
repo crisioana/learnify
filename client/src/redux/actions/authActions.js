@@ -122,3 +122,38 @@ export const logout = () => async(dispatch) => {
     })
   }
 }
+
+export const googleLogin = id_token => async(dispatch) => {
+  try {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        loading: true
+      }
+    })
+
+    const res = await postDataAPI('auth/google_login', {token: id_token})
+    localStorage.setItem('islogged-learnify', true)
+    dispatch({
+      type: GLOBAL_TYPES.AUTH,
+      payload: {
+        user: res.data.user,
+        accessToken: res.data.accessToken
+      }
+    })
+
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}

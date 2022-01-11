@@ -87,7 +87,7 @@ const Register = () => {
           errors: 'Please provide a valid phone.'
         }
       })
-
+    
     await dispatch(register({...userData, phone: `+${userData.phone}`}))
     setOnChooseRole(false)
   }
