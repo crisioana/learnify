@@ -1,12 +1,23 @@
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaUserGraduate } from 'react-icons/fa'
 import { SiGoogleclassroom } from 'react-icons/si'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { GiOpenBook } from 'react-icons/gi'
 import { ImBook } from 'react-icons/im'
+import { getClasses } from './../../../redux/actions/classActions'
 import InfoCard from './../../global/InfoCard'
 import ClassCard from './../../global/ClassCard'
+import Loader from './../../global/Loader'
 
 const TeacherDashboard = () => {
+  const dispatch = useDispatch()
+  const { auth, alert, instructorClass } = useSelector(state => state)
+
+  useEffect(() => {
+    dispatch(getClasses(auth.accessToken))
+  }, [dispatch, auth])
+
   return (
     <div className='teacherDashboard'>
       <div className='teacherDashboard__header'>
@@ -42,15 +53,39 @@ const TeacherDashboard = () => {
             <AiOutlineSearch />
           </div>
         </div>
-        <div className='teacherDashboard__classList'>
-          <ClassCard
-            isTeacher={true}
-            title='Class Title Goes Here'
-            description='Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.'
-            totalQuiz={5}
-            totalStudent={7}
-          />
-        </div>
+        {
+          alert.loading
+          ? (
+            <div className='center mt-5'>
+              <Loader width='60px' height='60px' />
+            </div>
+          )
+          : (
+            <>
+              {
+                instructorClass.data.length === 0
+                ? (
+                  <div className='errorMessage'>No Class Found</div>
+                )
+                : (
+                  <div className='teacherDashboard__classList'>
+                    {
+                      instructorClass.data?.map(item => (
+                        <ClassCard
+                          isTeacher={true}
+                          title={item.title}
+                          description={item.description}
+                          totalQuiz={5}
+                          totalStudent={7}
+                        />
+                      ))
+                    }
+                  </div>
+                )
+              }
+            </>
+          )
+        }
       </div>
     </div>
   )

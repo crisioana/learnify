@@ -11,6 +11,11 @@ const classReducer = (state = initialState, action) => {
         ...state,
         data: [action.payload, ...state.data]
       }
+    case CLASS_TYPES.GET_CLASSES:
+      return {
+        ...state,
+        data: action.payload
+      }
     default:
       return state
   }

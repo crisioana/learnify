@@ -1,3 +1,4 @@
 export const CLASS_TYPES = {
+  GET_CLASSES: 'GET_CLASSES',
   CREATE_CLASS: 'CREATE_CLASS'
 }
