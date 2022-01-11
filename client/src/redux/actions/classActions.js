@@ -2,9 +2,9 @@ import { GLOBAL_TYPES } from './../types/globalTypes'
 import { CLASS_TYPES } from './../types/classTypes'
 import { postDataAPI }  from './../../utils/fetchData'
 
-export const createClass = classData => async(dispatch) => {
+export const createClass = (classData, accessToken) => async(dispatch) => {
   try {
-    const res = await postDataAPI('class', classData)
+    const res = await postDataAPI('class', classData, accessToken)
     dispatch({
       type: CLASS_TYPES.CREATE_CLASS,
       payload: res.data.class

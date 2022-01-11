@@ -98,9 +98,9 @@ export const refreshToken = () => async(dispatch) => {
   }
 }
 
-export const logout = () => async(dispatch) => {
+export const logout = accessToken => async(dispatch) => {
   try {
-    const res = await getDataAPI('auth/logout')
+    const res = await getDataAPI('auth/logout', accessToken)
     localStorage.removeItem('islogged-learnify')
     dispatch({
       type: GLOBAL_TYPES.AUTH,

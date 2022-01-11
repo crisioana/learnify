@@ -49,7 +49,7 @@ const Navbar = () => {
                   <FaUserAlt />
                   Edit Profile
                 </Link>
-                <Link to='/' onClick={() => dispatch(logout())}>
+                <Link to='/' onClick={() => dispatch(logout(auth.accessToken))}>
                   <MdLogout />
                   Logout
                 </Link>

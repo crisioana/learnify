@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { GLOBAL_TYPES } from './../../../redux/types/globalTypes'
 import { createClass } from './../../../redux/actions/classActions'
@@ -13,6 +13,7 @@ const CreateClass = ({openCreateClass, setOpenCreateClass}) => {
   })
 
   const dispatch = useDispatch()
+  const { auth } = useSelector(state => state)
 
   const handleChange = e => {
     const {name, value} = e.target;
@@ -31,7 +32,7 @@ const CreateClass = ({openCreateClass, setOpenCreateClass}) => {
     }
 
     setLoading(true)
-    await dispatch(createClass(classData))
+    await dispatch(createClass(classData, auth.accessToken))
     setLoading(false)
     setOpenCreateClass(false)
   }
