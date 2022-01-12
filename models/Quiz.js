@@ -24,7 +24,11 @@ const quizSchema = new mongoose.Schema({
         required: true
       }
     }
-  ]
+  ],
+  status: {
+    type: String,
+    default: 'Open'
+  }
 }, {
   timestamps: true
 })

@@ -33,7 +33,7 @@ const SettingList = ({id}) => {
   }
 
   const handleCreateQuiz = () => {
-    navigate('/create_quiz/dsdfs')
+    navigate(`/create_quiz/${id}`)
   }
 
   const handleChangeStatus = () => {

@@ -1,6 +1,11 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams, useNavigate } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa'
+import { createQuiz } from './../../redux/actions/quizActions'
+import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
 import Navbar from './../../components/global/Navbar'
+import Loader from './../../components/global/Loader'
 
 const CreateQuiz = () => {
   const [title, setTitle] = useState('Title Goes Here')
@@ -11,6 +16,12 @@ const CreateQuiz = () => {
       choice: ['Choice Goes Here']
     }
   ])
+
+  const { id } = useParams()
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { auth, alert } = useSelector(state => state)
 
   const handleAddQuestion = () => {
     setQuestions([
@@ -72,6 +83,35 @@ const CreateQuiz = () => {
     )
   }
 
+  const handleSubmit = async() => {
+    if (!title) {
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Title field can\'t be empty.'
+        }
+      })
+    }
+
+    if (questions.length === 0) {
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Question can\'t be blank'
+        }
+      })
+    }
+    
+    const quizData = {
+      classId: id,
+      title,
+      questions
+    }
+
+    await dispatch(createQuiz(quizData, auth.accessToken))
+    navigate('/')
+  }
+
   return (
     <>
       <Navbar />
@@ -105,7 +145,7 @@ const CreateQuiz = () => {
                   <select onChange={e => handleChangeAnswer(e, idxQuestion)}>
                     {
                       question.choice.map((choice, idxChoice) => (
-                        <option value={idxChoice}>{choice}</option>
+                        <option key={idxChoice} value={idxChoice}>{choice}</option>
                       ))
                     }
                   </select>
@@ -115,7 +155,17 @@ const CreateQuiz = () => {
           }
           <div className='createQuiz__bottomBtn'>
             <button onClick={handleAddQuestion}>Add Question</button>
-            <button>Submit</button>
+            <button onClick={handleSubmit} disabled={alert.loading ? true : false}>
+              {
+                alert.loading
+                ? (
+                  <div className='center'>
+                    <Loader width='20px' height='20px' border='2px' />
+                  </div>
+                )
+                : 'Submit'
+              }
+            </button>
           </div>
         </div>
       </div>

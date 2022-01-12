@@ -14,7 +14,10 @@ const quizCtrl = {
       })
       await newQuiz.save()
 
-      return res.status(200).json({msg: `Quiz with title ${title} has been created.`})
+      return res.status(200).json({
+        msg: `Quiz with title ${title} has been created.`,
+        quiz: newQuiz
+      })
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
