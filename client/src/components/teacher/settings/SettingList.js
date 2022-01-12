@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeClassStatus } from './../../../redux/actions/classActions';
 
-const SettingList = () => {
+const SettingList = ({id}) => {
   const [name, setName] = useState('');
   const [broadcast, setBroadcast] = useState('')
   const [isRestrict, setIsRestrict] = useState(false)
 
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { auth } = useSelector(state => state)
 
   const handleRename = e => {
     e.preventDefault()
@@ -20,11 +24,16 @@ const SettingList = () => {
     navigate('/create_quiz/dsdfs')
   }
 
+  const handleChangeStatus = () => {
+    setIsRestrict(!isRestrict)
+    dispatch(changeClassStatus(id, !isRestrict, auth.accessToken))
+  }
+
   return (
     <div className='settingList'>
       <div className='restrictGroup'>
         <p>Restrict people to join class</p>
-        <div onClick={() => setIsRestrict(!isRestrict)} className={`switchOuter ${isRestrict ? 'active' : undefined}`}>
+        <div onClick={handleChangeStatus} className={`switchOuter ${isRestrict ? 'active' : undefined}`}>
           <p>{isRestrict ? 'ON' : 'OFF'}</p>
           <div className='switchInner'></div>
         </div>

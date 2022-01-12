@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import ClassDetailModal from './../teacher/dashboard/ClassDetailModal'
 
-const ClassCard = ({isTeacher, title, description, instructor, totalQuiz, totalStudent}) => {
+const ClassCard = ({id, isTeacher, title, description, instructor, totalQuiz, totalStudent}) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   return (
@@ -31,6 +31,7 @@ const ClassCard = ({isTeacher, title, description, instructor, totalQuiz, totalS
       {
         isTeacher &&
         <ClassDetailModal
+          id={id}
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
         />

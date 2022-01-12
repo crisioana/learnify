@@ -12,6 +12,10 @@ const classSchema = new mongoose.Schema({
   instructor: {
     type: mongoose.Types.ObjectId,
     ref: 'user'
+  },
+  restrict: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true

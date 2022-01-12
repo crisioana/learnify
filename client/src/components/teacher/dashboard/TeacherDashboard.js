@@ -72,6 +72,8 @@ const TeacherDashboard = () => {
                     {
                       instructorClass.data?.map(item => (
                         <ClassCard
+                          key={item._id}
+                          id={item._id}
                           isTeacher={true}
                           title={item.title}
                           description={item.description}

@@ -28,6 +28,18 @@ const classCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  changeRestrictStatus: async(req, res) => {
+    try {
+      const { status } = req.body
+      const { id } = req.params
+
+      await Class.findOneAndUpdate({_id: id}, {restrict: status}, {new: true})
+
+      res.status(200).json({msg: 'Class restrict status has been changed.'})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
   }
 }
 

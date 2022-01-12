@@ -1,6 +1,6 @@
 import { GLOBAL_TYPES } from './../types/globalTypes'
 import { CLASS_TYPES } from './../types/classTypes'
-import { getDataAPI, postDataAPI }  from './../../utils/fetchData'
+import { getDataAPI, postDataAPI, patchDataAPI }  from './../../utils/fetchData'
 
 export const getClasses = accessToken => async(dispatch) => {
   try {
@@ -47,6 +47,19 @@ export const createClass = (classData, accessToken) => async(dispatch) => {
         success: res.data.msg
       }
     })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const changeClassStatus = (id, status, accessToken) => async(dispatch) => {
+  try {
+    await patchDataAPI(`class/restrict/${id}`, {status}, accessToken)
   } catch (err) {
     dispatch({
       type: GLOBAL_TYPES.ALERT,
