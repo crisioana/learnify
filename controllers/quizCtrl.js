@@ -27,6 +27,26 @@ const quizCtrl = {
       return res.status(500).json({msg: err.message})
     }
   },
+  udpateQuiz: async(req, res) => {
+    try {
+      const { title, questions } = req.body
+      if (!title || questions.length === 0)
+        return res.status(400).json({msg: 'Please provide every field'})
+
+      const quiz = await Quiz.findOneAndUpdate({_id: req.params.id}, {
+        title, questions
+      }, {new: true})
+      if (!quiz)
+        return res.status(404).json({msg: `Quiz with ID ${req.params.id} not found.`})
+
+      return res.status(200).json({
+        msg: `Quiz with ID ${req.params.id} has been updated.`,
+        quiz
+      })
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
   getQuizById: async(req, res) => {
     try {
       const { id } = req.params

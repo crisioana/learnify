@@ -34,6 +34,26 @@ const classReducer = (state = initialState, action) => {
           : item
         ))
       }
+    case QUIZ_TYPES.EDIT_QUIZ:
+      return {
+        ...state,
+        data: state.data.map(item => (
+          item._id === action.payload.class
+          ? {
+            ...item,
+            quizzes: item.quizzes.map(quiz => (
+              quiz._id === action.payload._id
+              ? {
+                ...quiz,
+                title: action.payload.title,
+                questions: action.payload.questions
+              }
+              : quiz
+            ))
+          }
+          : item
+        ))
+      }
     default:
       return state
   }

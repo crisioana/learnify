@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa'
 import { getDataAPI } from './../../utils/fetchData'
-import { createQuiz } from './../../redux/actions/quizActions'
+import { createQuiz, updateQuiz } from './../../redux/actions/quizActions'
 import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
 import Navbar from './../../components/global/Navbar'
 import Loader from './../../components/global/Loader'
@@ -90,11 +90,6 @@ const CreateQuiz = ({quizId, onEdit}) => {
     )
   }
 
-  useEffect(() => {
-    if (!onEdit) return
-    getQuizDetail()
-  }, [onEdit, getQuizDetail])
-
   const handleSubmit = async() => {
     if (!title) {
       return dispatch({
@@ -120,9 +115,18 @@ const CreateQuiz = ({quizId, onEdit}) => {
       questions
     }
 
-    await dispatch(createQuiz(quizData, auth.accessToken))
+    if (onEdit) {
+      await dispatch(updateQuiz(quizId, quizData, auth.accessToken))
+    } else {
+      await dispatch(createQuiz(quizData, auth.accessToken))
+    }
     navigate('/')
   }
+
+  useEffect(() => {
+    if (!onEdit) return
+    getQuizDetail()
+  }, [onEdit, getQuizDetail])
 
   return (
     <>
@@ -175,7 +179,7 @@ const CreateQuiz = ({quizId, onEdit}) => {
                     <Loader width='20px' height='20px' border='2px' />
                   </div>
                 )
-                : 'Submit'
+                : onEdit ? 'Update' : 'Submit'
               }
             </button>
           </div>
