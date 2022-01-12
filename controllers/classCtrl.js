@@ -3,7 +3,7 @@ const Class = require('./../models/Class')
 const classCtrl = {
   getClassesByInstructor: async(req, res) => {
     try {
-      const classes = await Class.find({instructor: req.user._id}).sort('-createdAt')
+      const classes = await Class.find({instructor: req.user._id}).sort('-createdAt').populate('quizzes', '_id title status')
       return res.status(200).json({classes})
     } catch (err) {
       return res.status(500).json({msg: err.message})

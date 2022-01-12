@@ -1,3 +1,4 @@
+import { QUIZ_TYPES } from '../types/quizTypes'
 import { CLASS_TYPES } from './../types/classTypes'
 
 const initialState = {
@@ -20,6 +21,18 @@ const classReducer = (state = initialState, action) => {
       return {
         ...state,
         data: state.data.map(item => item._id ===  action.payload._id ? action.payload : item)
+      }
+    case QUIZ_TYPES.CREATE_QUIZ:
+      return {
+        ...state,
+        data: state.data.map(item => (
+          item._id === action.payload.class
+          ? {
+            ...item,
+            quizzes: [action.payload, ...item.quizzes]
+          }
+          : item
+        ))
       }
     default:
       return state

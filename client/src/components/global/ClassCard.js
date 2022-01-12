@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import ClassDetailModal from './../teacher/dashboard/ClassDetailModal'
 
-const ClassCard = ({id, isTeacher, title, description, instructor, totalQuiz, totalStudent}) => {
+const ClassCard = ({id, isTeacher, title, description, instructor, quizzes, totalStudent}) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   return (
@@ -14,7 +14,7 @@ const ClassCard = ({id, isTeacher, title, description, instructor, totalQuiz, to
           isTeacher
           ? (
             <div className='classCard__teacherInfo'>
-              <p>Total Quiz : {totalQuiz}</p>
+              <p>Total Quiz : {quizzes.length}</p>
               <p>Total Student : {totalStudent}</p>
             </div>
           )
@@ -32,6 +32,7 @@ const ClassCard = ({id, isTeacher, title, description, instructor, totalQuiz, to
         isTeacher &&
         <ClassDetailModal
           id={id}
+          quizzes={quizzes}
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
         />

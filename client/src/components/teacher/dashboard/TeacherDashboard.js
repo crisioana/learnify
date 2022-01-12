@@ -77,7 +77,7 @@ const TeacherDashboard = () => {
                           isTeacher={true}
                           title={item.name}
                           description={item.description}
-                          totalQuiz={5}
+                          quizzes={item.quizzes}
                           totalStudent={7}
                         />
                       ))

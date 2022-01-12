@@ -16,7 +16,13 @@ const classSchema = new mongoose.Schema({
   restrict: {
     type: Boolean,
     default: false
-  }
+  },
+  quizzes: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'quiz'
+    }
+  ]
 }, {
   timestamps: true
 })

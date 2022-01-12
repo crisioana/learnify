@@ -1,4 +1,5 @@
 const Quiz = require('./../models/Quiz')
+const Class = require('./../models/Class')
 
 const quizCtrl = {
   createQuiz: async(req, res) => {
@@ -13,6 +14,10 @@ const quizCtrl = {
         questions
       })
       await newQuiz.save()
+
+      await Class.findOneAndUpdate({_id: classId}, {
+        $push: { quizzes: newQuiz._id }
+      })
 
       return res.status(200).json({
         msg: `Quiz with title ${title} has been created.`,
