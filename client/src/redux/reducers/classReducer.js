@@ -16,6 +16,11 @@ const classReducer = (state = initialState, action) => {
         ...state,
         data: action.payload
       }
+    case CLASS_TYPES.RENAME_CLASS:
+      return {
+        ...state,
+        data: state.data.map(item => item._id ===  action.payload._id ? action.payload : item)
+      }
     default:
       return state
   }

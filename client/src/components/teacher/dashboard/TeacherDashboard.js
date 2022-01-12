@@ -75,7 +75,7 @@ const TeacherDashboard = () => {
                           key={item._id}
                           id={item._id}
                           isTeacher={true}
-                          title={item.title}
+                          title={item.name}
                           description={item.description}
                           totalQuiz={5}
                           totalStudent={7}

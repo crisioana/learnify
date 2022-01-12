@@ -69,3 +69,34 @@ export const changeClassStatus = (id, status, accessToken) => async(dispatch) =>
     })
   }
 }
+
+export const renameClass = (id, name, accessToken) => async(dispatch) => {
+  try {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        loading: true
+      }
+    })
+    
+    const res = await patchDataAPI(`class/rename/${id}`, {name}, accessToken)
+    dispatch({
+      type: CLASS_TYPES.RENAME_CLASS,
+      payload: res.data.class
+    })
+
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}

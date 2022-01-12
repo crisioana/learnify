@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeClassStatus } from './../../../redux/actions/classActions';
+import { GLOBAL_TYPES } from './../../../redux/types/globalTypes'
+import { changeClassStatus, renameClass } from './../../../redux/actions/classActions'
+import Loader from './../../global/Loader'
 
 const SettingList = ({id}) => {
   const [name, setName] = useState('');
@@ -10,10 +12,20 @@ const SettingList = ({id}) => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { auth } = useSelector(state => state)
+  const { auth, alert } = useSelector(state => state)
 
   const handleRename = e => {
     e.preventDefault()
+    if (!name) {
+      dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Class name can\'t be empty.'
+        }
+      })
+    }
+
+    dispatch(renameClass(id, name, auth.accessToken))
   }
 
   const handleBroadcast = e => {
@@ -44,7 +56,17 @@ const SettingList = ({id}) => {
           <label htmlFor='name'>Rename class</label>
           <input type='text' id='name' value={name} onChange={e => setName(e.target.value)} />
         </div>
-        <button type='submit'>Rename</button>
+        <button type='submit' disabled={alert.loading ? true : false}>
+          {
+            alert.loading
+            ? (
+              <div className='center'>
+                <Loader width='20px' height='20px' border='2px' />
+              </div>
+            )
+            : 'Rename'
+          }
+        </button>
       </form>
 
       <form onSubmit={handleBroadcast}>

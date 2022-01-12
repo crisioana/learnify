@@ -36,7 +36,27 @@ const classCtrl = {
 
       await Class.findOneAndUpdate({_id: id}, {restrict: status}, {new: true})
 
-      res.status(200).json({msg: 'Class restrict status has been changed.'})
+      return res.status(200).json({msg: 'Class restrict status has been changed.'})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
+  renameClass: async(req, res) => {
+    try {
+      const { name } = req.body
+      const { id } = req.params
+
+      if (!name)
+        return res.status(400).json({msg: 'Class name can\'t be empty.'})
+
+      const classDetail = await Class.findOneAndUpdate({_id: id}, {name}, {new: true})
+      if (!classDetail)
+        return res.status(404).json({msg: `Class with ID ${id} not found.`})
+
+      return res.status(200).json({
+        msg: 'Class has been updated.',
+        class: classDetail
+      })
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }

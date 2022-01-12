@@ -7,5 +7,6 @@ router.route('/')
   .post(isAuthenticated, authorizeRoles('Instructor'), classCtrl.createClass)
 
 router.route('/restrict/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.changeRestrictStatus)
+router.route('/rename/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.renameClass)
 
 module.exports = router
