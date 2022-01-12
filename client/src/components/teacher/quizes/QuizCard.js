@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FaEye, FaTrash, FaEdit } from 'react-icons/fa'
 
 const QuizCard = ({id, title, status}) => {
   const [isOpen, setIsOpen] = useState(true)
+
+  const navigate = useNavigate()
+
+  const handleEdit = () => {
+    navigate(`/edit_quiz/${id}`)
+  }
 
   useEffect(() => {
     if (status === 'Open') {
@@ -19,7 +26,7 @@ const QuizCard = ({id, title, status}) => {
       </div>
       <div className='teacherQuizCard__right'>
         <FaEye />
-        <FaEdit />
+        <FaEdit onClick={handleEdit} />
         <FaTrash />
         <p
           onClick={() => setIsOpen(!isOpen)}

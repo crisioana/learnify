@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa'
+import { getDataAPI } from './../../utils/fetchData'
 import { createQuiz } from './../../redux/actions/quizActions'
 import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
 import Navbar from './../../components/global/Navbar'
 import Loader from './../../components/global/Loader'
 
-const CreateQuiz = () => {
+const CreateQuiz = ({quizId, onEdit}) => {
   const [title, setTitle] = useState('Title Goes Here')
   const [questions, setQuestions] = useState([
     {
@@ -22,6 +23,12 @@ const CreateQuiz = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { auth, alert } = useSelector(state => state)
+
+  const getQuizDetail = useCallback(async() => {
+    const res = await getDataAPI(`quiz/${quizId}`)
+    setTitle(res.data.quiz.title)
+    setQuestions(res.data.quiz.questions)
+  }, [quizId])
 
   const handleAddQuestion = () => {
     setQuestions([
@@ -83,6 +90,11 @@ const CreateQuiz = () => {
     )
   }
 
+  useEffect(() => {
+    if (!onEdit) return
+    getQuizDetail()
+  }, [onEdit, getQuizDetail])
+
   const handleSubmit = async() => {
     if (!title) {
       return dispatch({
@@ -142,7 +154,7 @@ const CreateQuiz = () => {
                 <button onClick={() => handleAddChoice(idxQuestion)}>Add Choice</button>
                 <div className='createQuiz__answer'>
                   <p>Answer</p>
-                  <select onChange={e => handleChangeAnswer(e, idxQuestion)}>
+                  <select onChange={e => handleChangeAnswer(e, idxQuestion)} value={question.answer}>
                     {
                       question.choice.map((choice, idxChoice) => (
                         <option key={idxChoice} value={idxChoice}>{choice}</option>
