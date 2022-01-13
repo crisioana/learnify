@@ -60,6 +60,20 @@ const classCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  joinClass: async(req, res) => {
+    try {
+      const classData = await Class.findOneAndUpdate({_id: req.params.id}, {
+        $push: { people: req.user._id }
+      }, {new: true})
+
+      return res.status(200).json({
+        msg: 'Class joined.',
+        class: classData
+      })
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
   }
 }
 

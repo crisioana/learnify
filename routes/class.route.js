@@ -8,5 +8,6 @@ router.route('/')
 
 router.route('/restrict/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.changeRestrictStatus)
 router.route('/rename/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.renameClass)
+router.route('/join/:id').patch(isAuthenticated, authorizeRoles('Student'), classCtrl.joinClass)
 
 module.exports = router

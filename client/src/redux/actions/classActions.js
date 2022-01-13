@@ -100,3 +100,27 @@ export const renameClass = (id, name, accessToken) => async(dispatch) => {
     })
   }
 }
+
+export const joinClass = (id, accessToken) => async(dispatch) => {
+  try {
+    const res = await patchDataAPI(`class/join/${id}`, {}, accessToken)
+    dispatch({
+      type: CLASS_TYPES.JOIN_CLASS,
+      payload: res.data.class
+    })
+
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}

@@ -22,6 +22,12 @@ const classSchema = new mongoose.Schema({
       type: mongoose.Types.ObjectId,
       ref: 'quiz'
     }
+  ],
+  people: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'user'
+    }
   ]
 }, {
   timestamps: true
