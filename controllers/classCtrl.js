@@ -95,7 +95,7 @@ const classCtrl = {
 
       const classData = await Class.findOneAndUpdate({_id: req.params.id}, {
         $push: { people: req.user._id }
-      }, {new: true})
+      }, {new: true}).populate('instructor', 'name')
 
       return res.status(200).json({
         msg: 'Class joined.',

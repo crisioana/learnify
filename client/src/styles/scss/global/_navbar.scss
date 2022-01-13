@@ -5,6 +5,8 @@
   justify-content: space-between;
   padding: 15px 30px;
   color: #fff;
+  position: sticky;
+  top: 0;
 
   h2 a {
     color: #fff;
@@ -25,7 +27,7 @@
     transition: opacity 200ms;
     opacity: 0;
     pointer-events: none;
-    z-index: 100;
+    z-index: 100 !important;
 
     &.active {
       opacity: 1;
