@@ -1,23 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FaEye, FaTrash, FaEdit } from 'react-icons/fa'
+import { changeQuizStatus } from './../../../redux/actions/quizActions'
 
 const QuizCard = ({id, title, status}) => {
-  const [isOpen, setIsOpen] = useState(true)
-
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { auth } = useSelector(state => state)
 
   const handleEdit = () => {
     navigate(`/edit_quiz/${id}`)
   }
 
-  useEffect(() => {
+  const handleChangeStatus = () => {
+    let newStatus = ''
     if (status === 'Open') {
-      setIsOpen(true)
+      newStatus = 'Close'
+    } else {
+      newStatus = 'Open'
     }
-
-    return () => setIsOpen(false)
-  }, [status])
+    dispatch(changeQuizStatus(id, newStatus, auth.accessToken))
+  }
 
   return (
     <div className='teacherQuizCard'>
@@ -29,10 +32,10 @@ const QuizCard = ({id, title, status}) => {
         <FaEdit onClick={handleEdit} />
         <FaTrash />
         <p
-          onClick={() => setIsOpen(!isOpen)}
-          className={isOpen ? 'open' : 'close'}
+          onClick={handleChangeStatus}
+          className={status === 'Open' ? 'open' : 'close'}
         >
-          {isOpen ? 'Open' : 'Close'}
+          {status === 'Open' ? 'Open' : 'Close'}
         </p>
       </div>
     </div>

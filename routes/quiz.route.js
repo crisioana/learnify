@@ -8,4 +8,6 @@ router.route('/:id')
   .get(quizCtrl.getQuizById)
   .patch(isAuthenticated, authorizeRoles('Instructor'), quizCtrl.udpateQuiz)
 
+router.route('/status/:id').patch(isAuthenticated, authorizeRoles('Instructor'), quizCtrl.changeQuizStatus)
+
 module.exports = router

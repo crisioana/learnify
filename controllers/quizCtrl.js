@@ -58,6 +58,20 @@ const quizCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  changeQuizStatus: async(req, res) => {
+    try {
+      const { status } = req.body
+      const { id } = req.params
+
+      const quiz = await Quiz.findOneAndUpdate({_id: id}, {status}, {new: true})
+      if (!quiz)
+        return res.status(404).json({msg: `Quiz with ID ${id} not found.`})
+
+      return res.status(200).json({quiz})
+    } catch (err)  {
+      return res.status(500).json({msg: err.message})
+    }
   }
 }
 

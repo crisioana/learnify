@@ -54,6 +54,25 @@ const classReducer = (state = initialState, action) => {
           : item
         ))
       }
+    case QUIZ_TYPES.CHANGE_QUIZ_STATUS:
+      return {
+        ...state,
+        data: state.data.map(item => (
+          item._id === action.payload.class
+          ? {
+            ...item,
+            quizzes: item.quizzes.map(quiz => (
+              quiz._id === action.payload._id
+              ? {
+                ...quiz,
+                status: action.payload.status
+              }
+              : quiz
+            ))
+          }
+          : item
+        ))
+      }
     default:
       return state
   }

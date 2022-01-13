@@ -63,3 +63,20 @@ export const updateQuiz = (id, quizData, accessToken) => async(dispatch) => {
     })
   }
 }
+
+export const changeQuizStatus = (id, status, accessToken) => async(dispatch) => {
+  try {
+    const res = await patchDataAPI(`quiz/status/${id}`, {status}, accessToken)
+    dispatch({
+      type: QUIZ_TYPES.CHANGE_QUIZ_STATUS,
+      payload: res.data.quiz
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
