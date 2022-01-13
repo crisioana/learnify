@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import GradeModal from './../../global/GradeModal'
 
-const QuizCard = ({title}) => {
+const QuizCard = ({id, title}) => {
   const [isOpenGrade, setIsOpenGrade] = useState(false)
 
   return (
     <>
       <div className='quizCard'>
         <div className='quizCard__left'>
-          <h4><Link to='/'>{title}</Link></h4>
+          <h4><Link to={`/quiz/${id}`}>{title}</Link></h4>
         </div>
         <div className='quizCard__right'>
           <p onClick={() => setIsOpenGrade(true)}>View Grade</p>

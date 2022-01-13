@@ -1,6 +1,6 @@
 import { GLOBAL_TYPES } from './../types/globalTypes'
 import { QUIZ_TYPES } from './../types/quizTypes'
-import { postDataAPI, patchDataAPI } from './../../utils/fetchData'
+import { postDataAPI, patchDataAPI, getDataAPI } from './../../utils/fetchData'
 
 export const createQuiz = (quizData, accessToken) => async(dispatch) => {
   try {
@@ -70,6 +70,35 @@ export const changeQuizStatus = (id, status, accessToken) => async(dispatch) => 
     dispatch({
       type: QUIZ_TYPES.CHANGE_QUIZ_STATUS,
       payload: res.data.quiz
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const getQuizDetail = id => async(dispatch) => {
+  try {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        loading: true
+      }
+    })
+    
+    const res = await getDataAPI(`quiz/${id}`)
+    dispatch({
+      type: QUIZ_TYPES.GET_QUIZ_DETAIL,
+      payload: res.data.quiz
+    })
+
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {}
     })
   } catch (err) {
     dispatch({

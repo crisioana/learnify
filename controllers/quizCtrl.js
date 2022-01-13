@@ -50,7 +50,14 @@ const quizCtrl = {
   getQuizById: async(req, res) => {
     try {
       const { id } = req.params
-      const quiz = await Quiz.findById(id)
+      const quiz = await Quiz.findById(id).populate({
+        path: 'class',
+        select: 'name',
+        populate: {
+          path: 'instructor',
+          select: 'name'
+        }
+      })
       if (!quiz)
         return res.status(404).json({msg: `Quiz with ID ${id} not found.`})
 

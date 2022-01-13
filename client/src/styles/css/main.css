@@ -1072,6 +1072,11 @@
   cursor: pointer;
 }
 
+.quizDetail button {
+  float: right;
+  margin-top: 20px;
+}
+
 .quizDetail__header > * + * {
   margin-top: 10px;
 }
@@ -1739,6 +1744,10 @@ a {
 
 .mt-5 {
   margin-top: 30px;
+}
+
+.clear {
+  clear: both;
 }
 
 .errorMessage {

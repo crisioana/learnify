@@ -1,26 +1,22 @@
-const QuestionBox = () => {
+const QuestionBox = ({questionIdx, title, choice, cb}) => {
+  const handleChange = value => {
+    cb(questionIdx, value)
+  }
+  
   return (
     <div className='questionBox'>
       <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde labore fugit saepe cumque, non molestias quia odio suscipit. Fuga, at.
+        {title}
       </p>
       <div className="questionBox__answer">
-        <div className='inputGroup'>
-          <input type='radio' name='question1' />
-          <label>Morphology</label>
-        </div>
-        <div className='inputGroup'>
-          <input type='radio' name='question1' />
-          <label>Morphology</label>
-        </div>
-        <div className='inputGroup'>
-          <input type='radio' name='question1' />
-          <label>Morphology</label>
-        </div>
-        <div className='inputGroup'>
-          <input type='radio' name='question1' />
-          <label>Morphology</label>
-        </div>
+        {
+          choice?.map((item, idx) => (
+            <div key={`question${questionIdx}-choice${idx}`} className='inputGroup'>
+              <input type='radio' id={`question${questionIdx}-choice${idx}`} value={idx} name={`question${questionIdx}`} onChange={e => handleChange(e.target.value)} />
+              <label htmlFor={`question${questionIdx}-choice${idx}`}>{item}</label>
+            </div>
+          ))
+        }
       </div>
     </div>
   )

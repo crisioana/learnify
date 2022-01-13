@@ -16,7 +16,6 @@ const ClassDetail = () => {
   const fetchClassDetailData = useCallback(async() => {
     setLoading(true)
     const res = await getDataAPI(`class/${id}`)
-    console.log(res.data)
     setClassData(res.data.class)
     setLoading(false)
   }, [id])
@@ -65,6 +64,8 @@ const ClassDetail = () => {
                           {
                             classData.quizzes?.map(quiz => (
                               <QuizCard
+                                key={quiz._id}
+                                id={quiz._id}
                                 title={quiz.title}
                               />
                             ))
