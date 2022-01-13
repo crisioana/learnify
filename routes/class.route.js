@@ -6,7 +6,9 @@ router.route('/')
   .get(isAuthenticated, classCtrl.getClassesByInstructor)
   .post(isAuthenticated, authorizeRoles('Instructor'), classCtrl.createClass)
 
-router.route('/student').get(isAuthenticated, authorizeRoles('Student'), classCtrl.getStudentClasses)
+  router.route('/student').get(isAuthenticated, authorizeRoles('Student'), classCtrl.getStudentClasses)
+
+router.route('/:id').get(classCtrl.getClassById)
 
 router.route('/restrict/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.changeRestrictStatus)
 router.route('/rename/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.renameClass)

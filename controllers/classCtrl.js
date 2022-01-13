@@ -35,6 +35,20 @@ const classCtrl = {
       return res.status(500).json({msg: err.message})
     }
   },
+  getClassById: async(req, res) => {
+    try {
+      const classDetail = await Class.findById(req.params.id)
+        .populate('instructor', 'name')
+        .populate('quizzes')
+
+      if (!classDetail)
+        return res.status(404).json({msg: `Class with ID ${req.params.id} not found.`})
+
+      return res.status(200).json({class: classDetail})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
   createClass: async(req, res) => {
     try {
       const { name, description } = req.body
