@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaFilter } from 'react-icons/fa'
 import { AiOutlineSortAscending, AiOutlineSortDescending, AiOutlineSearch } from 'react-icons/ai'
+import { getStudentClasses } from './../../../redux/actions/classActions'
 import ClassCard from './../../global/ClassCard'
+import Loader from './../../global/Loader'
 
 const StudentDashboard =  () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false)
+
+  const dispatch = useDispatch()
+  const { auth, alert, studentClass } = useSelector(state => state)
+
+  useEffect(() => {
+    dispatch(getStudentClasses(auth.accessToken))
+  }, [dispatch, auth.accessToken])
 
   return (
     <div className='studentDashboard'>
@@ -31,21 +41,29 @@ const StudentDashboard =  () => {
         </div>
       </div>
       <div className="studentDashboard__body">
-        <ClassCard
-          title='Test Class Name'
-          description='Class description goes here. tralalal lorem ipsum dolor sit amet.'
-          instructor='Lecturer Name'
-        />
-        <ClassCard
-          title='Test Class Name'
-          description='Class description goes here. tralalal lorem ipsum dolor sit amet.'
-          instructor='Lecturer Name'
-        />
-        <ClassCard
-          title='Test Class Name'
-          description='Class description goes here. tralalal lorem ipsum dolor sit amet.'
-          instructor='Lecturer Name'
-        />
+        {
+          alert.loading
+          ? (
+            <div className='center'>
+              <Loader width='40px' height='40px' border='4px' />
+            </div>
+          )
+          : (
+            <>
+              {
+                studentClass.data?.map(item => (
+                  <ClassCard
+                    key={item._id}
+                    id={item._id}
+                    title={item.name}
+                    description={item.description}
+                    instructor={item.instructor.name}
+                  />
+                ))
+              }
+            </>
+          )
+        }
       </div>
     </div>
   )

@@ -1,9 +1,35 @@
+const mongoose = require('mongoose')
 const Class = require('./../models/Class')
 
 const classCtrl = {
   getClassesByInstructor: async(req, res) => {
     try {
       const classes = await Class.find({instructor: req.user._id}).sort('-createdAt').populate('quizzes', '_id title status')
+      return res.status(200).json({classes})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
+  getStudentClasses: async(req, res) => {
+    try {
+      const classes = await Class.aggregate([
+        {
+          $match: {people: mongoose.Types.ObjectId(req.user._id)}
+        },
+        {
+          $lookup: {
+            "from": "users",
+            "let": { user_id: "$instructor" },
+            "pipeline": [
+              { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+              { $project: {name: 1} }
+            ],
+            "as": "instructor"
+          }
+        },
+        { $unwind: "$instructor" }
+      ])
+
       return res.status(200).json({classes})
     } catch (err) {
       return res.status(500).json({msg: err.message})
@@ -63,6 +89,10 @@ const classCtrl = {
   },
   joinClass: async(req, res) => {
     try {
+      const findUserInClass = await Class.findOne({_id: req.params.id, people: req.user._id})
+      if (findUserInClass)
+        return res.status(400).json({msg: 'You have join this class.'})
+
       const classData = await Class.findOneAndUpdate({_id: req.params.id}, {
         $push: { people: req.user._id }
       }, {new: true})

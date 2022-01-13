@@ -101,6 +101,35 @@ export const renameClass = (id, name, accessToken) => async(dispatch) => {
   }
 }
 
+export const getStudentClasses = accessToken => async(dispatch) => {
+  try {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        loading: true
+      }
+    })
+
+    const res = await getDataAPI('class/student', accessToken)
+    dispatch({
+      type: CLASS_TYPES.GET_STUDENT_CLASSES,
+      payload: res.data.classes
+    })
+
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {}
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
 export const joinClass = (id, accessToken) => async(dispatch) => {
   try {
     const res = await patchDataAPI(`class/join/${id}`, {}, accessToken)
