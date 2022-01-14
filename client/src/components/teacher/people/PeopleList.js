@@ -20,6 +20,7 @@ const PeopleList = ({student}) => {
             {
               student.map(item => (
                 <PeopleCard
+                  key={item._id}
                   avatar={item.avatar}
                   name={item.name}
                   email={item.email}

@@ -92,6 +92,9 @@ const quizCtrl = {
       if (!quizDetail)
         return res.status(404).json({msg: `Quiz with ID ${quizId} not found.`})
 
+      if (quizDetail.status === 'Close')
+        return res.status(400).json({msg: 'This quiz won\'t accept any submission right now.'})
+
       let formattedQuestions = {}
       quizDetail.questions.forEach((question) => {
         formattedQuestions = {...formattedQuestions, [question._id]: question.answer}
