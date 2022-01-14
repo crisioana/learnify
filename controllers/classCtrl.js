@@ -112,6 +112,13 @@ const classCtrl = {
   },
   joinClass: async(req, res) => {
     try {
+      const classDetail = await Class.findOne({_id: req.params.id})
+      if (!classDetail)
+        return res.status(404).json({msg: 'Class not found.'})
+
+      if (classDetail.restrict)
+        return res.status(400).json({msg: 'This class currently don\'t accept any student.'})
+
       const findUserInClass = await Class.findOne({_id: req.params.id, people: req.user._id})
       if (findUserInClass)
         return res.status(400).json({msg: 'You have join this class.'})

@@ -1510,6 +1510,10 @@
   background: #d12a2a;
 }
 
+.settingList h4 {
+  margin-bottom: 20px;
+}
+
 .settingList .restrictGroup {
   display: -webkit-box;
   display: -ms-flexbox;

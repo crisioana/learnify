@@ -43,6 +43,7 @@ const SettingList = ({id}) => {
 
   return (
     <div className='settingList'>
+      <h4>Class Code : {id}</h4>
       <div className='restrictGroup'>
         <p>Restrict people to join class</p>
         <div onClick={handleChangeStatus} className={`switchOuter ${isRestrict ? 'active' : undefined}`}>
