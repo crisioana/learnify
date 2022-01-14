@@ -1,5 +1,6 @@
 const Quiz = require('./../models/Quiz')
 const Class = require('./../models/Class')
+const Result = require('./../models/Result')
 
 const quizCtrl = {
   createQuiz: async(req, res) => {
@@ -77,6 +78,42 @@ const quizCtrl = {
 
       return res.status(200).json({quiz})
     } catch (err)  {
+      return res.status(500).json({msg: err.message})
+    }
+  },
+  submitQuiz: async(req, res) => {
+    try {
+      const { answer, quizId } = req.body
+
+      if (Object.keys(answer).length === 0)
+        return res.status(400).json({msg: 'Answer not completed.'})
+
+      const quizDetail = await Quiz.findById(quizId)
+      if (!quizDetail)
+        return res.status(404).json({msg: `Quiz with ID ${quizId} not found.`})
+
+      let formattedQuestions = {}
+      quizDetail.questions.forEach((question) => {
+        formattedQuestions = {...formattedQuestions, [question._id]: question.answer}
+      })
+
+      let score = 0
+      for (let question in formattedQuestions) {
+        if (formattedQuestions[question] === Number(answer[question])) {
+          score++
+        }
+      }
+
+      const newResult = new Result({
+        student: req.user._id,
+        quiz: quizId,
+        answer,
+        score
+      })
+      await newResult.save()
+
+      return res.status(200).json({msg: 'Quiz has been submitted.'})
+    } catch (err) {
       return res.status(500).json({msg: err.message})
     }
   }

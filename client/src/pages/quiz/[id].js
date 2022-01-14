@@ -1,20 +1,39 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getQuizDetail } from './../../redux/actions/quizActions'
+import { getQuizDetail, submitQuiz } from './../../redux/actions/quizActions'
+import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
 import Navbar from './../../components/global/Navbar'
 import QuestionBox from './../../components/global/QuestionBox'
 import Loader from './../../components/global/Loader'
 
 const QuizDetail = () => {
+  const [onSubmit, setOnSubmit] = useState(false)
   const [studentAnswer, setStudentAnswer] = useState({})
 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { id } = useParams()
-  const { alert, quizDetail } = useSelector(state => state)
+  const { alert, auth, quizDetail } = useSelector(state => state)
   
   const handleChangeAnswer = (questionIdx, value) => {
     setStudentAnswer({...studentAnswer, [questionIdx]: value})
+  }
+
+  const handleSubmit = async() => {
+    if (Object.keys(studentAnswer).length !== quizDetail.questions?.length) {
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Please answer all questions.'
+        }
+      })
+    }
+
+    setOnSubmit(true)
+    await dispatch(submitQuiz(studentAnswer, id, auth.accessToken))
+    setOnSubmit(false)
+    navigate('/')
   }
 
   useEffect(() => {
@@ -44,7 +63,7 @@ const QuizDetail = () => {
                   quizDetail.questions?.map((question, idx) => (
                     <div key={question._id} className='quizDetail__question'>
                       <h3>Question {idx + 1}</h3>
-                      <QuestionBox questionIdx={idx} title={question.title} choice={question.choice} cb={handleChangeAnswer} />
+                      <QuestionBox questionIdx={question._id} title={question.title} choice={question.choice} cb={handleChangeAnswer} />
                     </div>
                   ))
                 }
@@ -53,7 +72,20 @@ const QuizDetail = () => {
           )
         }
 
-        {!alert.loading && <button>Submit</button>}
+        {
+          !alert.loading &&
+          <button onClick={handleSubmit} disabled={onSubmit ? true : false}>
+            {
+              onSubmit
+              ? (
+                <div className='center'>
+                  <Loader width='20px' height='20px' border='2px' />
+                </div>
+              )
+              : 'Submit'
+            }
+          </button>
+        }
         <div className="clear"></div>
       </div>
     </>

@@ -109,3 +109,22 @@ export const getQuizDetail = id => async(dispatch) => {
     })
   }
 }
+
+export const submitQuiz = (answer, quizId, accessToken) => async(dispatch) => {
+  try {
+    const res = await postDataAPI('quiz/submit', {answer, quizId}, accessToken)
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}

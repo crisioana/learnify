@@ -10,4 +10,6 @@ router.route('/:id')
 
 router.route('/status/:id').patch(isAuthenticated, authorizeRoles('Instructor'), quizCtrl.changeQuizStatus)
 
+router.route('/submit').post(isAuthenticated, authorizeRoles('Student'), quizCtrl.submitQuiz)
+
 module.exports = router
