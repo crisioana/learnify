@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ClassDetailModal from './../teacher/dashboard/ClassDetailModal'
 
-const ClassCard = ({id, isTeacher, title, description, instructor, quizzes, student}) => {
+const ClassCard = ({id, isTeacher, classRestrict, title, description, instructor, quizzes, student}) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const navigate = useNavigate()
@@ -42,6 +42,7 @@ const ClassCard = ({id, isTeacher, title, description, instructor, quizzes, stud
           quizzes={quizzes}
           student={student}
           isOpenModal={isOpenModal}
+          classRestrict={classRestrict}
           setIsOpenModal={setIsOpenModal}
         />
       }

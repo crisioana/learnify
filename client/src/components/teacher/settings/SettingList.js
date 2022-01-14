@@ -5,10 +5,9 @@ import { GLOBAL_TYPES } from './../../../redux/types/globalTypes'
 import { changeClassStatus, renameClass } from './../../../redux/actions/classActions'
 import Loader from './../../global/Loader'
 
-const SettingList = ({id}) => {
+const SettingList = ({id, status}) => {
   const [name, setName] = useState('');
   const [broadcast, setBroadcast] = useState('')
-  const [isRestrict, setIsRestrict] = useState(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -37,8 +36,13 @@ const SettingList = ({id}) => {
   }
 
   const handleChangeStatus = () => {
-    setIsRestrict(!isRestrict)
-    dispatch(changeClassStatus(id, !isRestrict, auth.accessToken))
+    let newStatus = false
+    if (status === true) {
+      newStatus = false
+    } else {
+      newStatus = true
+    }
+    dispatch(changeClassStatus(id, newStatus, auth.accessToken))
   }
 
   return (
@@ -46,8 +50,8 @@ const SettingList = ({id}) => {
       <h4>Class Code : {id}</h4>
       <div className='restrictGroup'>
         <p>Restrict people to join class</p>
-        <div onClick={handleChangeStatus} className={`switchOuter ${isRestrict ? 'active' : undefined}`}>
-          <p>{isRestrict ? 'ON' : 'OFF'}</p>
+        <div onClick={handleChangeStatus} className={`switchOuter ${status ? 'active' : undefined}`}>
+          <p>{status ? 'ON' : 'OFF'}</p>
           <div className='switchInner'></div>
         </div>
       </div>

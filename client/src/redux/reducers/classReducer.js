@@ -22,6 +22,18 @@ const classReducer = (state = initialState, action) => {
         ...state,
         data: state.data.map(item => item._id ===  action.payload._id ? action.payload : item)
       }
+    case CLASS_TYPES.CHANGE_CLASS_STATUS:
+      return {
+        ...state,
+        data: state.data.map(item => (
+          item._id === action.payload._id
+          ? {
+            ...item,
+            restrict: action.payload.restrict
+          }
+          : item
+        ))
+      }
     case QUIZ_TYPES.CREATE_QUIZ:
       return {
         ...state,

@@ -59,7 +59,11 @@ export const createClass = (classData, accessToken) => async(dispatch) => {
 
 export const changeClassStatus = (id, status, accessToken) => async(dispatch) => {
   try {
-    await patchDataAPI(`class/restrict/${id}`, {status}, accessToken)
+    const res = await patchDataAPI(`class/restrict/${id}`, {status}, accessToken)
+    dispatch({
+      type: CLASS_TYPES.CHANGE_CLASS_STATUS,
+      payload: res.data.class
+    })
   } catch (err) {
     dispatch({
       type: GLOBAL_TYPES.ALERT,

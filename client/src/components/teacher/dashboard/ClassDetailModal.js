@@ -4,7 +4,7 @@ import QuizList from './../quizes/QuizList'
 import PeopleList from './../people/PeopleList'
 import SettingList from './../settings/SettingList'
 
-const ClassDetailModal = ({id, quizzes, student, isOpenModal, setIsOpenModal}) => {
+const ClassDetailModal = ({id, quizzes, student, classRestrict, isOpenModal, setIsOpenModal}) => {
   const [currentMenu, setCurrentMenu] = useState('Quizes')
 
   return (
@@ -38,7 +38,7 @@ const ClassDetailModal = ({id, quizzes, student, isOpenModal, setIsOpenModal}) =
           <div className='classDetailModal__body--bottom'>
             {currentMenu === 'Quizes' && <QuizList quizzes={quizzes} />}
             {currentMenu === 'People' && <PeopleList student={student} />}
-            {currentMenu === 'Settings' && <SettingList id={id} />}
+            {currentMenu === 'Settings' && <SettingList id={id} status={classRestrict} />}
           </div>
         </div>
       </div>

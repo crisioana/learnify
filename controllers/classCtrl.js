@@ -83,9 +83,8 @@ const classCtrl = {
       const { status } = req.body
       const { id } = req.params
 
-      await Class.findOneAndUpdate({_id: id}, {restrict: status}, {new: true})
-
-      return res.status(200).json({msg: 'Class restrict status has been changed.'})
+      const newClass = await Class.findOneAndUpdate({_id: id}, {restrict: status}, {new: true})
+      return res.status(200).json({class: newClass})
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }

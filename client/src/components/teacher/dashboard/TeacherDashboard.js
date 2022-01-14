@@ -79,6 +79,7 @@ const TeacherDashboard = () => {
                           description={item.description}
                           quizzes={item.quizzes}
                           student={item.people}
+                          classRestrict={item.restrict}
                         />
                       ))
                     }
