@@ -28,7 +28,13 @@ const quizSchema = new mongoose.Schema({
   status: {
     type: String,
     default: 'Open'
-  }
+  },
+  results: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'result'
+    }
+  ]
 }, {
   timestamps: true
 })

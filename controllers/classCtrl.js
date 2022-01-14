@@ -39,7 +39,16 @@ const classCtrl = {
     try {
       const classDetail = await Class.findById(req.params.id)
         .populate('instructor', 'name')
-        .populate('quizzes')
+        .populate({
+          path: 'quizzes',
+          populate: {
+            path: 'results',
+            populate: {
+              path: 'quiz',
+              select: 'questions'
+            }
+          }
+        })
 
       if (!classDetail)
         return res.status(404).json({msg: `Class with ID ${req.params.id} not found.`})

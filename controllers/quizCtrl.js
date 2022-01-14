@@ -112,6 +112,10 @@ const quizCtrl = {
       })
       await newResult.save()
 
+      await Quiz.findOneAndUpdate({_id: quizId}, {
+        $push: { results: newResult._id }
+      })
+
       return res.status(200).json({msg: 'Quiz has been submitted.'})
     } catch (err) {
       return res.status(500).json({msg: err.message})

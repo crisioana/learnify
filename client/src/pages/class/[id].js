@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { useSelector } from 'react-redux'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useParams } from 'react-router-dom'
 import { getDataAPI } from './../../utils/fetchData'
@@ -12,6 +13,7 @@ const ClassDetail = () => {
   const [classData, setClassData] = useState({})
 
   const { id } = useParams()
+  const { auth } = useSelector(state => state)
 
   const fetchClassDetailData = useCallback(async() => {
     setLoading(true)
@@ -67,6 +69,7 @@ const ClassDetail = () => {
                                 key={quiz._id}
                                 id={quiz._id}
                                 title={quiz.title}
+                                isDone={quiz.results?.find(item => item.student === auth.user?._id)}
                               />
                             ))
                           }

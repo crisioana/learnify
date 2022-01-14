@@ -35,6 +35,14 @@ a {
   justify-content: center;
 }
 
+.correct {
+  color: rgb(65, 208, 65);
+}
+
+.wrong {
+  color: red;
+}
+
 .mt-5 {
   margin-top: 30px;
 }
@@ -168,6 +176,22 @@ table {
       transform: translateY(-4px);
       cursor: pointer;
       color: rgb(141, 141, 141);
+    }
+  }
+
+  &--answer {
+    display: flex;
+    align-items: center;
+    
+    svg {
+      transform: translateX(5px);
+      font-size: 21px;
+    }
+
+    p {
+      margin-left: 5px;
+      font-size: 20px;
+      font-weight: bold;
     }
   }
 }
