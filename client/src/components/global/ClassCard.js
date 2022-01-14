@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ClassDetailModal from './../teacher/dashboard/ClassDetailModal'
 
-const ClassCard = ({id, isTeacher, title, description, instructor, quizzes, totalStudent}) => {
+const ClassCard = ({id, isTeacher, title, description, instructor, quizzes, student}) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const navigate = useNavigate()
@@ -22,7 +22,7 @@ const ClassCard = ({id, isTeacher, title, description, instructor, quizzes, tota
           ? (
             <div className='classCard__teacherInfo'>
               <p>Total Quiz : {quizzes.length}</p>
-              <p>Total Student : {totalStudent}</p>
+              <p>Total Student : {student.length}</p>
             </div>
           )
           : <p>Instructor: {instructor}</p>
@@ -40,6 +40,7 @@ const ClassCard = ({id, isTeacher, title, description, instructor, quizzes, tota
         <ClassDetailModal
           id={id}
           quizzes={quizzes}
+          student={student}
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
         />
