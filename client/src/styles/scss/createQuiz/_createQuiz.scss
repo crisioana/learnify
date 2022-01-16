@@ -3,7 +3,8 @@
   &__header {
     margin-bottom: 30px;
 
-    input {
+    input, select {
+      display: block;
       width: 100%;
       max-width: 500px;
       border-radius: 5px;
@@ -16,6 +17,10 @@
       &:focus {
         outline: 2px solid $secondary-color;
       }
+    }
+
+    select {
+      margin-top: 20px;
     }
 
     & > * + * {

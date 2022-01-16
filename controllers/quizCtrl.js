@@ -5,14 +5,15 @@ const Result = require('./../models/Result')
 const quizCtrl = {
   createQuiz: async(req, res) => {
     try {
-      const { classId, title, questions } = req.body
+      const { classId, title, category, questions } = req.body
       if (!title || questions.length === 0)
         return res.status(400).json({msg: 'Please provide every field.'})
 
       const newQuiz = new Quiz({
         title,
         class: classId,
-        questions
+        questions,
+        category
       })
       await newQuiz.save()
 
@@ -30,12 +31,12 @@ const quizCtrl = {
   },
   udpateQuiz: async(req, res) => {
     try {
-      const { title, questions } = req.body
+      const { title, category, questions } = req.body
       if (!title || questions.length === 0)
         return res.status(400).json({msg: 'Please provide every field'})
 
       const quiz = await Quiz.findOneAndUpdate({_id: req.params.id}, {
-        title, questions
+        title, questions, category
       }, {new: true})
       if (!quiz)
         return res.status(404).json({msg: `Quiz with ID ${req.params.id} not found.`})

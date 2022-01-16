@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import GradeModal from './../../global/GradeModal'
 
-const QuizCard = ({id, title, isDone}) => {
+const QuizCard = ({id, title, questions, isDone}) => {
   const [isOpenGrade, setIsOpenGrade] = useState(false)
 
   return (
@@ -34,8 +34,8 @@ const QuizCard = ({id, title, isDone}) => {
         setIsOpenGrade={setIsOpenGrade}
         title={title}
         answer={isDone?.answer}
-        questions={isDone?.quiz.questions}
         score={isDone?.score}
+        questions={questions}
       />
     </>
   )

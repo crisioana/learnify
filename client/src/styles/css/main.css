@@ -1590,7 +1590,8 @@
   margin-bottom: 30px;
 }
 
-.createQuiz__header input {
+.createQuiz__header input, .createQuiz__header select {
+  display: block;
   width: 100%;
   max-width: 500px;
   border-radius: 5px;
@@ -1601,8 +1602,12 @@
   outline: none;
 }
 
-.createQuiz__header input:focus {
+.createQuiz__header input:focus, .createQuiz__header select:focus {
   outline: 2px solid #85C1E5;
+}
+
+.createQuiz__header select {
+  margin-top: 20px;
 }
 
 .createQuiz__header > * + * {

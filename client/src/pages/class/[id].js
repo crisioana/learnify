@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useParams } from 'react-router-dom'
 import { getDataAPI } from './../../utils/fetchData'
+import { getAllCategory } from './../../redux/actions/categoryActions'
 import Navbar from './../../components/global/Navbar'
 import FilterSearch from './../../components/student/classDetail/FilterSearch'
 import QuizCard from './../../components/student/classDetail/QuizCard'
@@ -14,8 +15,9 @@ const ClassDetail = () => {
   const [filterByCompletion, setFilterByCompletion] = useState('')
   const [classData, setClassData] = useState({})
 
+  const dispatch = useDispatch()
   const { id } = useParams()
-  const { auth } = useSelector(state => state)
+  const { auth, category } = useSelector(state => state)
 
   const fetchClassDetailData = useCallback(async() => {
     setLoading(true)
@@ -68,6 +70,10 @@ const ClassDetail = () => {
   }, [id, sortByDate, filterByCompletion, auth.user?._id])
 
   useEffect(() => {
+    dispatch(getAllCategory())
+  }, [dispatch])
+
+  useEffect(() => {
     if (!id) return
     fetchClassDetailData()
   }, [id, fetchClassDetailData])
@@ -83,6 +89,7 @@ const ClassDetail = () => {
         <div className='classDetail__body'>
           <div className='classDetail__body--header'>
             <FilterSearch
+              category={category}
               sortByDate={sortByDate}
               filterByCompletion={filterByCompletion}
               setSortByDate={setSortByDate}
@@ -120,6 +127,7 @@ const ClassDetail = () => {
                                 id={quiz._id}
                                 title={quiz.title}
                                 isDone={quiz.results?.find(item => item.student === auth.user?._id)}
+                                questions={quiz.questions}
                               />
                             ))
                           }

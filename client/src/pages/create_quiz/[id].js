@@ -4,12 +4,14 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa'
 import { getDataAPI } from './../../utils/fetchData'
 import { createQuiz, updateQuiz } from './../../redux/actions/quizActions'
+import { getAllCategory } from './../../redux/actions/categoryActions'
 import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
 import Navbar from './../../components/global/Navbar'
 import Loader from './../../components/global/Loader'
 
 const CreateQuiz = ({quizId, onEdit}) => {
   const [title, setTitle] = useState('Title Goes Here')
+  const [category, setCategory] = useState('')
   const [questions, setQuestions] = useState([
     {
       title: 'Question Goes Here',
@@ -22,11 +24,12 @@ const CreateQuiz = ({quizId, onEdit}) => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { auth, alert } = useSelector(state => state)
+  const { auth, category: allCategory, alert } = useSelector(state => state)
 
   const getQuizDetail = useCallback(async() => {
     const res = await getDataAPI(`quiz/${quizId}`)
     setTitle(res.data.quiz.title)
+    setCategory(res.data.quiz.category)
     setQuestions(res.data.quiz.questions)
   }, [quizId])
 
@@ -100,6 +103,15 @@ const CreateQuiz = ({quizId, onEdit}) => {
       })
     }
 
+    if (category === '') {
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Please select quiz category'
+        }
+      })
+    }
+
     if (questions.length === 0) {
       return dispatch({
         type: GLOBAL_TYPES.ALERT,
@@ -111,6 +123,7 @@ const CreateQuiz = ({quizId, onEdit}) => {
     
     const quizData = {
       classId: id,
+      category,
       title,
       questions
     }
@@ -122,6 +135,10 @@ const CreateQuiz = ({quizId, onEdit}) => {
     }
     navigate('/')
   }
+
+  useEffect(() => {
+    dispatch(getAllCategory())
+  }, [dispatch])
 
   useEffect(() => {
     if (!onEdit) return
@@ -136,6 +153,14 @@ const CreateQuiz = ({quizId, onEdit}) => {
           <h2>Create Quiz for "Class Title Goes Here" Class</h2>
           <p>Instructor : Lecturer Name Goes Here</p>
           <input type='text' value={title} onChange={e => setTitle(e.target.value)} />
+          <select value={category} onChange={e => setCategory(e.target.value)}>
+            <option value=''>- Choose Category -</option>
+            {
+              allCategory.map(item => (
+                <option key={item._id} value={item._id}>{item.name}</option>
+              ))
+            }
+          </select>
         </div>
         <div className='createQuiz__body'>
           {

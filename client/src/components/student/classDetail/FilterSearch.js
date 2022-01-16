@@ -4,7 +4,7 @@ import { AiOutlineClose, AiOutlineSearch, AiOutlineSortAscending, AiOutlineSortD
 import { BiCheckDouble } from 'react-icons/bi'
 import { MdOutlinePendingActions } from 'react-icons/md'
 
-const FilterSearch = ({sortByDate, filterByCompletion, setSortByDate, setFilterByCompletion}) => {
+const FilterSearch = ({category, sortByDate, filterByCompletion, setSortByDate, setFilterByCompletion}) => {
   const [isOpenFilter, setIsOpenFilter] = useState(false)
 
   const handleSortByDate = type => {
@@ -37,26 +37,14 @@ const FilterSearch = ({sortByDate, filterByCompletion, setSortByDate, setFilterB
             </div>
             <div className='filterSearch--single'>
               <h4>Filter By Category</h4>
-              <div className='inputGroup'>
-                <input type='checkbox' id='geography' />
-                <label htmlFor='geography'>Geography</label>
-              </div>
-              <div className='inputGroup'>
-                <input type='checkbox' id='geography' />
-                <label htmlFor='geography'>Geography</label>
-              </div>
-              <div className='inputGroup'>
-                <input type='checkbox' id='geography' />
-                <label htmlFor='geography'>Geography</label>
-              </div>
-              <div className='inputGroup'>
-                <input type='checkbox' id='geography' />
-                <label htmlFor='geography'>Geography</label>
-              </div>
-              <div className='inputGroup'>
-                <input type='checkbox' id='geography' />
-                <label htmlFor='geography'>Geography</label>
-              </div>
+              {
+                category.map(item => (
+                  <div className='inputGroup' key={item._id}>
+                    <input type='checkbox' id={item.name} value={item._id} />
+                    <label htmlFor={item.name}>{item.name}</label>
+                  </div>
+                ))
+              }
             </div>
             <div className='filterSearch--single'>
               <h4>Sort By Date</h4>
