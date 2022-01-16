@@ -8,7 +8,7 @@ router.route('/')
 
   router.route('/student').get(isAuthenticated, authorizeRoles('Student'), classCtrl.getStudentClasses)
 
-router.route('/:id').get(classCtrl.getClassById)
+router.route('/:id').get(classCtrl.getClassDetail)
 
 router.route('/restrict/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.changeRestrictStatus)
 router.route('/rename/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.renameClass)

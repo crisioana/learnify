@@ -13,6 +13,7 @@ const ClassDetail = () => {
   const [loading, setLoading] = useState(false)
   const [sortByDate, setSortByDate] = useState('')
   const [filterByCompletion, setFilterByCompletion] = useState('')
+  const [filterByCategory, setFilterByCategory] = useState([])
   const [classData, setClassData] = useState({})
 
   const dispatch = useDispatch()
@@ -25,6 +26,18 @@ const ClassDetail = () => {
     
     if (sortByDate === 'descending')
       url = url + '?sort=descending'
+
+    if (filterByCategory.length > 0) {
+      let queryStr = ''
+      for (let i = 0; i < filterByCategory.length; i++) {
+        if (i !== (filterByCategory.length - 1)) {
+          queryStr += `category=${filterByCategory[i]}&`
+        } else {
+          queryStr += `category=${filterByCategory[i]}`
+        }
+      }
+      url = `${url}?${queryStr}`
+    }
 
     const res = await getDataAPI(url)
     const tempQuizzes = res.data.class[0].quizzes
@@ -67,7 +80,7 @@ const ClassDetail = () => {
     })
 
     setLoading(false)
-  }, [id, sortByDate, filterByCompletion, auth.user?._id])
+  }, [id, sortByDate, filterByCompletion, filterByCategory, auth.user?._id])
 
   useEffect(() => {
     dispatch(getAllCategory())
@@ -92,6 +105,8 @@ const ClassDetail = () => {
               category={category}
               sortByDate={sortByDate}
               filterByCompletion={filterByCompletion}
+              filterByCategory={filterByCategory}
+              setFilterByCategory={setFilterByCategory}
               setSortByDate={setSortByDate}
               setFilterByCompletion={setFilterByCompletion}
             />

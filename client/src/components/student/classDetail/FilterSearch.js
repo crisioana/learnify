@@ -4,7 +4,7 @@ import { AiOutlineClose, AiOutlineSearch, AiOutlineSortAscending, AiOutlineSortD
 import { BiCheckDouble } from 'react-icons/bi'
 import { MdOutlinePendingActions } from 'react-icons/md'
 
-const FilterSearch = ({category, sortByDate, filterByCompletion, setSortByDate, setFilterByCompletion}) => {
+const FilterSearch = ({category, sortByDate, filterByCompletion, filterByCategory, setSortByDate, setFilterByCompletion, setFilterByCategory}) => {
   const [isOpenFilter, setIsOpenFilter] = useState(false)
 
   const handleSortByDate = type => {
@@ -21,6 +21,18 @@ const FilterSearch = ({category, sortByDate, filterByCompletion, setSortByDate, 
     } else {
       setFilterByCompletion(type)
     }
+  }
+
+  const handleSelectCategory = e => {
+    const val = e.target.value
+    
+    setFilterByCategory(item => {
+      if (!item.find(cat => cat === val)) {
+        return [...filterByCategory, val]
+      } else {
+        return item.filter(cat => cat !== val)
+      }
+    })
   }
 
   return (
@@ -40,7 +52,7 @@ const FilterSearch = ({category, sortByDate, filterByCompletion, setSortByDate, 
               {
                 category.map(item => (
                   <div className='inputGroup' key={item._id}>
-                    <input type='checkbox' id={item.name} value={item._id} />
+                    <input type='checkbox' id={item.name} value={item._id} onChange={handleSelectCategory} />
                     <label htmlFor={item.name}>{item.name}</label>
                   </div>
                 ))

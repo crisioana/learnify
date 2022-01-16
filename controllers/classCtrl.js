@@ -35,9 +35,18 @@ const classCtrl = {
       return res.status(500).json({msg: err.message})
     }
   },
-  getClassById: async(req, res) => {
+  getClassDetail: async(req, res) => {
     try {
-      const { sort } = req.query
+      const { sort, category } = req.query
+
+      const categoryQuery = []
+      if (typeof category === 'string') {
+        categoryQuery.push(mongoose.Types.ObjectId(category))
+      } else {
+        for (let i = 0; i < category?.length; i++) {
+          categoryQuery.push(mongoose.Types.ObjectId(category[i]))
+        }
+      }
 
       const quizPipeline = [
         { $match: { $expr: { $in: ["$_id", "$$quiz_id"] } } },
@@ -52,6 +61,14 @@ const classCtrl = {
           }
         }
       ]
+
+      if (categoryQuery.length !== 0) {
+        quizPipeline.unshift({
+          $match: {
+            category: { $in: categoryQuery }
+          }
+        })
+      }
 
       if (sort === 'descending') {
         quizPipeline.unshift(
