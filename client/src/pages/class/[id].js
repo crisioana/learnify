@@ -10,6 +10,8 @@ import Loader from './../../components/global/Loader'
 
 const ClassDetail = () => {
   const [loading, setLoading] = useState(false)
+  const [sortByDate, setSortByDate] = useState('')
+  const [filterByCompletion, setFilterByCompletion] = useState('')
   const [classData, setClassData] = useState({})
 
   const { id } = useParams()
@@ -17,10 +19,53 @@ const ClassDetail = () => {
 
   const fetchClassDetailData = useCallback(async() => {
     setLoading(true)
-    const res = await getDataAPI(`class/${id}`)
-    setClassData(res.data.class)
+    let url = `class/${id}`
+    
+    if (sortByDate === 'descending')
+      url = url + '?sort=descending'
+
+    const res = await getDataAPI(url)
+    const tempQuizzes = res.data.class[0].quizzes
+    let newQuizzes = []
+
+    if (filterByCompletion === 'complete') {
+      tempQuizzes.forEach(item => {
+        item.results.forEach(result => {
+          if (result.student === auth.user?._id) {
+            newQuizzes.push(item)
+          }
+        })
+      })
+    } else if (filterByCompletion === 'incomplete') {
+      tempQuizzes.forEach(item => {
+        let isMatch = false
+        
+        if (item.results.length > 0) {
+          item.results.forEach(result => {
+            if (result.student !== auth.user?._id) {
+              isMatch = true
+            } else {
+              isMatch = false
+            }
+          })
+        } else {
+          isMatch = true
+        }
+
+        if (isMatch)
+          newQuizzes.push(item)
+      })
+    } else {
+      newQuizzes = tempQuizzes
+    }
+
+    setClassData({
+      ...res.data.class[0],
+      quizzes: newQuizzes
+    })
+
     setLoading(false)
-  }, [id])
+  }, [id, sortByDate, filterByCompletion, auth.user?._id])
 
   useEffect(() => {
     if (!id) return
@@ -37,7 +82,12 @@ const ClassDetail = () => {
         </div>
         <div className='classDetail__body'>
           <div className='classDetail__body--header'>
-            <FilterSearch />
+            <FilterSearch
+              sortByDate={sortByDate}
+              filterByCompletion={filterByCompletion}
+              setSortByDate={setSortByDate}
+              setFilterByCompletion={setFilterByCompletion}
+            />
           </div>
           <div className='classDetail__body--body'>
             <div className='classDetail__input'>

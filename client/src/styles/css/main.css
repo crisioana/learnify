@@ -1762,6 +1762,15 @@ a {
   clear: both;
 }
 
+.sort-active,
+.filter-active {
+  background: #5584B1;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  padding: 8px 12px;
+}
+
 .errorMessage {
   text-align: center;
   border-radius: 5px;

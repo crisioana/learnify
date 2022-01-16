@@ -37,18 +37,53 @@ const classCtrl = {
   },
   getClassById: async(req, res) => {
     try {
-      const classDetail = await Class.findById(req.params.id)
-        .populate('instructor', 'name')
-        .populate({
-          path: 'quizzes',
-          populate: {
-            path: 'results',
-            populate: {
-              path: 'quiz',
-              select: 'questions'
-            }
+      const { sort } = req.query
+
+      const quizPipeline = [
+        { $match: { $expr: { $in: ["$_id", "$$quiz_id"] } } },
+        {
+          $lookup: {
+            "from": "results",
+            "let": { result_id: "$results" },
+            "pipeline": [
+              { $match: { $expr: { $in: ["$_id", "$$result_id"] } } }
+            ],
+            "as": "results"
           }
-        })
+        }
+      ]
+
+      if (sort === 'descending') {
+        quizPipeline.unshift(
+          { $sort: { createdAt: -1 } }
+        )
+      }
+
+      const classDetail = await Class.aggregate([
+        {
+          $match: {_id: mongoose.Types.ObjectId(req.params.id)}
+        },
+        {
+          $lookup: {
+            "from": "users",
+            "let": { user_id: "$instructor" },
+            "pipeline": [
+              { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+              { $project: { name: 1 } }
+            ],
+            "as": "instructor"
+          }
+        },
+        { $unwind: "$instructor" },
+        {
+          $lookup: {
+            "from": "quizzes",
+            "let": { quiz_id: "$quizzes" },
+            "pipeline": quizPipeline,
+            "as": "quizzes"
+          }
+        }
+      ])
 
       if (!classDetail)
         return res.status(404).json({msg: `Class with ID ${req.params.id} not found.`})
