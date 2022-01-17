@@ -85,6 +85,18 @@ const classReducer = (state = initialState, action) => {
           : item
         ))
       }
+    case QUIZ_TYPES.DELETE_QUIZ:
+      return {
+        ...state,
+        data: state.data.map(item => (
+          item._id === action.payload.classId
+          ? {
+            ...item,
+            quizzes: item.quizzes.filter(quiz => quiz._id !== action.payload.quizId)
+          }
+          : item
+        ))
+      }
     default:
       return state
   }

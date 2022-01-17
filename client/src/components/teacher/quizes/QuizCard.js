@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FaEye, FaTrash, FaEdit } from 'react-icons/fa'
-import { changeQuizStatus } from './../../../redux/actions/quizActions'
+import { changeQuizStatus, deleteQuiz } from './../../../redux/actions/quizActions'
 
 const QuizCard = ({id, title, status}) => {
   const dispatch = useDispatch()
@@ -22,6 +22,10 @@ const QuizCard = ({id, title, status}) => {
     dispatch(changeQuizStatus(id, newStatus, auth.accessToken))
   }
 
+  const handleDelete = () => {
+    dispatch(deleteQuiz(id, auth.accessToken))
+  }
+
   return (
     <div className='teacherQuizCard'>
       <div className='teacherQuizCard__left'>
@@ -30,7 +34,7 @@ const QuizCard = ({id, title, status}) => {
       <div className='teacherQuizCard__right'>
         <FaEye />
         <FaEdit onClick={handleEdit} />
-        <FaTrash />
+        <FaTrash onClick={handleDelete} />
         <p
           onClick={handleChangeStatus}
           className={status === 'Open' ? 'open' : 'close'}

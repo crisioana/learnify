@@ -7,6 +7,7 @@ router.route('/').post(isAuthenticated, authorizeRoles('Instructor'), quizCtrl.c
 router.route('/:id')
   .get(quizCtrl.getQuizById)
   .patch(isAuthenticated, authorizeRoles('Instructor'), quizCtrl.udpateQuiz)
+  .delete(isAuthenticated, authorizeRoles('Instructor'), quizCtrl.deleteQuiz)
 
 router.route('/status/:id').patch(isAuthenticated, authorizeRoles('Instructor'), quizCtrl.changeQuizStatus)
 

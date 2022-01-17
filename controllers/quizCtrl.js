@@ -124,6 +124,30 @@ const quizCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  deleteQuiz: async(req, res) => {
+    try {
+      const { id } = req.params
+      const findQuiz = await Quiz.findById(id)
+      if (!findQuiz)
+        return res.status(404).json({msg: `Quiz with ID ${id} not found.`})
+
+      await Class.findOneAndUpdate({_id: findQuiz.class}, {
+        $pull: { quizzes: id }
+      })
+
+      await Result.deleteMany({quiz: id})
+
+      await Quiz.findOneAndDelete({_id: id})
+      
+      return res.status(200).json({
+        msg: 'Quiz has been deleted.',
+        quizId: id,
+        classId: findQuiz.class
+      })
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
   }
 }
 

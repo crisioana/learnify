@@ -1,6 +1,6 @@
 import { GLOBAL_TYPES } from './../types/globalTypes'
 import { QUIZ_TYPES } from './../types/quizTypes'
-import { postDataAPI, patchDataAPI, getDataAPI } from './../../utils/fetchData'
+import { postDataAPI, patchDataAPI, getDataAPI, deleteDataAPI } from './../../utils/fetchData'
 
 export const createQuiz = (quizData, accessToken) => async(dispatch) => {
   try {
@@ -113,6 +113,33 @@ export const getQuizDetail = id => async(dispatch) => {
 export const submitQuiz = (answer, quizId, accessToken) => async(dispatch) => {
   try {
     const res = await postDataAPI('quiz/submit', {answer, quizId}, accessToken)
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const deleteQuiz = (id, accessToken) => async(dispatch) => {
+  try {
+    const res = await deleteDataAPI(`quiz/${id}`, accessToken)
+    dispatch({
+      type: QUIZ_TYPES.DELETE_QUIZ,
+      payload: {
+        quizId: res.data.quizId,
+        classId: res.data.classId
+      }
+    })
+
     dispatch({
       type: GLOBAL_TYPES.ALERT,
       payload: {
