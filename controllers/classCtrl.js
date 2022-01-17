@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const Class = require('./../models/Class')
+const Result = require('./../models/Result')
+const Quiz = require('./../models/Quiz')
 
 const classCtrl = {
   getClassesByInstructor: async(req, res) => {
@@ -182,6 +184,30 @@ const classCtrl = {
         msg: 'Class joined.',
         class: classData
       })
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
+  kickStudent: async(req, res) => {
+    try {
+      const classDetail = await Class.findOneAndUpdate({_id: req.body.classId}, {
+        $pull: { people: req.params.id }
+      })
+      if (!classDetail)
+        return res.status(404).json({msg: `No class found with ID ${req.body.classId}`})
+
+      const classQuizzes = classDetail.quizzes
+      for (let i = 0; i < classQuizzes.length; i++) {
+        console.log(classQuizzes[i])
+        const resultDetail = await Result.findOneAndDelete({student: req.params.id, quiz: classQuizzes[i]})
+        if (resultDetail) {
+          await Quiz.findOneAndUpdate({_id: classQuizzes[i]}, {
+            $pull: { results: resultDetail._id }
+          })
+        }
+      }
+
+      return res.status(200).json({msg: `Student with ID ${req.params.id} has been kicked.`})
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }

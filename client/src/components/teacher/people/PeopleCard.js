@@ -1,6 +1,15 @@
+import { useDispatch, useSelector } from 'react-redux'
+import { kickStudent } from './../../../redux/actions/classActions'
 import Avatar from './../../global/Avatar'
 
-const PeopleCard = ({avatar, name, email}) => {
+const PeopleCard = ({id, classId, avatar, name, email}) => {
+  const dispatch = useDispatch()
+  const { auth } = useSelector(state => state)
+
+  const handleKick = () => {
+    dispatch(kickStudent(id, classId, auth.accessToken))
+  }
+
   return (
     <div className='peopleCard'>
       <div className='peopleCard__left'>
@@ -11,7 +20,7 @@ const PeopleCard = ({avatar, name, email}) => {
         </div>
       </div>
       <div className='peopleCard__right'>
-        <button>Kick</button>
+        <button onClick={handleKick}>Kick</button>
       </div>
     </div>
   )

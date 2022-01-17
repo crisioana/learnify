@@ -1,7 +1,7 @@
 import { AiOutlineSearch } from 'react-icons/ai'
 import PeopleCard from './PeopleCard'
 
-const PeopleList = ({student}) => {
+const PeopleList = ({classId, student}) => {
   return (
     <div>
       <div className='searchInput'>
@@ -21,6 +21,8 @@ const PeopleList = ({student}) => {
               student.map(item => (
                 <PeopleCard
                   key={item._id}
+                  id={item._id}
+                  classId={classId}
                   avatar={item.avatar}
                   name={item.name}
                   email={item.email}

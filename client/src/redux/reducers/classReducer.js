@@ -97,6 +97,18 @@ const classReducer = (state = initialState, action) => {
           : item
         ))
       }
+    case CLASS_TYPES.KICK_STUDENT:
+      return {
+        ...state,
+        data: state.data.map(item => (
+          item._id === action.payload.classId
+          ? {
+            ...item,
+            people: item.people.filter(student => student._id !== action.payload.studentId)
+          }
+          : item
+        ))
+      }
     default:
       return state
   }

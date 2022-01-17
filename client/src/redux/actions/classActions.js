@@ -157,3 +157,30 @@ export const joinClass = (id, accessToken) => async(dispatch) => {
     })
   }
 }
+
+export const kickStudent = (id, classId, accessToken) => async(dispatch) => {
+  try {
+    const res = await patchDataAPI(`class/kick/${id}`, {classId}, accessToken)
+    dispatch({
+      type: CLASS_TYPES.KICK_STUDENT,
+      payload: {
+        classId,
+        studentId: id
+      }
+    })
+    
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}

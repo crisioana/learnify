@@ -13,5 +13,6 @@ router.route('/:id').get(classCtrl.getClassDetail)
 router.route('/restrict/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.changeRestrictStatus)
 router.route('/rename/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.renameClass)
 router.route('/join/:id').patch(isAuthenticated, authorizeRoles('Student'), classCtrl.joinClass)
+router.route('/kick/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.kickStudent)
 
 module.exports = router

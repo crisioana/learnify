@@ -37,7 +37,7 @@ const ClassDetailModal = ({id, quizzes, student, classRestrict, isOpenModal, set
           </div>
           <div className='classDetailModal__body--bottom'>
             {currentMenu === 'Quizes' && <QuizList quizzes={quizzes} />}
-            {currentMenu === 'People' && <PeopleList student={student} />}
+            {currentMenu === 'People' && <PeopleList classId={id} student={student} />}
             {currentMenu === 'Settings' && <SettingList id={id} status={classRestrict} />}
           </div>
         </div>
