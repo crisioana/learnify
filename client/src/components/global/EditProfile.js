@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
+import { updateProfile } from './../../redux/actions/authActions'
 import Avatar from './Avatar'
+import Loader from './Loader'
 
 const EditProfile = ({openEditProfile, setOpenEditProfile}) => {
   const [userData, setUserData] = useState({
@@ -11,12 +13,34 @@ const EditProfile = ({openEditProfile, setOpenEditProfile}) => {
     gender: ''
   })
   const [avatar, setAvatar] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch()
   const { auth } = useSelector(state => state)
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
+    
+    if (!userData.name)
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Name field can\'t be empty.'
+        }
+      })
+
+    if (!userData.phone)
+      return dispatch({
+        type: GLOBAL_TYPES.ALERT,
+        payload: {
+          errors: 'Phone number field can\'t be empty.'
+        }
+      })
+    
+    setLoading(true)
+    await dispatch(updateProfile(userData, avatar, auth.accessToken))
+    setLoading(false)
+    setOpenEditProfile(false)
   }
 
   const handleChange = e => {
@@ -47,6 +71,16 @@ const EditProfile = ({openEditProfile, setOpenEditProfile}) => {
 
     setAvatar(file)
   }
+
+  useEffect(() => {
+    setUserData({
+      name: auth.user?.name,
+      phone: auth.user?.phone,
+      gender: auth.user?.gender
+    })
+
+    return () => setUserData({name: '', phone: '', gender: ''})
+  }, [auth.user])
 
   return (
     <div className={`editProfile ${openEditProfile ? 'active' : undefined}`}>
@@ -89,7 +123,17 @@ const EditProfile = ({openEditProfile, setOpenEditProfile}) => {
                 </div>
               </div>
             </div>
-            <button type='submit'>Save Changes</button>
+            <button type='submit' disabled={loading ? true : false}>
+              {
+                loading
+                ? (
+                  <div className='center'>
+                    <Loader width='20px' height='20px' border='2px' />
+                  </div>
+                )
+                : 'Save Changes'
+              }
+            </button>
           </form>
         </div>
       </div>

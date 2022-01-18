@@ -1,5 +1,6 @@
 import { GLOBAL_TYPES } from './../types/globalTypes'
-import { getDataAPI, postDataAPI } from './../../utils/fetchData'
+import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
+import { uploadImage } from './../../utils/imageHelper'
 
 export const register = userData => async(dispatch) => {
   try {
@@ -174,6 +175,44 @@ export const facebookLogin = (accessToken, userID) => async(dispatch) => {
       payload: {
         user: res.data.user,
         accessToken: res.data.accessToken
+      }
+    })
+
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const updateProfile = (userData, avatar, accessToken) => async(dispatch) => {
+  try {
+    const data = {
+      ...userData
+    }
+
+    let img_url = ''
+    if (avatar) {
+      const imgResult = await uploadImage(avatar)
+      img_url = imgResult.secure_url
+      data.avatar = img_url
+    }
+
+    const res = await patchDataAPI('auth/edit', data, accessToken)
+    dispatch({
+      type: GLOBAL_TYPES.AUTH,
+      payload: {
+        user: res.data.user,
+        accessToken
       }
     })
 

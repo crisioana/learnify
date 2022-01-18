@@ -143,6 +143,28 @@ const authCtrl = {
       return res.status(500).json({msg: err.message})
     }
   },
+  updateProfile: async(req, res) => {
+    try {
+      const { avatar, name, phone, gender } = req.body
+
+      if (!name)
+        return res.status(400).json({msg: 'Name field can\'t be blank.'})
+
+      if (!phone)
+        return res.status(400).json({msg: 'Phone number field can\'t be empty.'})
+
+      const newUser = await User.findOneAndUpdate({_id: req.user._id}, {
+        name, avatar, phone: `+${phone}`, gender
+      }, {new: true})
+
+      return res.status(200).json({
+        msg: 'User profile updated.',
+        user: newUser
+      })
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
   googleLogin: async(req, res) => {
     try {
       const { token } = req.body
