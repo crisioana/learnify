@@ -109,6 +109,11 @@ const classReducer = (state = initialState, action) => {
           : item
         ))
       }
+    case CLASS_TYPES.DELETE_CLASS:
+      return {
+        ...state,
+        data: state.data.filter(item => item._id !== action.payload)
+      }
     default:
       return state
   }

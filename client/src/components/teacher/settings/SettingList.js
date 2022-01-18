@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { GLOBAL_TYPES } from './../../../redux/types/globalTypes'
-import { changeClassStatus, renameClass } from './../../../redux/actions/classActions'
+import { changeClassStatus, deleteClass, renameClass } from './../../../redux/actions/classActions'
 import Loader from './../../global/Loader'
 
 const SettingList = ({id, status}) => {
@@ -45,6 +45,10 @@ const SettingList = ({id, status}) => {
     dispatch(changeClassStatus(id, newStatus, auth.accessToken))
   }
 
+  const handleDeleteClass = () => {
+    dispatch(deleteClass(id, auth.accessToken))
+  }
+
   return (
     <div className='settingList'>
       <h4>Class Code : {id}</h4>
@@ -83,7 +87,7 @@ const SettingList = ({id, status}) => {
       </form>
 
       <button onClick={handleCreateQuiz} className='createQuizBtn'>Create Quiz for "Class Title Goes Here" Class</button>
-      <button className='deleteBtn'>Delete "Class Title Goes Here" Class</button>
+      <button className='deleteBtn' onClick={handleDeleteClass}>Delete "Class Title Goes Here" Class</button>
     </div>
   )
 }

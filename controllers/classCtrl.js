@@ -198,7 +198,6 @@ const classCtrl = {
 
       const classQuizzes = classDetail.quizzes
       for (let i = 0; i < classQuizzes.length; i++) {
-        console.log(classQuizzes[i])
         const resultDetail = await Result.findOneAndDelete({student: req.params.id, quiz: classQuizzes[i]})
         if (resultDetail) {
           await Quiz.findOneAndUpdate({_id: classQuizzes[i]}, {
@@ -208,6 +207,23 @@ const classCtrl = {
       }
 
       return res.status(200).json({msg: `Student with ID ${req.params.id} has been kicked.`})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
+  deleteClass: async(req, res) => {
+    try {
+      const classDetail = await Class.findOneAndDelete({_id: req.params.id})
+      if (!classDetail)
+        return res.status(404).json({msg: `Class with ID ${req.params.id} not found.`})
+
+      const classQuizzes = classDetail.quizzes
+      for (let i = 0; i < classQuizzes.length; i++) {
+        await Result.deleteMany({quiz: classQuizzes[i]})
+        await Quiz.findOneAndDelete({_id: classQuizzes[i]})
+      }
+
+      return res.status(200).json({msg: `Class with ID ${req.params.id} has been deleted.`})
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }

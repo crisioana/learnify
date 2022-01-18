@@ -1,6 +1,6 @@
 import { GLOBAL_TYPES } from './../types/globalTypes'
 import { CLASS_TYPES } from './../types/classTypes'
-import { getDataAPI, postDataAPI, patchDataAPI }  from './../../utils/fetchData'
+import { getDataAPI, postDataAPI, patchDataAPI, deleteDataAPI }  from './../../utils/fetchData'
 
 export const getClasses = accessToken => async(dispatch) => {
   try {
@@ -169,6 +169,30 @@ export const kickStudent = (id, classId, accessToken) => async(dispatch) => {
       }
     })
     
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const deleteClass = (id, accessToken) => async(dispatch) => {
+  try {
+    const res = await deleteDataAPI(`class/${id}`, accessToken)
+    dispatch({
+      type: CLASS_TYPES.DELETE_CLASS,
+      payload: id
+    })
+
     dispatch({
       type: GLOBAL_TYPES.ALERT,
       payload: {
