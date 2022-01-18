@@ -114,7 +114,7 @@
   top: 100%;
   right: 0;
   background: #fff;
-  width: 150px;
+  width: 210px;
   border-radius: 5px;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -161,11 +161,11 @@
 
 .navbar__links--profileDropdown a:first-child {
   border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .navbar__links--profileDropdown a:last-child {
-  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
@@ -531,6 +531,78 @@
 
 .editProfile__body button {
   width: 120px;
+}
+
+.changePassword {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 30px;
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: opacity 200ms;
+  transition: opacity 200ms;
+}
+
+.changePassword.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.changePassword__box {
+  width: 100%;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 5px;
+  -webkit-transform: translateY(-80px);
+          transform: translateY(-80px);
+  opacity: 0;
+  -webkit-transition: -webkit-transform 200ms;
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.changePassword__box.active {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  opacity: 1;
+}
+
+.changePassword__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 15px 20px;
+}
+
+.changePassword__header svg {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.changePassword__body {
+  padding: 15px 20px;
 }
 
 .auth {
