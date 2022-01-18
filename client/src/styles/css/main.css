@@ -1545,113 +1545,6 @@
   width: 100%;
 }
 
-.submissionModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  padding: 0 30px;
-  opacity: 0;
-  pointer-events: none;
-  -webkit-transition: opacity 200ms;
-  transition: opacity 200ms;
-}
-
-.submissionModal.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.submissionModal__box {
-  background: #fff;
-  width: 100%;
-  max-width: 600px;
-  border-radius: 5px;
-  height: 70vh;
-  overflow: auto;
-  opacity: 0;
-  -webkit-transform: translateY(-80px);
-          transform: translateY(-80px);
-  -webkit-transition: -webkit-transform 200ms;
-  transition: -webkit-transform 200ms;
-  transition: transform 200ms;
-  transition: transform 200ms, -webkit-transform 200ms;
-}
-
-.submissionModal__box.active {
-  opacity: 1;
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
-}
-
-.submissionModal__header {
-  padding: 15px 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border-bottom: 1px solid #ccc;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.submissionModal__header svg {
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.submissionModal__body {
-  padding: 15px 20px;
-}
-
-.submissionCard {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  padding: 10px 15px;
-  -webkit-transition: -webkit-transform 200ms;
-  transition: -webkit-transform 200ms;
-  transition: transform 200ms;
-  transition: transform 200ms, -webkit-transform 200ms;
-}
-
-.submissionCard:hover {
-  -webkit-transform: scale(1.01);
-          transform: scale(1.01);
-}
-
-.submissionCard svg {
-  cursor: pointer;
-  color: #5584B1;
-}
-
-.submissionCard:not(:last-child) {
-  margin-bottom: 25px;
-}
-
 .submission__header > * + * {
   margin-top: 10px;
 }
@@ -1683,14 +1576,6 @@
 .submission__body table tr td button:first-child {
   width: 60px;
   margin-right: 12px;
-}
-
-.submission__body table tr td button:last-child {
-  background: #3fbd3f;
-}
-
-.submission__body table tr td button:last-child:hover {
-  background: #2d9d2d;
 }
 
 .createQuiz__header {

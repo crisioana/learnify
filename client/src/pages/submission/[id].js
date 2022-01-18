@@ -1,15 +1,26 @@
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { getSubmissionsByQuiz } from './../../redux/actions/submissionActions'
 import Navbar from './../../components/global/Navbar'
 import TableRow from './../../components/submission/TableRow'
 
 const Submission = () => {
+  const dispatch = useDispatch()
+  const { id } = useParams()
+  const { auth, submission } = useSelector(state => state)
+
+  useEffect(() => {
+    dispatch(getSubmissionsByQuiz(id, auth.accessToken))
+  }, [dispatch, id, auth.accessToken])
   return (
     <>
       <Navbar />
       <div className='submission container'>
         <div className='submission__header'>
-          <h2>Class Title Goes Here | Quiz Title</h2>
-          <p>Instructor : Lecturer name goes here</p>
-          <p>37/40 submissions</p>
+          <h2>{submission.class?.name} | {submission.quizName}</h2>
+          <p>Instructor : {auth.user?.name}</p>
+          <p>{submission.count}/{submission.class?.people?.length} {submission.class?.people?.length > 1 ? 'submissions' : 'submission'}</p>
         </div>
         <div className='submission__body'>
           <table>
@@ -24,7 +35,19 @@ const Submission = () => {
               </tr>
             </thead>
             <tbody>
-              <TableRow />
+              {
+                submission.results?.map((item, idx) => (
+                  <TableRow
+                    key={idx}
+                    no={idx + 1}
+                    student={item.student?.name}
+                    score={item.score}
+                    submissionDate={new Date(item.createdAt).toLocaleString()}
+                    questions={submission.questions}
+                    answer={item.answer}
+                  />
+                ))
+              }
             </tbody>
           </table>
         </div>

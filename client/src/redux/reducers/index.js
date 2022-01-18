@@ -5,6 +5,7 @@ import instructorClass from './classReducer'
 import studentClass from './studentClassReducer'
 import quizDetail from './quizDetailReducer'
 import category from './categoryReducer'
+import submission from './submissionReducer'
 
 export default combineReducers({
   auth,
@@ -12,5 +13,6 @@ export default combineReducers({
   instructorClass,
   studentClass,
   quizDetail,
-  category
+  category,
+  submission
 })

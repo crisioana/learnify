@@ -1,13 +1,9 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FaEye, FaTrash, FaEdit } from 'react-icons/fa'
 import { changeQuizStatus, deleteQuiz } from './../../../redux/actions/quizActions'
-import SubmissionModal from './../submission/SubmissionModal'
 
 const QuizCard = ({id, title, status}) => {
-  const [viewSubmission, setViewSubmission] = useState(false) 
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { auth } = useSelector(state => state)
@@ -37,7 +33,7 @@ const QuizCard = ({id, title, status}) => {
           <h4>{title}</h4>
         </div>
         <div className='teacherQuizCard__right'>
-          <FaEye onClick={() => setViewSubmission(true)} />
+          <FaEye onClick={() => navigate(`/submission/${id}`)} />
           <FaEdit onClick={handleEdit} />
           <FaTrash onClick={handleDelete} />
           <p
@@ -48,12 +44,6 @@ const QuizCard = ({id, title, status}) => {
           </p>
         </div>
       </div>
-
-      <SubmissionModal
-        title={title}
-        viewSubmission={viewSubmission}
-        setViewSubmission={setViewSubmission}
-      />
     </>
   )
 }
