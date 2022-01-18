@@ -7,6 +7,7 @@
   './global/classCard',
   './global/gradeModal',
   './global/loader',
+  './global/editProfile',
   './auth/auth',
   './auth/role',
   './auth/roleModal',
@@ -128,6 +129,7 @@ table {
   input[type="text"],
   input[type="password"],
   input[type="number"],
+  input[type="file"],
   textarea {
     width: 100%;
     border: 1px solid rgb(146, 146, 146);
@@ -201,6 +203,16 @@ table {
       margin-left: 5px;
       font-size: 20px;
       font-weight: bold;
+    }
+  }
+
+  &--flex {
+    display: flex;
+    margin-bottom: 20px;
+
+    .inputGroup {
+      flex: 1;
+      margin-left: 20px;
     }
   }
 }

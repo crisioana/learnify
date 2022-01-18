@@ -8,6 +8,7 @@ import { FaBell, FaUserAlt } from 'react-icons/fa'
 import { logout } from './../../redux/actions/authActions'
 import JoinClass from './../student/dashboard/JoinClass'
 import CreateClass from './../teacher/dashboard/CreateClass'
+import EditProfile from './EditProfile'
 import Avatar from './Avatar'
 
 const Navbar = () => {
@@ -15,9 +16,15 @@ const Navbar = () => {
   const [isOpenAvatarDropdown, setIsOpenAvatarDropdown] = useState(false)
   const [openJoinClass, setOpenJoinClass] = useState(false)
   const [openCreateClass, setOpenCreateClass] = useState(false)
+  const [openEditProfile, setOpenEditProfile] = useState(false)
 
   const dispatch = useDispatch()
   const { auth } = useSelector(state => state)
+
+  const handleOpenEditProfile = e => {
+    e.preventDefault()
+    setOpenEditProfile(true)
+  }
 
   return (
     <>
@@ -45,7 +52,7 @@ const Navbar = () => {
             <div className='navbar__links--profile'>
               <Avatar src={auth.user?.avatar} alt={auth.user?.name} onClick={() => setIsOpenAvatarDropdown(!isOpenAvatarDropdown)} />
               <div className={`navbar__links--profileDropdown ${isOpenAvatarDropdown ? 'active' : undefined}`}>
-                <Link to='/'>
+                <Link to='/' onClick={handleOpenEditProfile}>
                   <FaUserAlt />
                   Edit Profile
                 </Link>
@@ -67,6 +74,11 @@ const Navbar = () => {
       <CreateClass
         openCreateClass={openCreateClass}
         setOpenCreateClass={setOpenCreateClass}
+      />
+
+      <EditProfile
+        openEditProfile={openEditProfile}
+        setOpenEditProfile={setOpenEditProfile}
       />
     </>
   )

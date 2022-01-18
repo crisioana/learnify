@@ -452,6 +452,87 @@
   }
 }
 
+.editProfile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 30px;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: opacity 200ms;
+  transition: opacity 200ms;
+}
+
+.editProfile.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.editProfile__box {
+  width: 100%;
+  border-radius: 5px;
+  max-width: 500px;
+  background: #fff;
+  -webkit-transform: translateY(-80px);
+          transform: translateY(-80px);
+  opacity: 0;
+  -webkit-transition: -webkit-transform 200ms;
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.editProfile__box.active {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  opacity: 1;
+}
+
+.editProfile__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.editProfile__header svg {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.editProfile__body {
+  padding: 15px 20px;
+}
+
+.editProfile__body .avatar {
+  width: 80px;
+  height: 80px;
+}
+
+.editProfile__body button {
+  width: 120px;
+}
+
 .auth {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1832,6 +1913,7 @@ table tbody tr td button {
 .inputGroup input[type="text"],
 .inputGroup input[type="password"],
 .inputGroup input[type="number"],
+.inputGroup input[type="file"],
 .inputGroup textarea {
   width: 100%;
   border: 1px solid #929292;
@@ -1846,6 +1928,7 @@ table tbody tr td button {
 .inputGroup input[type="text"]:focus,
 .inputGroup input[type="password"]:focus,
 .inputGroup input[type="number"]:focus,
+.inputGroup input[type="file"]:focus,
 .inputGroup textarea:focus {
   outline: 3px solid #CBE2EF;
 }
@@ -1923,6 +2006,20 @@ table tbody tr td button {
   margin-left: 5px;
   font-size: 20px;
   font-weight: bold;
+}
+
+.inputGroup--flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.inputGroup--flex .inputGroup {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-left: 20px;
 }
 
 .searchInput {
