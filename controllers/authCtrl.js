@@ -5,7 +5,7 @@ const fetch = require('cross-fetch')
 const jwt = require('jsonwebtoken')
 const { checkEmail, checkPhone } = require('./../utils/validator')
 const { generateAccessToken, generateRefreshToken, generateActivationToken } = require('./../utils/generateToken')
-const { OAuth2Client } = require('google-auth-library')
+const { OAuth2Client, auth } = require('google-auth-library')
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
@@ -161,6 +161,29 @@ const authCtrl = {
         msg: 'User profile updated.',
         user: newUser
       })
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
+  changePassword: async(req, res) => {
+    try {
+      const { oldPassword, newPassword } = req.body
+      if (!oldPassword || !newPassword)
+        return res.status(400).json({msg: 'Please provide every field.'})
+
+      if (newPassword.length < 8)
+        return res.status(400).json({msg: 'New password should be at least 8 characters.'})
+      
+      const isPwMatch = await bcrypt.compare(oldPassword, req.user.password)
+      if (!isPwMatch)
+        return res.status(403).json({msg: 'Current password is incorrect.'})
+
+      if (req.user.type !== 'register')
+        return res.status(400).json({msg: `Account that login with ${req.user.type} can\'t change their password.`})
+
+      const newPw = await bcrypt.hash(newPassword, 12)
+      await User.findOneAndUpdate({_id: req.user._id}, {password: newPw})
+      return res.status(200).json({msg: 'Password has been changed.'})
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }

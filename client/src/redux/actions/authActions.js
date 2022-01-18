@@ -231,3 +231,22 @@ export const updateProfile = (userData, avatar, accessToken) => async(dispatch) 
     })
   }
 }
+
+export const changePassword = (passwordData, accessToken) => async(dispatch) => {
+  try {
+    const res = await patchDataAPI('auth/change_password', passwordData, accessToken)
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}

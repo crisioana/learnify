@@ -64,10 +64,14 @@ const Navbar = () => {
                   <FaUserAlt />
                   Edit Profile
                 </Link>
-                <Link to='/' onClick={handleOpenChangePassword}>
-                  <BsFillKeyFill />
-                  Change Password
-                </Link>
+                {
+                  auth.user?.type === 'register' && (
+                    <Link to='/' onClick={handleOpenChangePassword}>
+                      <BsFillKeyFill />
+                      Change Password
+                    </Link>
+                  )
+                }
                 <Link to='/' onClick={() => dispatch(logout(auth.accessToken))}>
                   <MdLogout />
                   Logout
