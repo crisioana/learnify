@@ -39,6 +39,7 @@ const ClassCard = ({id, isTeacher, classRestrict, title, description, instructor
         isTeacher &&
         <ClassDetailModal
           id={id}
+          title={title}
           quizzes={quizzes}
           student={student}
           isOpenModal={isOpenModal}

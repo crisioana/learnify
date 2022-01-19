@@ -5,7 +5,7 @@ import { GLOBAL_TYPES } from './../../../redux/types/globalTypes'
 import { changeClassStatus, deleteClass, renameClass } from './../../../redux/actions/classActions'
 import Loader from './../../global/Loader'
 
-const SettingList = ({id, status}) => {
+const SettingList = ({id, title, status}) => {
   const [name, setName] = useState('');
   const [broadcast, setBroadcast] = useState('')
 
@@ -86,8 +86,8 @@ const SettingList = ({id, status}) => {
         <button type='submit'>Broadcast</button>
       </form>
 
-      <button onClick={handleCreateQuiz} className='createQuizBtn'>Create Quiz for "Class Title Goes Here" Class</button>
-      <button className='deleteBtn' onClick={handleDeleteClass}>Delete "Class Title Goes Here" Class</button>
+      <button onClick={handleCreateQuiz} className='createQuizBtn'>Create Quiz for "{title}" Class</button>
+      <button className='deleteBtn' onClick={handleDeleteClass}>Delete "{title}" Class</button>
     </div>
   )
 }

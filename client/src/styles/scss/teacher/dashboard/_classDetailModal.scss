@@ -1,17 +1,5 @@
 .classDetailModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  padding: 0 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, .7);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 200ms;
+  @include modal;
 
   &.active {
     opacity: 1;
