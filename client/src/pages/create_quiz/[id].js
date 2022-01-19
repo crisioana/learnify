@@ -10,6 +10,8 @@ import Navbar from './../../components/global/Navbar'
 import Loader from './../../components/global/Loader'
 
 const CreateQuiz = ({quizId, onEdit}) => {
+  const [classTitle, setClassTitle] = useState('')
+  const [instructorName, setInstructorName] = useState('')
   const [title, setTitle] = useState('Title Goes Here')
   const [category, setCategory] = useState('')
   const [questions, setQuestions] = useState([
@@ -25,6 +27,12 @@ const CreateQuiz = ({quizId, onEdit}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { auth, category: allCategory, alert } = useSelector(state => state)
+
+  const getClassDetail = useCallback(async () => {
+    const res = await getDataAPI(`class/${id}`)
+    setClassTitle(res.data.class[0].name)
+    setInstructorName(res.data.class[0].instructor.name)
+  }, [id])
 
   const getQuizDetail = useCallback(async() => {
     const res = await getDataAPI(`quiz/${quizId}`)
@@ -145,13 +153,17 @@ const CreateQuiz = ({quizId, onEdit}) => {
     getQuizDetail()
   }, [onEdit, getQuizDetail])
 
+  useEffect(() => {
+    getClassDetail()
+  }, [getClassDetail]);
+
   return (
     <>
       <Navbar />
       <div className='container createQuiz'>
         <div className='createQuiz__header'>
-          <h2>Create Quiz for "Class Title Goes Here" Class</h2>
-          <p>Instructor : Lecturer Name Goes Here</p>
+          <h2>Create Quiz for "{classTitle}" Class</h2>
+          <p>Instructor : {instructorName}</p>
           <input type='text' value={title} onChange={e => setTitle(e.target.value)} />
           <select value={category} onChange={e => setCategory(e.target.value)}>
             <option value=''>- Choose Category -</option>
