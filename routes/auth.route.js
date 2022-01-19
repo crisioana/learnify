@@ -12,5 +12,6 @@ router.route('/facebook_login').post(authCtrl.facebookLogin)
 router.route('/edit').patch(isAuthenticated, authCtrl.updateProfile)
 router.route('/change_password').patch(isAuthenticated, authCtrl.changePassword)
 router.route('/forget_password').post(authCtrl.forgetPassword)
+router.route('/reset_password').patch(authCtrl.resetPassword)
 
 module.exports = router

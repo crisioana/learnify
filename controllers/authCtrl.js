@@ -213,6 +213,32 @@ const authCtrl = {
       return res.status(500).json({msg: err.message})
     }
   },
+  resetPassword: async(req, res) => {
+    try {
+      const { password, token } = req.body
+
+      if (!password)
+        return res.status(400).json({msg: 'Password field can\'t be empty.'})
+
+      if (password.length < 8)
+        return res.status(400).json({msg: 'Password length should be at least 8 characters.'})
+
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+      if (!decoded.id)
+        return res.status(403).json({msg: 'Invalid token.'})
+
+      const user = await User.findById(decoded.id)
+      if (!user)
+        return res.status(404).json({msg: 'User not found.'})
+
+      const newPassword = await bcrypt.hash(password, 12)
+      await User.findOneAndUpdate({_id: user._id}, {password: newPassword})
+
+      return res.status(200).json({msg: 'Password has been reset successfully.'})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
   googleLogin: async(req, res) => {
     try {
       const { token } = req.body

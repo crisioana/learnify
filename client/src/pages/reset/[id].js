@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
+import { resetPassword } from './../../redux/actions/authActions'
+import Loader from './../../components/global/Loader'
 
 const ResetPassword = () => {
   const [passwordData, setPasswordData] = useState({
@@ -11,14 +14,17 @@ const ResetPassword = () => {
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showNewPasswordConfirmation, setShowNewPasswordConfirmation] = useState(false)
 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { alert } = useSelector(state => state)
+  const { id: token } = useParams()
 
   const handleChange = e => {
     const { name, value } = e.target
     setPasswordData({...passwordData, [name]: value})
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
 
     if (!passwordData.newPassword || !passwordData.newPasswordConfirmation) {
@@ -47,6 +53,9 @@ const ResetPassword = () => {
         }
       })
     }
+
+    await dispatch(resetPassword(passwordData.newPassword, token))
+    navigate('/')
   }
 
   return (
@@ -79,7 +88,17 @@ const ResetPassword = () => {
               }
             </div>
           </div>
-          <button type='submit'>Submit</button>
+          <button type='submit' disabled={alert.loading ? true : false}>
+            {
+              alert.loading
+              ? (
+                <div className='center'>
+                  <Loader width='20px' height='20px' border='2px' />
+                </div>
+              )
+              : 'Submit'
+            }
+          </button>
         </form>
       </div>
     </div>

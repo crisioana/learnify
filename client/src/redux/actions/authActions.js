@@ -276,3 +276,29 @@ export const forgetPassword = email => async(dispatch) => {
     })
   }
 }
+
+export const resetPassword = (password, token) => async(dispatch) => {
+  try {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        loading: true
+      }
+    })
+
+    const res = await patchDataAPI('auth/reset_password', {password, token})
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
