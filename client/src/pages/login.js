@@ -81,6 +81,7 @@ const Login = () => {
                 : <FaEye onClick={() => setShowPassword(true)} />
               }
             </div>
+            <Link style={{ marginTop: '7px', display: 'block' }} to='/forget'>Forget Password</Link>
           </div>
           <button type='submit' disabled={alert.loading ? true : false}>
             {
