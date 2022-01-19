@@ -188,6 +188,31 @@ const authCtrl = {
       return res.status(500).json({msg: err.message})
     }
   },
+  forgetPassword: async(req, res) => {
+    try {
+      const { email } = req.body
+      if (!email)
+        return res.status(400).json({msg: 'Email field can\'t be empty.'})
+
+      if (!checkEmail(email))
+        return res.status(400).json({msg: 'Please provide correct email format.'})
+
+      const user = await User.findOne({email})
+      if (!user)
+        return res.status(404).json({msg: `User with email ${email} not found.`})
+
+      if (user.type !== 'register')
+        return res.status(403).json({msg: `Account login with ${user.type} can\'t reset their password.`})
+
+      const token = generateAccessToken({id: user._id})
+      const url = `${process.env.CLIENT_URL}/reset/${token}`
+      sendMail(email, url, 'Reset Password')
+
+      return res.status(200).json({msg: `Reset password link has been sent to ${email}`})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
   googleLogin: async(req, res) => {
     try {
       const { token } = req.body

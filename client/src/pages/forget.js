@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { GLOBAL_TYPES } from './../redux/types/globalTypes'
+import { forgetPassword } from './../redux/actions/authActions'
+import Loader from './../components/global/Loader'
 
 const Forget = () => {
   const [email, setEmail] = useState('')
 
   const dispatch = useDispatch()
+  const { alert } = useSelector(state => state)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -18,6 +21,8 @@ const Forget = () => {
         }
       })
     }
+
+    dispatch(forgetPassword(email))
   }
 
   return (
@@ -32,7 +37,17 @@ const Forget = () => {
             <label htmlFor='email'>Email address</label>
             <input type='text' id='email' name='email' autoComplete='off' value={email} onChange={e => setEmail(e.target.value)} />
           </div>
-          <button type='submit'>Submit</button>
+          <button type='submit' disabled={alert.loading ? true : false}>
+            {
+              alert.loading
+              ? (
+                <div className='center'>
+                  <Loader width='20px' height='20px' border='2px' />
+                </div>
+              )
+              : 'Submit'
+            }
+          </button>
         </form>
       </div>
     </div>
