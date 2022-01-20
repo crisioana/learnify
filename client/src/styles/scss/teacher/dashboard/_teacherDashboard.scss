@@ -39,6 +39,30 @@
         }
       }
     }
+
+    &--search {
+
+      &Result {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+        transform: translateY(10px);
+      }
+
+      &Data {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+          color: $primary-color;
+          cursor: pointer;
+        }
+      }
+    }
   }
   
   &__classList {

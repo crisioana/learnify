@@ -240,6 +240,28 @@ const classCtrl = {
             }
           }
         },
+        {
+          $lookup: {
+            "from": "quizzes",
+            "let": { quiz_id: "$quizzes" },
+            "pipeline": [
+              { $match: { $expr: { $in: ["$_id", "$$quiz_id"] } } },
+              { $project: { title: 1, status: 1 } }
+            ],
+            "as": "quizzes"
+          }
+        },
+        {
+          $lookup: {
+            "from": "users",
+            "let": { user_id: "$people" },
+            "pipeline": [
+              { $match: { $expr: { $in: ["$_id", "$$user_id"] } } },
+              { $project: { avatar: 1, name: 1, email: 1 } }
+            ],
+            "as": "people"
+          }
+        },
         { $match: { instructor: mongoose.Types.ObjectId(req.params.id) } },
         { $sort: { createdAt: -1 } },
         { $limit: 5 }

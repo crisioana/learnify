@@ -1315,6 +1315,35 @@
           transform: translateY(-50%);
 }
 
+.teacherDashboard__body--searchResult {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  -webkit-transform: translateY(10px);
+          transform: translateY(10px);
+}
+
+.teacherDashboard__body--searchData {
+  padding: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.teacherDashboard__body--searchData p {
+  color: #5584B1;
+  cursor: pointer;
+}
+
 .teacherDashboard__classList {
   margin-top: 20px;
   display: -ms-grid;

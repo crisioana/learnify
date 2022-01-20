@@ -9,7 +9,7 @@ const PeopleList = ({classId, student}) => {
         <AiOutlineSearch />
       </div>
       {
-        student.length === 0
+        student?.length === 0
         ? (
           <div className='errorMessage'>
             No People Found
@@ -18,7 +18,7 @@ const PeopleList = ({classId, student}) => {
         : (
           <>
             {
-              student.map(item => (
+              student?.map(item => (
                 <PeopleCard
                   key={item._id}
                   id={item._id}

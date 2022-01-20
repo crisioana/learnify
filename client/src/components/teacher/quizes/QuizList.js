@@ -9,7 +9,7 @@ const QuizList = ({quizzes}) => {
         <AiOutlineSearch />
       </div>
       {
-        quizzes.length === 0
+        quizzes?.length === 0
         ? (
           <div className='errorMessage'>
             No Quiz Found
@@ -18,7 +18,7 @@ const QuizList = ({quizzes}) => {
         : (
           <>
             {
-              quizzes.map(quiz => (
+              quizzes?.map(quiz => (
                 <QuizCard
                   key={quiz._id}
                   id={quiz._id}
