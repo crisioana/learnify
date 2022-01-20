@@ -288,25 +288,10 @@ const classCtrl = {
             }
           }
         },
-        {
-          $lookup: {
-            "from": "users",
-            "let": { user_id: "$instructor" },
-            "pipeline": [
-              { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
-              { $project: { name: 1 } }
-            ],
-            "as": "instructor"
-          }
-        },
-        { $unwind: "$instructor" },
         { $match: { people : { $in: [mongoose.Types.ObjectId(userId)] } } },
         { $sort: { createdAt: -1 } },
         { $limit: 5 }
       ])
-
-      if (!classes.length)
-        return res.status(404).json({msg: 'No class found.'})
 
       return res.status(200).json({classes})
     } catch (err) {

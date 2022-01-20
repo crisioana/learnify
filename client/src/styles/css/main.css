@@ -845,6 +845,51 @@
           transform: translateY(-50%);
 }
 
+.studentDashboard__searchResult {
+  position: absolute;
+  top: 100%;
+  -webkit-transform: translateY(8px);
+          transform: translateY(8px);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  width: 100%;
+  background: #fff;
+  z-index: 99;
+}
+
+.studentDashboard__searchResult--blank {
+  text-align: center;
+  color: #f13333;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 15px 0;
+}
+
+.studentDashboard__searchResult--item {
+  padding: 10px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.studentDashboard__searchResult--item p {
+  font-size: 15px;
+  color: #5584B1;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.studentDashboard__searchResult--item:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
 .studentDashboard__filter {
   position: relative;
 }
