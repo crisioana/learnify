@@ -227,6 +227,31 @@ const classCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  searchInstructorClass: async(req, res) => {
+    try {
+      const classes = await Class.aggregate([
+        {
+          $search: {
+            index: 'teacherClass',
+            autocomplete: {
+              "query": req.query.title,
+              "path": "name"
+            }
+          }
+        },
+        { $match: { instructor: mongoose.Types.ObjectId(req.params.id) } },
+        { $sort: { createdAt: -1 } },
+        { $limit: 5 }
+      ])
+
+      if (!classes.length)
+        return res.status(404).json({msg: 'No class found.'})
+
+      return res.status(200).json({classes})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
   }
 }
 

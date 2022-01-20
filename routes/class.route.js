@@ -17,4 +17,6 @@ router.route('/rename/:id').patch(isAuthenticated, authorizeRoles('Instructor'),
 router.route('/join/:id').patch(isAuthenticated, authorizeRoles('Student'), classCtrl.joinClass)
 router.route('/kick/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.kickStudent)
 
+router.route('/search/instructor/:id').get(classCtrl.searchInstructorClass)
+
 module.exports = router

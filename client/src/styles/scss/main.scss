@@ -277,6 +277,10 @@ table {
   }
 }
 
+#__react-alert__ div {
+  z-index: 9999 !important;
+}
+
 @include mediaDesktop {
   .container {
     padding: 30px 50px;

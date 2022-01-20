@@ -2175,6 +2175,10 @@ table tbody tr td button {
           box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+#__react-alert__ div {
+  z-index: 9999 !important;
+}
+
 @media (min-width: 700px) {
   .container {
     padding: 30px 50px;
