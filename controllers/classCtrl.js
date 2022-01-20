@@ -274,6 +274,44 @@ const classCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  searchStudentClass: async(req, res) => {
+    const userId = req.user.id
+    try {
+      const classes = await Class.aggregate([
+        {
+          $search: {
+            index: 'teacherClass',
+            autocomplete: {
+              "query": req.query.title,
+              "path": "name"
+            }
+          }
+        },
+        {
+          $lookup: {
+            "from": "users",
+            "let": { user_id: "$instructor" },
+            "pipeline": [
+              { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+              { $project: { name: 1 } }
+            ],
+            "as": "instructor"
+          }
+        },
+        { $unwind: "$instructor" },
+        { $match: { people : { $in: [mongoose.Types.ObjectId(userId)] } } },
+        { $sort: { createdAt: -1 } },
+        { $limit: 5 }
+      ])
+
+      if (!classes.length)
+        return res.status(404).json({msg: 'No class found.'})
+
+      return res.status(200).json({classes})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
   }
 }
 
