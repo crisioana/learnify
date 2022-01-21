@@ -2,7 +2,7 @@ import { GLOBAL_TYPES } from './../types/globalTypes'
 import { CLASS_TYPES } from './../types/classTypes'
 import { getDataAPI, postDataAPI, patchDataAPI, deleteDataAPI }  from './../../utils/fetchData'
 
-export const getClasses = accessToken => async(dispatch) => {
+export const getClasses = (accessToken, page) => async(dispatch) => {
   try {
     dispatch({
       type: GLOBAL_TYPES.ALERT,
@@ -11,10 +11,10 @@ export const getClasses = accessToken => async(dispatch) => {
       }
     })
 
-    const res = await getDataAPI('class', accessToken)
+    const res = await getDataAPI(`class?page=${page}`, accessToken)
     dispatch({
       type: CLASS_TYPES.GET_CLASSES,
-      payload: res.data.classes
+      payload: res.data
     })
 
     dispatch({

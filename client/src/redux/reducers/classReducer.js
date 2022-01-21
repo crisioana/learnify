@@ -2,7 +2,8 @@ import { QUIZ_TYPES } from '../types/quizTypes'
 import { CLASS_TYPES } from './../types/classTypes'
 
 const initialState = {
-  data: []
+  data: [],
+  totalPage: 1
 }
 
 const classReducer = (state = initialState, action) => {
@@ -15,7 +16,8 @@ const classReducer = (state = initialState, action) => {
     case CLASS_TYPES.GET_CLASSES:
       return {
         ...state,
-        data: action.payload
+        data: action.payload.classes,
+        totalPage: action.payload.totalPage
       }
     case CLASS_TYPES.RENAME_CLASS:
       return {

@@ -12,9 +12,70 @@ const Pagination = req => {
 
 const classCtrl = {
   getClassesByInstructor: async(req, res) => {
+    const {limit, skip} = Pagination(req)
+
     try {
-      const classes = await Class.find({instructor: req.user._id}).sort('-createdAt').populate('quizzes', '_id title status').populate('people', 'avatar name email')
-      return res.status(200).json({classes})
+      const data = await Class.aggregate([
+        {
+          $facet: {
+            totalData: [
+              {
+                $match: {instructor: mongoose.Types.ObjectId(req.user._id)}
+              },
+              {
+                $lookup: {
+                  "from": "quizzes",
+                  "let": { quiz_id: "$quizzes" },
+                  "pipeline": [
+                    { $match: { $expr: { $in: ["$_id", "$$quiz_id"] } } },
+                    { $project: { title: 1, status: 1 } }
+                  ],
+                  "as": "quizzes"
+                }
+              },
+              {
+                $lookup: {
+                  "from": "users",
+                  "let": { user_id: "$people" },
+                  "pipeline": [
+                    { $match: { $expr: { $in: ["$_id", "$$user_id"] } } },
+                    { $project: { avatar: 1, name: 1, email: 1 } }
+                  ],
+                  "as": "people"
+                }
+              },
+              { $sort: { createdAt: -1 } },
+              { $skip: skip },
+              { $limit: limit }
+            ],
+            totalCount: [
+              { $match: { instructor: mongoose.Types.ObjectId(req.user._id) } },
+              { $count: 'count' }
+            ]
+          }
+        },
+        {
+          $project: {
+            count: { $arrayElemAt: ["$totalCount.count", 0] },
+            totalData: 1
+          }
+        }
+      ])
+
+      const classes = data[0].totalData
+      const classesCount = data[0].count
+
+      let totalPage = 0
+      if (classesCount % limit === 0) {
+        totalPage = classesCount / limit
+      } else {
+        totalPage = Math.floor(classesCount / limit) + 1
+      }
+
+      return res.status(200).json({
+        classes,
+        totalPage
+      })
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }

@@ -18,7 +18,7 @@ const Pagination = ({page, callback}) => {
       <div>
         {
           [...Array(page)].map((_, i) => (
-            <button key={i} className={currPage === i + 1 && 'active'} onClick={() => handlePagination(i+1)}>{i+1}</button>
+            <button key={i} className={currPage === i + 1 ? 'active' : undefined} onClick={() => handlePagination(i+1)}>{i+1}</button>
           ))
         }
       </div>

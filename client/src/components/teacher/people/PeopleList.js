@@ -1,13 +1,8 @@
-import { AiOutlineSearch } from 'react-icons/ai'
 import PeopleCard from './PeopleCard'
 
 const PeopleList = ({classId, student}) => {
   return (
     <div>
-      <div className='searchInput'>
-        <input type='text' placeholder='Search people ...' />
-        <AiOutlineSearch />
-      </div>
       {
         student?.length === 0
         ? (

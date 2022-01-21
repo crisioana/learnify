@@ -1,13 +1,8 @@
-import { AiOutlineSearch } from 'react-icons/ai'
 import QuizCard from './QuizCard'
 
 const QuizList = ({quizzes}) => {
   return (
     <div>
-      <div className='searchInput'>
-        <input type='text' placeholder='Search quiz ...' />
-        <AiOutlineSearch />
-      </div>
       {
         quizzes?.length === 0
         ? (
