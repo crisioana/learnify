@@ -8,6 +8,21 @@ const notificationCtrl = {
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
+  },
+  createNotification: async(req, res) => {
+    try {
+      const { to, title, description, author, link } = req.body
+
+      for (let i = 0; i < to.length; i++) {
+        await Notification.findOneAndUpdate({user: to[i]}, {
+          $push: { data: { title, description, author, link } }
+        })
+      }
+
+      return res.status(200).json({msg: 'Notification has been created.'})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
   }
 }
 

@@ -14,6 +14,7 @@ const CreateQuiz = ({quizId, onEdit}) => {
   const [classTitle, setClassTitle] = useState('')
   const [instructorName, setInstructorName] = useState('')
   const [title, setTitle] = useState('Title Goes Here')
+  const [people, setPeople] = useState([])
   const [category, setCategory] = useState('')
   const [questions, setQuestions] = useState([
     {
@@ -27,12 +28,13 @@ const CreateQuiz = ({quizId, onEdit}) => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { auth, category: allCategory, alert } = useSelector(state => state)
+  const { auth, category: allCategory, alert, socket } = useSelector(state => state)
 
   const getClassDetail = useCallback(async () => {
     const res = await getDataAPI(`class/${id}`)
     setClassTitle(res.data.class[0].name)
     setInstructorName(res.data.class[0].instructor.name)
+    setPeople(res.data.class[0].people)
   }, [id])
 
   const getQuizDetail = useCallback(async() => {
@@ -134,13 +136,15 @@ const CreateQuiz = ({quizId, onEdit}) => {
       classId: id,
       category,
       title,
-      questions
+      questions,
+      people,
+      author: auth.user
     }
 
     if (onEdit) {
       await dispatch(updateQuiz(quizId, quizData, auth.accessToken))
     } else {
-      await dispatch(createQuiz(quizData, auth.accessToken))
+      await dispatch(createQuiz(quizData, auth.accessToken, socket))
     }
     navigate('/')
   }

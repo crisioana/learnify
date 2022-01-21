@@ -1,8 +1,9 @@
 import { GLOBAL_TYPES } from './../types/globalTypes'
 import { QUIZ_TYPES } from './../types/quizTypes'
 import { postDataAPI, patchDataAPI, getDataAPI, deleteDataAPI } from './../../utils/fetchData'
+import { createNotification } from './notificationActions'
 
-export const createQuiz = (quizData, accessToken) => async(dispatch) => {
+export const createQuiz = (quizData, accessToken, socket) => async(dispatch) => {
   try {
     dispatch({
       type: GLOBAL_TYPES.ALERT,
@@ -16,6 +17,19 @@ export const createQuiz = (quizData, accessToken) => async(dispatch) => {
       type: QUIZ_TYPES.CREATE_QUIZ,
       payload: res.data.quiz
     })
+
+    const data = {
+      to: quizData.people,
+      title: 'New Quiz',
+      description: `New quiz from instructor ${quizData.author.name}`,
+      author: quizData.author._id,
+      authorName: quizData.author.name,
+      link: `/quiz/${res.data.quiz._id}`
+    }
+    
+    await dispatch(createNotification(data, accessToken))
+
+    socket.emit('createQuiz', data)
 
     dispatch({
       type: GLOBAL_TYPES.ALERT,

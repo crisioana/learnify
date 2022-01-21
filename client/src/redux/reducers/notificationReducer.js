@@ -6,7 +6,13 @@ const notificationReducer = (state = [], action) => {
       return action.payload.reverse()
     case NOTIFICATION_TYPES.CREATE_NOTIFICATION:
       return [
-        { title: action.payload.title, description: action.payload.description, author: { name: action.payload.authorName }, isRead: false },
+        {
+          title: action.payload.title,
+          description: action.payload.description,
+          author: { name: action.payload.authorName },
+          link: action.payload.link ? action.payload.link : '',
+          isRead: false
+        },
         ...state
       ]
     default:

@@ -157,6 +157,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  color: #000;
 }
 
 .navbar__links--notificationContent > * + * {
@@ -176,18 +177,14 @@
   margin-top: 7px;
 }
 
-.navbar__links--notificationContent:first-child {
+.navbar__links--notificationContent a:first-child {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
 
-.navbar__links--notificationContent:last-child {
+.navbar__links--notificationContent a:last-child {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-}
-
-.navbar__links--notificationContent:not(:last-child) {
-  border-bottom: 1px solid #eeeeee;
 }
 
 .navbar__links--profile {

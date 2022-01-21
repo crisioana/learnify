@@ -59,14 +59,16 @@ const Navbar = () => {
               <div className={`navbar__links--notificationDropdown ${openNotification ? 'active' : undefined}`}>
                 {
                   notification.map(item => (
-                    <div key={item._id} className='navbar__links--notificationContent'>
-                      <div>
-                        <h4>{item.title}</h4>
-                        <p>{item.description}</p>
-                        <p>By: {item.author?.name}</p>
+                    <Link to={item.link ? item.link : '/'} key={item._id}>
+                      <div className='navbar__links--notificationContent'>
+                        <div>
+                          <h4>{item.title}</h4>
+                          <p>{item.description}</p>
+                          <p>By: {item.author?.name}</p>
+                        </div>
+                        <div className='circle' />
                       </div>
-                      <div className='circle' />
-                    </div>
+                    </Link>
                   ))
                 }
               </div>
