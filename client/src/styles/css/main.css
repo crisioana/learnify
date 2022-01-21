@@ -243,32 +243,12 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  background: #5584B1;
+  background: #fff;
   border-radius: 5px;
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 10px #5584B1;
+          box-shadow: 0 0 10px #5584B1;
   padding: 15px 25px;
-  color: #fff;
-}
-
-.infoCard--green {
-  background: #33dd33;
-}
-
-.infoCard--red {
-  background: #e83f3f;
-}
-
-.infoCard--violet {
-  background: #a332a3;
-}
-
-.infoCard__left h2 {
-  margin-bottom: 10px;
-}
-
-.infoCard__right svg {
-  font-size: 28px;
+  color: #254E7B;
 }
 
 .classCard {
@@ -607,6 +587,55 @@
 
 .changePassword__body {
   padding: 15px 20px;
+}
+
+.pagination {
+  background: #5584B1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  margin-top: 40px;
+}
+
+.pagination div button {
+  border-right: 1px solid #7c7c7c;
+}
+
+.pagination button {
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  padding: 2px !important;
+  color: #fff;
+  border-radius: 0;
+}
+
+.pagination button.active {
+  background: #254E7B;
+}
+
+.pagination button:not(:last-child) {
+  border-right: 1px solid #7c7c7c;
+}
+
+.pagination button:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination button:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.pagination button:hover {
+  background: #254E7B;
 }
 
 .auth {
@@ -1955,6 +1984,10 @@ a {
 
 .mt-5 {
   margin-top: 30px;
+}
+
+.float-right {
+  float: right;
 }
 
 .clear {

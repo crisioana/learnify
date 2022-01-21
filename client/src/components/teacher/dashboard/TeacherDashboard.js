@@ -47,7 +47,6 @@ const TeacherDashboard = () => {
           <InfoCard
             title='Total Students'
             description='40 Students'
-            color='violet'
             Icon={FaUserGraduate}
           />
           <InfoCard
@@ -58,13 +57,11 @@ const TeacherDashboard = () => {
           <InfoCard
             title='Total Quiz Open'
             description='4 Quiz'
-            color='green'
             Icon={GiOpenBook}
           />
           <InfoCard
             title='Total Quiz Close'
             description='2 Quiz'
-            color='red'
             Icon={ImBook}
           />
         </div>

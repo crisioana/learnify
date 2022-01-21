@@ -3,6 +3,13 @@ const Class = require('./../models/Class')
 const Result = require('./../models/Result')
 const Quiz = require('./../models/Quiz')
 
+const Pagination = req => {
+  const page = req.query.page * 1 || 1;
+  const limit = req.query.limit * 1 || 4;
+  const skip = (page - 1) * limit;
+  return {page, limit, skip}
+}
+
 const classCtrl = {
   getClassesByInstructor: async(req, res) => {
     try {
@@ -13,27 +20,60 @@ const classCtrl = {
     }
   },
   getStudentClasses: async(req, res) => {
+    const {limit, skip} = Pagination(req)
+
     try {
-      const classes = await Class.aggregate([
+      const data = await Class.aggregate([
         {
-          $match: {people: mongoose.Types.ObjectId(req.user._id)}
-        },
-        {
-          $lookup: {
-            "from": "users",
-            "let": { user_id: "$instructor" },
-            "pipeline": [
-              { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
-              { $project: {name: 1} }
+          $facet: {
+            totalData: [
+              {
+                $match: {people: mongoose.Types.ObjectId(req.user._id)}
+              },
+              {
+                $lookup: {
+                  "from": "users",
+                  "let": { user_id: "$instructor" },
+                  "pipeline": [
+                    { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+                    { $project: {name: 1} }
+                  ],
+                  "as": "instructor"
+                }
+              },
+              { $unwind: "$instructor" },
+              { $skip: skip },
+              { $limit: limit }
             ],
-            "as": "instructor"
+            totalCount: [
+              { $match: { people: mongoose.Types.ObjectId(req.user._id) } },
+              { $count: 'count' }
+            ]
           }
         },
-        { $unwind: "$instructor" }
+        {
+          $project: {
+            count: { $arrayElemAt: ["$totalCount.count", 0] },
+            totalData: 1
+          }
+        }
       ])
 
-      return res.status(200).json({classes})
-    } catch (err) {
+      const classes = data[0].totalData;
+      const classesCount = data[0].count
+
+      let totalPage = 0
+      if (classesCount % limit === 0) {
+        totalPage = classesCount / limit
+      } else {
+        totalPage = Math.floor(classesCount / limit) + 1
+      }
+
+      return res.status(200).json({
+        classes,
+        totalPage
+      })
+    } catch (err) { 
       return res.status(500).json({msg: err.message})
     }
   },

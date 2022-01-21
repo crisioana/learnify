@@ -9,6 +9,7 @@
   './global/loader',
   './global/editProfile',
   './global/changePassword',
+  './global/pagination',
   './auth/auth',
   './auth/role',
   './auth/roleModal',
@@ -47,6 +48,10 @@ a {
 
 .mt-5 {
   margin-top: 30px;
+}
+
+.float-right {
+  float: right;
 }
 
 .clear {

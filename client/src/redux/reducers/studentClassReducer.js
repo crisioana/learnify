@@ -1,7 +1,8 @@
 import { CLASS_TYPES } from './../types/classTypes'
 
 const initialState = {
-  data: []
+  data: [],
+  totalPage: 1
 }
 
 const studentClassReducer = (state = initialState, action) => {
@@ -9,12 +10,13 @@ const studentClassReducer = (state = initialState, action) => {
     case CLASS_TYPES.JOIN_CLASS:
       return {
         ...state,
-        data: [action.payload, ...state.data]
+        data: [action.payload, ...state.data] 
       }
     case CLASS_TYPES.GET_STUDENT_CLASSES:
       return {
         ...state,
-        data: action.payload
+        data: action.payload.classes,
+        totalPage: action.payload.totalPage
       }
     default:
       return state

@@ -105,7 +105,7 @@ export const renameClass = (id, name, accessToken) => async(dispatch) => {
   }
 }
 
-export const getStudentClasses = accessToken => async(dispatch) => {
+export const getStudentClasses = (accessToken, page) => async(dispatch) => {
   try {
     dispatch({
       type: GLOBAL_TYPES.ALERT,
@@ -114,10 +114,10 @@ export const getStudentClasses = accessToken => async(dispatch) => {
       }
     })
 
-    const res = await getDataAPI('class/student', accessToken)
+    const res = await getDataAPI(`class/student?page=${page}`, accessToken)
     dispatch({
       type: CLASS_TYPES.GET_STUDENT_CLASSES,
-      payload: res.data.classes
+      payload: res.data
     })
 
     dispatch({

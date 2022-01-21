@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FaFilter } from 'react-icons/fa'
@@ -6,6 +6,7 @@ import { AiOutlineSortAscending, AiOutlineSortDescending, AiOutlineSearch } from
 import { getStudentClasses } from './../../../redux/actions/classActions'
 import { getDataAPI } from './../../../utils/fetchData'
 import ClassCard from './../../global/ClassCard'
+import Pagination from './../../global/Pagination'
 import Loader from './../../global/Loader'
 
 const StudentDashboard =  () => {
@@ -18,9 +19,17 @@ const StudentDashboard =  () => {
   const dispatch = useDispatch()
   const { auth, alert, studentClass } = useSelector(state => state)
 
-  useEffect(() => {
-    dispatch(getStudentClasses(auth.accessToken))
+  const handlePaginate = num => {
+    fetchStudentClass(num)
+  }
+
+  const fetchStudentClass = useCallback(async(page = 1) => {
+    await dispatch(getStudentClasses(auth.accessToken, page))
   }, [dispatch, auth.accessToken])
+
+  useEffect(() => {
+    fetchStudentClass()
+  }, [fetchStudentClass])
 
   useEffect(() => {
     if (!search) {
@@ -114,6 +123,18 @@ const StudentDashboard =  () => {
           )
         }
       </div>
+      {
+        studentClass.totalPage > 1 &&
+        <>
+          <div className='float-right'>
+            <Pagination
+              page={studentClass.totalPage}
+              callback={handlePaginate}
+            />
+          </div>
+          <div className="clear"></div>
+        </>
+      }
     </div>
   )
 }
