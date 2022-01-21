@@ -1,9 +1,10 @@
-import { useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaUserGraduate } from 'react-icons/fa'
 import { SiGoogleclassroom } from 'react-icons/si'
 import { GiOpenBook } from 'react-icons/gi'
 import { ImBook } from 'react-icons/im'
+import { getDataAPI } from './../../../utils/fetchData'
 import { getClasses } from './../../../redux/actions/classActions'
 import InfoCard from './../../global/InfoCard'
 import ClassCard from './../../global/ClassCard'
@@ -11,8 +12,15 @@ import Loader from './../../global/Loader'
 import Pagination from './../../global/Pagination'
 
 const TeacherDashboard = () => {
+  const [dashboardInfo, setDashboardInfo] = useState({})
+
   const dispatch = useDispatch()
   const { auth, alert, instructorClass } = useSelector(state => state)
+  
+  const fetchDashboardInfoData =  useCallback(async() => {
+    await getDataAPI('/dashboard', auth.accessToken)
+      .then(res => setDashboardInfo(res.data))
+  }, [auth.accessToken])
 
   const fetchClassData = useCallback(async(page = 1) => {
     await dispatch(getClasses(auth.accessToken, page))
@@ -24,33 +32,39 @@ const TeacherDashboard = () => {
 
   useEffect(() => {
     fetchClassData()
-  }, [fetchClassData])
+    fetchDashboardInfoData()
+  }, [fetchClassData, fetchDashboardInfoData])
 
   return (
     <>
       <div className='teacherDashboard'>
-        <div className='teacherDashboard__header'>
-          <InfoCard
-            title='Total Students'
-            description='40 Students'
-            Icon={FaUserGraduate}
-          />
-          <InfoCard
-            title='Total Class'
-            description='3 Classes'
-            Icon={SiGoogleclassroom}
-          />
-          <InfoCard
-            title='Total Quiz Open'
-            description='4 Quiz'
-            Icon={GiOpenBook}
-          />
-          <InfoCard
-            title='Total Quiz Close'
-            description='2 Quiz'
-            Icon={ImBook}
-          />
-        </div>
+        {
+          Object.keys(dashboardInfo).length > 0 &&
+          (
+            <div className='teacherDashboard__header'>
+              <InfoCard
+                title='Total Students'
+                description={`${dashboardInfo?.totalPeople} ${dashboardInfo?.totalPeople > 1 ? 'Students' : 'Student'}`}
+                Icon={FaUserGraduate}
+              />
+              <InfoCard
+                title='Total Class'
+                description={`${dashboardInfo?.totalClass} ${dashboardInfo?.totalClass > 1 ? 'Students' : 'Student'}`}
+                Icon={SiGoogleclassroom}
+              />
+              <InfoCard
+                title='Total Quiz Open'
+                description={`${dashboardInfo?.totalQuizOpen} ${dashboardInfo?.totalQuizOpen > 1 ? 'Quizzes' : 'Quiz'}`}
+                Icon={GiOpenBook}
+              />
+              <InfoCard
+                title='Total Quiz Close'
+                description={`${dashboardInfo?.totalQuizClose} ${dashboardInfo?.totalQuizClose > 1 ? 'Quizzes' : 'Quiz'}`}
+                Icon={ImBook}
+              />
+            </div>
+          )
+        }
         <div className='teacherDashboard__body'>
           <div className="teacherDashboard__body--title">
             <h2>Your Classes</h2>
