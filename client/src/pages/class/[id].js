@@ -7,6 +7,7 @@ import Navbar from './../../components/global/Navbar'
 import FilterSearch from './../../components/student/classDetail/FilterSearch'
 import QuizCard from './../../components/student/classDetail/QuizCard'
 import Loader from './../../components/global/Loader'
+import NotFound from './../../components/global/NotFound'
 
 const ClassDetail = () => {
   const [loading, setLoading] = useState(false)
@@ -90,6 +91,7 @@ const ClassDetail = () => {
     fetchClassDetailData()
   }, [id, fetchClassDetailData])
 
+  if (!auth.user || auth.user?.role !== 'Student') return <NotFound />
   return (
     <>
       <Navbar />

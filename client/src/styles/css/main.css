@@ -638,6 +638,52 @@
   background: #254E7B;
 }
 
+.notFound {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.notFound h2 {
+  color: #5b5b5b;
+  margin-bottom: 20px;
+}
+
+.notFound p {
+  font-size: 20px;
+}
+
+.notFound a {
+  background: #5584B1;
+  display: block;
+  margin-top: 20px;
+  width: 125px;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  -webkit-transition: background 200ms;
+  transition: background 200ms;
+}
+
+.notFound a:hover {
+  background: #254E7B;
+}
+
 .auth {
   display: -webkit-box;
   display: -ms-flexbox;

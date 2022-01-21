@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
@@ -16,7 +16,7 @@ const ResetPassword = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { alert } = useSelector(state => state)
+  const { alert, auth } = useSelector(state => state)
   const { id: token } = useParams()
 
   const handleChange = e => {
@@ -57,6 +57,11 @@ const ResetPassword = () => {
     await dispatch(resetPassword(passwordData.newPassword, token))
     navigate('/')
   }
+
+  useEffect(() => {
+    if (auth.user)
+      navigate('/')
+  }, [auth.user, navigate])
 
   return (
     <div className='auth'>

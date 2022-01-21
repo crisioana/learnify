@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { getSubmissionsByQuiz } from './../../redux/actions/submissionActions'
 import Navbar from './../../components/global/Navbar'
 import TableRow from './../../components/submission/TableRow'
+import NotFound from './../../components/global/NotFound'
 
 const Submission = () => {
   const dispatch = useDispatch()
@@ -13,6 +14,8 @@ const Submission = () => {
   useEffect(() => {
     dispatch(getSubmissionsByQuiz(id, auth.accessToken))
   }, [dispatch, id, auth.accessToken])
+
+  if (!auth.user || auth.user?.role === 'Student') return <NotFound />
   return (
     <>
       <Navbar />

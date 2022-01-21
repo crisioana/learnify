@@ -5,6 +5,7 @@ import { getQuizDetail, submitQuiz } from './../../redux/actions/quizActions'
 import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
 import Navbar from './../../components/global/Navbar'
 import QuestionBox from './../../components/global/QuestionBox'
+import NotFound from './../../components/global/NotFound'
 import Loader from './../../components/global/Loader'
 
 const QuizDetail = () => {
@@ -39,7 +40,8 @@ const QuizDetail = () => {
   useEffect(() => {
     dispatch(getQuizDetail(id))
   }, [id, dispatch])
-  
+
+  if (!auth.user || auth.user?.role !== 'Student') return <NotFound />  
   return (
     <>
       <Navbar />

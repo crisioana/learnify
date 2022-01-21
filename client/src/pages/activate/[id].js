@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import { useEffect, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { postDataAPI } from './../../utils/fetchData'
@@ -8,6 +9,7 @@ const ActivateAccount = () => {
 
   const toast = useAlert()
   const navigate = useNavigate()
+  const { auth } = useSelector(state => state)
 
   const activateAccount = useCallback(async() => {
     try {
@@ -24,6 +26,11 @@ const ActivateAccount = () => {
     if (!token) return
     activateAccount()
   }, [token, activateAccount])
+
+  useEffect(() => {
+    if (auth.user)
+      navigate('/')
+  }, [auth.user, navigate])
 
   return (
     <div></div>

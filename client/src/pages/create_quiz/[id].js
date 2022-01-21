@@ -8,6 +8,7 @@ import { getAllCategory } from './../../redux/actions/categoryActions'
 import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
 import Navbar from './../../components/global/Navbar'
 import Loader from './../../components/global/Loader'
+import NotFound from './../../components/global/NotFound'
 
 const CreateQuiz = ({quizId, onEdit}) => {
   const [classTitle, setClassTitle] = useState('')
@@ -157,6 +158,7 @@ const CreateQuiz = ({quizId, onEdit}) => {
     getClassDetail()
   }, [getClassDetail]);
 
+  if (!auth.user || auth.user?.role !== 'Instructor') return <NotFound />
   return (
     <>
       <Navbar />

@@ -1,9 +1,13 @@
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import CreateQuiz from './../create_quiz/[id]'
+import NotFound from './../../components/global/NotFound'
 
 const EditQuiz = () => {
   const { id } = useParams()
+  const { auth } = useSelector(state => state)
 
+  if (!auth.user || auth.user?.role !== 'Instructor') return <NotFound />
   return (
     <CreateQuiz
       quizId={id}

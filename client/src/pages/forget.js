@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { GLOBAL_TYPES } from './../redux/types/globalTypes'
 import { forgetPassword } from './../redux/actions/authActions'
 import Loader from './../components/global/Loader'
@@ -7,8 +8,9 @@ import Loader from './../components/global/Loader'
 const Forget = () => {
   const [email, setEmail] = useState('')
 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { alert } = useSelector(state => state)
+  const { auth, alert } = useSelector(state => state)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -24,6 +26,11 @@ const Forget = () => {
 
     dispatch(forgetPassword(email))
   }
+
+  useEffect(() => {
+    if (auth.user)
+      navigate('/')
+  }, [auth, navigate])
 
   return (
     <div className='auth'>
