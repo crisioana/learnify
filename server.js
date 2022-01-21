@@ -22,6 +22,7 @@ app.use('/api/v1/class', require('./routes/class.route'))
 app.use('/api/v1/quiz', require('./routes/quiz.route'))
 app.use('/api/v1/category', require('./routes/category.route'))
 app.use('/api/v1/result', require('./routes/result.route'))
+app.use('/api/v1/dashboard', require('./routes/dashboard.route'))
 
 connectDB()
 app.listen(process.env.PORT, () => console.log(`Server is running on PORT ${process.env.PORT}`))
