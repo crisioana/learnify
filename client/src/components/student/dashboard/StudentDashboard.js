@@ -14,6 +14,7 @@ const StudentDashboard =  () => {
   const [search, setSearch] = useState('')
   const [searchResult, setSearchResult] = useState([])
   const [noResult, setNoResult] = useState(false)
+  const [sort, setSort] = useState('ascending')
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -24,8 +25,8 @@ const StudentDashboard =  () => {
   }
 
   const fetchStudentClass = useCallback(async(page = 1) => {
-    await dispatch(getStudentClasses(auth.accessToken, page))
-  }, [dispatch, auth.accessToken])
+    await dispatch(getStudentClasses(auth.accessToken, page, sort))
+  }, [dispatch, auth.accessToken, sort])
 
   useEffect(() => {
     fetchStudentClass()
@@ -87,11 +88,11 @@ const StudentDashboard =  () => {
             <p>Filter</p>
           </div>
           <div className={`studentDashboard__filter--dropdown ${isOpenFilter ? 'active' : undefined}`}>
-            <div>
+            <div onClick={() => setSort('ascending')}>
               <AiOutlineSortDescending />
               Oldest to newest
             </div>
-            <div>
+            <div onClick={() => setSort('descending')}>
               <AiOutlineSortAscending />
               Newest to oldest
             </div>

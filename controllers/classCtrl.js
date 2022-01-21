@@ -82,30 +82,39 @@ const classCtrl = {
   },
   getStudentClasses: async(req, res) => {
     const {limit, skip} = Pagination(req)
+    const { sort } = req.query
 
     try {
+      const totalData = [
+        {
+          $match: {people: mongoose.Types.ObjectId(req.user._id)}
+        },
+        {
+          $lookup: {
+            "from": "users",
+            "let": { user_id: "$instructor" },
+            "pipeline": [
+              { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+              { $project: {name: 1} }
+            ],
+            "as": "instructor"
+          }
+        },
+        { $unwind: "$instructor" },
+        { $skip: skip },
+        { $limit: limit }
+      ]
+
+      if (sort === 'descending') {
+        totalData.unshift({
+          $sort: { createdAt: -1 }
+        })
+      }
+
       const data = await Class.aggregate([
         {
           $facet: {
-            totalData: [
-              {
-                $match: {people: mongoose.Types.ObjectId(req.user._id)}
-              },
-              {
-                $lookup: {
-                  "from": "users",
-                  "let": { user_id: "$instructor" },
-                  "pipeline": [
-                    { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
-                    { $project: {name: 1} }
-                  ],
-                  "as": "instructor"
-                }
-              },
-              { $unwind: "$instructor" },
-              { $skip: skip },
-              { $limit: limit }
-            ],
+            totalData,
             totalCount: [
               { $match: { people: mongoose.Types.ObjectId(req.user._id) } },
               { $count: 'count' }

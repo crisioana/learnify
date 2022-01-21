@@ -105,7 +105,7 @@ export const renameClass = (id, name, accessToken) => async(dispatch) => {
   }
 }
 
-export const getStudentClasses = (accessToken, page) => async(dispatch) => {
+export const getStudentClasses = (accessToken, page, sort) => async(dispatch) => {
   try {
     dispatch({
       type: GLOBAL_TYPES.ALERT,
@@ -114,7 +114,12 @@ export const getStudentClasses = (accessToken, page) => async(dispatch) => {
       }
     })
 
-    const res = await getDataAPI(`class/student?page=${page}`, accessToken)
+    let url = `class/student?page=${page}`
+    if (sort === 'descending') {
+      url = url + `&sort=descending`
+    }
+
+    const res = await getDataAPI(url, accessToken)
     dispatch({
       type: CLASS_TYPES.GET_STUDENT_CLASSES,
       payload: res.data
