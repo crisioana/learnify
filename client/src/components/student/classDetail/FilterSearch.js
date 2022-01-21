@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FaFilter } from 'react-icons/fa'
-import { AiOutlineClose, AiOutlineSearch, AiOutlineSortAscending, AiOutlineSortDescending } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlineSortAscending, AiOutlineSortDescending } from 'react-icons/ai'
 import { BiCheckDouble } from 'react-icons/bi'
 import { MdOutlinePendingActions } from 'react-icons/md'
 
@@ -82,10 +82,6 @@ const FilterSearch = ({category, sortByDate, filterByCompletion, filterByCategor
             </div>
           </div>
         </div>
-      </div>
-      <div className='classDetail__input'>
-        <input type='text' placeholder='Search quiz ...' autoComplete='off' />
-        <AiOutlineSearch />
       </div>
     </>
   )

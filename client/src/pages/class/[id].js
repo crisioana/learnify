@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AiOutlineSearch } from 'react-icons/ai'
 import { useParams } from 'react-router-dom'
 import { getDataAPI } from './../../utils/fetchData'
 import { getAllCategory } from './../../redux/actions/categoryActions'
@@ -112,10 +111,6 @@ const ClassDetail = () => {
             />
           </div>
           <div className='classDetail__body--body'>
-            <div className='classDetail__input'>
-              <input type='text' placeholder='Search quiz ...' autoComplete='off' />
-              <AiOutlineSearch />
-            </div>
             <div className='classDetail__quizList'>
               {
                 loading

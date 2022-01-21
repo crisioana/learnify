@@ -319,8 +319,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   bottom: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.7);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -458,8 +458,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   bottom: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.7);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -540,8 +540,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   bottom: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.7);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -972,8 +972,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   bottom: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.7);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1067,35 +1067,6 @@
   display: none;
 }
 
-.classDetail__input {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  position: relative;
-}
-
-.classDetail__input input {
-  width: 100%;
-  border-radius: 5px;
-  height: 40px;
-  padding-right: 35px;
-  border: 1px solid #929292;
-  outline: none;
-  text-indent: 7px;
-}
-
-.classDetail__input input:focus {
-  outline: 2px solid #85C1E5;
-}
-
-.classDetail__input svg {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-}
-
 .classDetail__quizList {
   margin-top: 30px;
 }
@@ -1110,16 +1081,13 @@
             align-items: flex-start;
     gap: 70px;
   }
+  .classDetail__body__quizList {
+    margin-top: 0;
+  }
   .classDetail__body--body {
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
-  }
-  .classDetail__body--body .classDetail__input {
-    display: block;
-  }
-  .classDetail__body--header .classDetail__input {
-    display: none;
   }
 }
 
@@ -1159,7 +1127,7 @@
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 99;
+  z-index: 9999;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: opacity 200ms;
@@ -1423,8 +1391,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   bottom: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.7);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1562,8 +1530,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   bottom: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.7);
   display: -webkit-box;
   display: -ms-flexbox;

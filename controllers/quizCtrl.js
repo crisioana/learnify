@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const Quiz = require('./../models/Quiz')
 const Class = require('./../models/Class')
 const Result = require('./../models/Result')

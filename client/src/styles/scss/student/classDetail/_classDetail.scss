@@ -18,32 +18,6 @@
     }
   }
 
-  &__input {
-    flex: 1;
-    position: relative;
-    
-    input {
-      width: 100%;
-      border-radius: 5px;
-      height: 40px;
-      padding-right: 35px;
-      border: 1px solid rgb(146, 146, 146);
-      outline: none;
-      text-indent: 7px;
-
-      &:focus {
-        outline: 2px solid $secondary-color;
-      }
-    }
-
-    svg {
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-    }
-  }
-
   &__quizList {
     margin-top: 30px;
   }
@@ -55,16 +29,12 @@
     align-items: flex-start;
     gap: 70px;
 
+    &__quizList {
+      margin-top: 0;
+    }
+
     &--body {
       flex: 1;
-
-      .classDetail__input {
-        display: block;
-      }
     }
-  }
-
-  .classDetail__body--header .classDetail__input {
-    display: none;
   }
 }
