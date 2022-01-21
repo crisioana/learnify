@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Class = require('./../models/Class')
 const Result = require('./../models/Result')
 const Quiz = require('./../models/Quiz')
+const Notification = require('./../models/Notification')
 
 const Pagination = req => {
   const page = req.query.page * 1 || 1;
@@ -404,6 +405,38 @@ const classCtrl = {
       ])
 
       return res.status(200).json({classes})
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
+  sendBroadcast: async(req, res) => {
+    try {
+      const { id } = req.params
+
+      const classDetail = await Class.findById(id)
+      if (!classDetail)
+        return res.status(404).json({msg: `Class with ID ${id} not found.`})
+
+      const data = {
+        title: `Class "${classDetail.name}" broadcast`,
+        description: req.body.description,
+        author: req.user._id
+      }
+
+      for (let i = 0; i < classDetail.people.length; i++) {
+        await Notification.findOneAndUpdate({user: classDetail.people[i]}, {
+          $push: { data }
+        })
+      }
+
+      return res.status(200).json({
+        msg: 'Broadcast sent.',
+        broadcast: {
+          ...data,
+          authorName: req.user.name,
+          people: classDetail.people
+        }
+      })
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }

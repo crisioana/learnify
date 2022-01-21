@@ -20,9 +20,10 @@ const Navbar = () => {
   const [openCreateClass, setOpenCreateClass] = useState(false)
   const [openEditProfile, setOpenEditProfile] = useState(false)
   const [openChangePassword, setOpenChangePassword] = useState(false)
+  const [openNotification, setOpenNotification] = useState(false)
 
   const dispatch = useDispatch()
-  const { auth } = useSelector(state => state)
+  const { auth, notification } = useSelector(state => state)
 
   const handleOpenEditProfile = e => {
     e.preventDefault()
@@ -53,9 +54,22 @@ const Navbar = () => {
             {
               auth.user?.role === 'Instructor' && <p onClick={() => setOpenCreateClass(true)}>Create Class</p>
             }
-            <p>Message</p>
             <div className='navbar__links--notification'>
-              <FaBell />
+              <FaBell onClick={() => setOpenNotification(!openNotification)} />
+              <div className={`navbar__links--notificationDropdown ${openNotification ? 'active' : undefined}`}>
+                {
+                  notification.map(item => (
+                    <div key={item._id} className='navbar__links--notificationContent'>
+                      <div>
+                        <h4>{item.title}</h4>
+                        <p>{item.description}</p>
+                        <p>By: {item.author?.name}</p>
+                      </div>
+                      <div className='circle' />
+                    </div>
+                  ))
+                }
+              </div>
             </div>
             <div className='navbar__links--profile'>
               <Avatar src={auth.user?.avatar} alt={auth.user?.name} onClick={() => setIsOpenAvatarDropdown(!isOpenAvatarDropdown)} />

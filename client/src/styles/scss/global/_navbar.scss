@@ -75,6 +75,78 @@
 
     &--notification {
       margin-bottom: 20px;
+      position: relative;
+
+      &Dropdown {
+        position: absolute;
+        top: 100%;
+        transform: translateY(8px);
+        right: 0;
+        width: 300px;
+        border-radius: 5px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+        background-color: #fff;
+        color: #000;
+        max-height: 500px;
+        overflow: auto;
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 150ms;
+
+        &.active {
+          transform: scaleY(1);
+        }
+
+        &::-webkit-scrollbar {
+          width: 13px;
+      
+          &-track {
+            background: #f1f1f1;
+          }
+      
+          &-thumb {
+            background: $ternary-color;
+            border-radius: 50px;
+          }
+        }
+      }
+
+      &Content {
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & > * + * {
+          margin-left: 10px;
+        }
+
+        div:last-child {
+          flex-shrink: 0;
+        }
+
+        &:hover {
+          background: #ccc;
+        }
+
+        div:first-child > * + * {
+          margin-top: 7px;
+        }
+
+        &:first-child {
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
+
+        &:last-child {
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid rgb(238, 238, 238);
+        }
+      }
     }
 
     &--profile {

@@ -213,3 +213,24 @@ export const deleteClass = (id, accessToken) => async(dispatch) => {
     })
   }
 }
+
+export const sendBroadcast = (id, description, accessToken, socket) => async(dispatch) => {
+  try {
+    const res = await postDataAPI(`class/broadcast/${id}`, {description}, accessToken)
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+
+    socket.emit('sendBroadcast', res.data.broadcast)
+  } catch (err) {
+    dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}

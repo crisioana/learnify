@@ -101,6 +101,93 @@
 
 .navbar__links--notification {
   margin-bottom: 20px;
+  position: relative;
+}
+
+.navbar__links--notificationDropdown {
+  position: absolute;
+  top: 100%;
+  -webkit-transform: translateY(8px);
+          transform: translateY(8px);
+  right: 0;
+  width: 300px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  color: #000;
+  max-height: 500px;
+  overflow: auto;
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  -webkit-transition: -webkit-transform 150ms;
+  transition: -webkit-transform 150ms;
+  transition: transform 150ms;
+  transition: transform 150ms, -webkit-transform 150ms;
+}
+
+.navbar__links--notificationDropdown.active {
+  -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+}
+
+.navbar__links--notificationDropdown::-webkit-scrollbar {
+  width: 13px;
+}
+
+.navbar__links--notificationDropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.navbar__links--notificationDropdown::-webkit-scrollbar-thumb {
+  background: #CBE2EF;
+  border-radius: 50px;
+}
+
+.navbar__links--notificationContent {
+  padding: 10px 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.navbar__links--notificationContent > * + * {
+  margin-left: 10px;
+}
+
+.navbar__links--notificationContent div:last-child {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+.navbar__links--notificationContent:hover {
+  background: #ccc;
+}
+
+.navbar__links--notificationContent div:first-child > * + * {
+  margin-top: 7px;
+}
+
+.navbar__links--notificationContent:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.navbar__links--notificationContent:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.navbar__links--notificationContent:not(:last-child) {
+  border-bottom: 1px solid #eeeeee;
 }
 
 .navbar__links--profile {
@@ -2034,6 +2121,13 @@ a {
 
 .float-right {
   float: right;
+}
+
+.circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #5584B1;
 }
 
 .clear {

@@ -2,16 +2,17 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { GLOBAL_TYPES } from './../../../redux/types/globalTypes'
-import { changeClassStatus, deleteClass, renameClass } from './../../../redux/actions/classActions'
+import { changeClassStatus, deleteClass, renameClass, sendBroadcast } from './../../../redux/actions/classActions'
 import Loader from './../../global/Loader'
 
 const SettingList = ({id, title, status}) => {
   const [name, setName] = useState('');
   const [broadcast, setBroadcast] = useState('')
+  const [loadingBroadcast, setLoadingBroadcast] = useState(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { auth, alert } = useSelector(state => state)
+  const { auth, alert, socket } = useSelector(state => state)
 
   const handleRename = e => {
     e.preventDefault()
@@ -27,8 +28,11 @@ const SettingList = ({id, title, status}) => {
     dispatch(renameClass(id, name, auth.accessToken))
   }
 
-  const handleBroadcast = e => {
+  const handleBroadcast = async e => {
     e.preventDefault()
+    setLoadingBroadcast(true)
+    await dispatch(sendBroadcast(id, broadcast, auth.accessToken, socket))
+    setLoadingBroadcast(false)
   }
 
   const handleCreateQuiz = () => {
@@ -83,7 +87,17 @@ const SettingList = ({id, title, status}) => {
           <label htmlFor='broadcast'>Broadcast</label>
           <input type='text' id='broadcast' value={broadcast} onChange={e => setBroadcast(e.target.value)} />
         </div>
-        <button type='submit'>Broadcast</button>
+        <button type='submit' disabled={loadingBroadcast ? true : false}>
+          {
+            loadingBroadcast
+            ? (
+              <div className='center'>
+                <Loader width='20px' height='20px' border='2px' />
+              </div>
+            )
+            : 'Broadcast'
+          }
+        </button>
       </form>
 
       <button onClick={handleCreateQuiz} className='createQuizBtn'>Create Quiz for "{title}" Class</button>

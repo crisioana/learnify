@@ -6,7 +6,9 @@ router.route('/')
   .get(isAuthenticated, classCtrl.getClassesByInstructor)
   .post(isAuthenticated, authorizeRoles('Instructor'), classCtrl.createClass)
 
-  router.route('/student').get(isAuthenticated, authorizeRoles('Student'), classCtrl.getStudentClasses)
+router.route('/student').get(isAuthenticated, authorizeRoles('Student'), classCtrl.getStudentClasses)
+
+router.route('/broadcast/:id').post(isAuthenticated, authorizeRoles('Instructor'), classCtrl.sendBroadcast)
 
 router.route('/:id')
   .get(classCtrl.getClassDetail)

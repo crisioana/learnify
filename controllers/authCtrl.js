@@ -1,4 +1,5 @@
 const User = require('./../models/User')
+const Notification = require('./../models/Notification')
 const sendMail = require('./../utils/sendMail')
 const bcrypt = require('bcrypt')
 const fetch = require('cross-fetch')
@@ -80,6 +81,9 @@ const authCtrl = {
   
       const newUser = new User(user)
       await newUser.save()
+
+      const userNotification = new Notification({user: newUser._id})
+      await userNotification.save()
       
       return res.status(200).json({msg: 'Account activated successfully.'})
     } catch (err) {
@@ -339,6 +343,9 @@ const registerUser = async(newUser, res) => {
   try {
     const user = new User(newUser)
     await user.save()
+
+    const userNotification = new Notification({user: user._id})
+    await userNotification.save()
 
     const accessToken = generateAccessToken({id: user._id})
     const refreshToken = generateRefreshToken({id: user._id})
