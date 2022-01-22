@@ -28,7 +28,6 @@ const QuizCard = ({id, submissions, title, status}) => {
   }
 
   const handleOpenSubmission = () => {
-    console.log(submissions)
     if (submissions?.length === 0) {
       dispatch({
         type: GLOBAL_TYPES.ALERT,

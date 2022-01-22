@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NOTIFICATION_TYPES } from './redux/types/notificationTypes'
+import { SUBMISSION_TYPES } from './redux/types/submissionTypes'
 
 const spawnNotification = (body, url, title) => {
   let options = {
@@ -60,6 +61,17 @@ const SocketClient = () => {
     })
 
     return () => socket.off('submitQuizToClient')
+  }, [dispatch, socket])
+
+  useEffect(() => {
+    socket.on('addSubmissionToClient', data => {
+      dispatch({
+        type: SUBMISSION_TYPES.ADD_SUBMISSION,
+        payload: data
+      }, [])
+    })
+
+    return () => socket.off('addSubmissionToClient')
   }, [dispatch, socket])
 
   return (

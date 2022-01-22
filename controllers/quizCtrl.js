@@ -121,7 +121,20 @@ const quizCtrl = {
         $push: { results: newResult._id }
       })
 
-      return res.status(200).json({msg: 'Quiz has been submitted.'})
+      const data = {
+        student: {
+          _id: req.user._id,
+          name: req.user.name
+        },
+        answer,
+        score,
+        createdAt: newResult.createdAt
+      }
+
+      return res.status(200).json({
+        msg: 'Quiz has been submitted.',
+        result: data
+      })
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }

@@ -33,6 +33,14 @@ const socketServer = socket => {
       }
     })
   })
+
+  socket.on('addSubmission', data => {
+    users.forEach(client => {
+      if (client.id === data.to) {
+        socket.to(`${client.socketId}`).emit('addSubmissionToClient', data)
+      }
+    })
+  })
 }
 
 module.exports = socketServer

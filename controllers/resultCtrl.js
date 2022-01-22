@@ -44,6 +44,7 @@ const resultCtrl = {
           }
         },
         { $unwind: "$quiz" },
+        { $sort: { createdAt: -1 } },
         {
           $group: {
             _id: "$quiz._id",

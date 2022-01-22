@@ -147,6 +147,8 @@ export const submitQuiz = (answer, student, quizId, instructorId, quizTitle, acc
     const notifId = await dispatch(createNotification(data, accessToken))
 
     socket.emit('submitQuiz', {...data, _id: notifId})
+
+    socket.emit('addSubmission', {...res.data.result, quizId, to: instructorId})
   } catch (err) {
     dispatch({
       type: GLOBAL_TYPES.ALERT,
