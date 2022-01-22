@@ -15,7 +15,7 @@ const QuizDetail = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { id } = useParams()
-  const { alert, auth, quizDetail } = useSelector(state => state)
+  const { alert, auth, quizDetail, socket } = useSelector(state => state)
   
   const handleChangeAnswer = (questionIdx, value) => {
     setStudentAnswer({...studentAnswer, [questionIdx]: value})
@@ -32,7 +32,7 @@ const QuizDetail = () => {
     }
 
     setOnSubmit(true)
-    await dispatch(submitQuiz(studentAnswer, id, auth.accessToken))
+    await dispatch(submitQuiz(studentAnswer, {name: auth.user?.name, id: auth.user?.id}, id, quizDetail.class?.instructor._id, quizDetail.title, auth.accessToken, socket))
     setOnSubmit(false)
     navigate('/')
   }

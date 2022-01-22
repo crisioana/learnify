@@ -31,6 +31,17 @@ const SocketClient = () => {
 
     return () => socket.off('createQuizToClient')
   }, [dispatch, socket])
+  
+  useEffect(() => {
+    socket.on('submitQuizToClient', data => {
+      dispatch({
+        type: NOTIFICATION_TYPES.CREATE_NOTIFICATION,
+        payload: data
+      })
+    })
+
+    return () => socket.off('submitQuizToClient')
+  }, [dispatch, socket])
 
   return (
     <div></div>

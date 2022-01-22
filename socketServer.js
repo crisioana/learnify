@@ -32,6 +32,18 @@ const socketServer = socket => {
       }
     })
   })
+
+  socket.on('submitQuiz', data => {
+    const peopleList = data.to
+
+    users.forEach(client => {
+      for (let i = 0; i < peopleList.length; i++) {
+        if (client.id === peopleList[i]) {
+          socket.to(`${client.socketId}`).emit('submitQuizToClient', data)
+        }
+      }
+    })
+  })
 }
 
 module.exports = socketServer

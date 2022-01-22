@@ -124,7 +124,7 @@ export const getQuizDetail = id => async(dispatch) => {
   }
 }
 
-export const submitQuiz = (answer, quizId, accessToken) => async(dispatch) => {
+export const submitQuiz = (answer, student, quizId, instructorId, quizTitle, accessToken, socket) => async(dispatch) => {
   try {
     const res = await postDataAPI('quiz/submit', {answer, quizId}, accessToken)
     dispatch({
@@ -133,6 +133,18 @@ export const submitQuiz = (answer, quizId, accessToken) => async(dispatch) => {
         success: res.data.msg
       }
     })
+
+    const data = {
+      to: [instructorId],
+      title: 'New submission',
+      description: `New submission from ${student.name} on "${quizTitle}" quiz`,
+      author: student.id,
+      authorName: student.name,
+      link: `/submission/${quizId}`
+    }
+    await dispatch(createNotification(data, accessToken))
+
+    socket.emit('submitQuiz', data)
   } catch (err) {
     dispatch({
       type: GLOBAL_TYPES.ALERT,
