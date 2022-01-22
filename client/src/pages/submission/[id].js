@@ -5,6 +5,7 @@ import { getSubmissionsByQuiz } from './../../redux/actions/submissionActions'
 import Navbar from './../../components/global/Navbar'
 import TableRow from './../../components/submission/TableRow'
 import NotFound from './../../components/global/NotFound'
+import HeadInfo from './../../utils/HeadInfo'
 
 const Submission = () => {
   const dispatch = useDispatch()
@@ -18,6 +19,7 @@ const Submission = () => {
   if (!auth.user || auth.user?.role === 'Student') return <NotFound />
   return (
     <>
+      <HeadInfo title='Submission' />
       <Navbar />
       <div className='submission container'>
         <div className='submission__header'>

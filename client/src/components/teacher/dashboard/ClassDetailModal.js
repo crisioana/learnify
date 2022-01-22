@@ -11,7 +11,7 @@ const ClassDetailModal = ({id, title, quizzes, student, classRestrict, isOpenMod
     <div className={`classDetailModal ${isOpenModal ? 'active' : undefined}`}>
       <div className={`classDetailModal__box ${isOpenModal ? 'active' : undefined}`}>
         <div className='classDetailModal__header'>
-          <h3>Class Title Goes Here</h3>
+          <h3>{title}</h3>
           <AiOutlineClose onClick={() => setIsOpenModal(false)} />
         </div>
         <div className='classDetailModal__body'>

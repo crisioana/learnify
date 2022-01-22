@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import StudentDashboard from './../components/student/dashboard/StudentDashboard'
 import TeacherDashboard from './../components/teacher/dashboard/TeacherDashboard'
 import Navbar from './../components/global/Navbar'
+import HeadInfo from './../utils/HeadInfo'
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -16,6 +17,7 @@ const Dashboard = () => {
 
   return (
     <>
+      <HeadInfo title='Dashboard' />
       <Navbar />
       <div className='container'>
         {

@@ -88,7 +88,7 @@ export const changeClassStatus = (id, status, accessToken) => async(dispatch) =>
 export const renameClass = (id, name, accessToken) => async(dispatch) => {
   try {
     const tokenExp = await checkTokenExp(accessToken, dispatch)
-    const access_token = tokenExp ? tokenExp : access_token
+    const access_token = tokenExp ? tokenExp : accessToken
 
     dispatch({
       type: GLOBAL_TYPES.ALERT,

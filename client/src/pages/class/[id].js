@@ -8,6 +8,7 @@ import FilterSearch from './../../components/student/classDetail/FilterSearch'
 import QuizCard from './../../components/student/classDetail/QuizCard'
 import Loader from './../../components/global/Loader'
 import NotFound from './../../components/global/NotFound'
+import HeadInfo from './../../utils/HeadInfo'
 
 const ClassDetail = () => {
   const [loading, setLoading] = useState(false)
@@ -94,6 +95,7 @@ const ClassDetail = () => {
   if (!auth.user || auth.user?.role !== 'Student') return <NotFound />
   return (
     <>
+      <HeadInfo title={`"${classData.name}" Class`} />
       <Navbar />
       <div className='classDetail container'>
         <div className='classDetail__header'>

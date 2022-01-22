@@ -3,6 +3,7 @@ import { useEffect, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { postDataAPI } from './../../utils/fetchData'
 import { useAlert } from 'react-alert'
+import HeadInfo from './../../utils/HeadInfo'
 
 const ActivateAccount = () => {
   const { id: token } = useParams()
@@ -33,7 +34,10 @@ const ActivateAccount = () => {
   }, [auth.user, navigate])
 
   return (
-    <div></div>
+    <>
+      <HeadInfo title='Activate Account' />
+      <div></div>
+    </>
   )
 }
 

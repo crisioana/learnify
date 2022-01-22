@@ -9,6 +9,7 @@ import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
 import Navbar from './../../components/global/Navbar'
 import Loader from './../../components/global/Loader'
 import NotFound from './../../components/global/NotFound'
+import HeadInfo from './../../utils/HeadInfo'
 
 const CreateQuiz = ({quizId, onEdit}) => {
   const [classTitle, setClassTitle] = useState('')
@@ -165,6 +166,7 @@ const CreateQuiz = ({quizId, onEdit}) => {
   if (!auth.user || auth.user?.role !== 'Instructor') return <NotFound />
   return (
     <>
+      <HeadInfo title='Create Quiz' />
       <Navbar />
       <div className='container createQuiz'>
         <div className='createQuiz__header'>

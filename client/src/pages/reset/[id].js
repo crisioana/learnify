@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { GLOBAL_TYPES } from './../../redux/types/globalTypes'
 import { resetPassword } from './../../redux/actions/authActions'
 import Loader from './../../components/global/Loader'
+import HeadInfo from './../../utils/HeadInfo'
 
 const ResetPassword = () => {
   const [passwordData, setPasswordData] = useState({
@@ -64,49 +65,52 @@ const ResetPassword = () => {
   }, [auth.user, navigate])
 
   return (
-    <div className='auth'>
-      <div className='auth__left'>
-        <img src={`${process.env.PUBLIC_URL}/images/auth.jpg`} alt='Learnify Login' />
-      </div>
-      <div className='auth__right'>
-        <h2>Reset Password</h2>
-        <form onSubmit={handleSubmit}>
-          <div className='inputGroup'>
-            <label htmlFor='newPassword'>New Password</label>
-            <div className='inputGroup--password'>
-              <input type={showNewPassword ? 'text' : 'password'} id='newPassword' name='newPassword' value={passwordData.newPassword} onChange={handleChange} />
-              {
-                showNewPassword
-                ? <FaEyeSlash onClick={() => setShowNewPassword(false)} />
-                : <FaEye onClick={() => setShowNewPassword(true)} />
-              }
+    <>
+      <HeadInfo title='Reset Password' />
+      <div className='auth'>
+        <div className='auth__left'>
+          <img src={`${process.env.PUBLIC_URL}/images/auth.jpg`} alt='Learnify Login' />
+        </div>
+        <div className='auth__right'>
+          <h2>Reset Password</h2>
+          <form onSubmit={handleSubmit}>
+            <div className='inputGroup'>
+              <label htmlFor='newPassword'>New Password</label>
+              <div className='inputGroup--password'>
+                <input type={showNewPassword ? 'text' : 'password'} id='newPassword' name='newPassword' value={passwordData.newPassword} onChange={handleChange} />
+                {
+                  showNewPassword
+                  ? <FaEyeSlash onClick={() => setShowNewPassword(false)} />
+                  : <FaEye onClick={() => setShowNewPassword(true)} />
+                }
+              </div>
             </div>
-          </div>
-          <div className='inputGroup'>
-            <label htmlFor='newPasswordConfirmation'>New Password Confirmation</label>
-            <div className='inputGroup--password'>
-              <input type={showNewPasswordConfirmation ? 'text' : 'password'} id='newPasswordConfirmation' name='newPasswordConfirmation' value={passwordData.newPasswordConfirmation} onChange={handleChange} />
-              {
-                showNewPasswordConfirmation
-                ? <FaEyeSlash onClick={() => setShowNewPasswordConfirmation(false)} />
-                : <FaEye onClick={() => setShowNewPasswordConfirmation(true)} />
-              }
+            <div className='inputGroup'>
+              <label htmlFor='newPasswordConfirmation'>New Password Confirmation</label>
+              <div className='inputGroup--password'>
+                <input type={showNewPasswordConfirmation ? 'text' : 'password'} id='newPasswordConfirmation' name='newPasswordConfirmation' value={passwordData.newPasswordConfirmation} onChange={handleChange} />
+                {
+                  showNewPasswordConfirmation
+                  ? <FaEyeSlash onClick={() => setShowNewPasswordConfirmation(false)} />
+                  : <FaEye onClick={() => setShowNewPasswordConfirmation(true)} />
+                }
+              </div>
             </div>
-          </div>
-          <button type='submit' disabled={alert.loading ? true : false}>
-            {
-              alert.loading
-              ? (
-                <div className='center'>
-                  <Loader width='20px' height='20px' border='2px' />
-                </div>
-              )
-              : 'Submit'
-            }
-          </button>
-        </form>
+            <button type='submit' disabled={alert.loading ? true : false}>
+              {
+                alert.loading
+                ? (
+                  <div className='center'>
+                    <Loader width='20px' height='20px' border='2px' />
+                  </div>
+                )
+                : 'Submit'
+              }
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

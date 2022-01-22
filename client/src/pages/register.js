@@ -7,6 +7,7 @@ import { GLOBAL_TYPES } from './../redux/types/globalTypes'
 import { register } from './../redux/actions/authActions'
 import { checkEmail, checkPhone } from './../utils/formatChecker'
 import RoleModal from './../components/auth/RoleModal'
+import HeadInfo from './../utils/HeadInfo'
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -99,6 +100,7 @@ const Register = () => {
 
   return (
     <>
+      <HeadInfo title='Register' />
       <div className='auth'>
         <div className='auth__left'>
           <img src={`${process.env.PUBLIC_URL}/images/auth.jpg`} alt='Learnify Register' />

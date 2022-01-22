@@ -7,6 +7,7 @@ import { checkEmail } from './../utils/formatChecker'
 import { login } from './../redux/actions/authActions'
 import SocialLogin from './../components/auth/SocialLogin'
 import Loader from './../components/global/Loader'
+import HeadInfo from './../utils/HeadInfo'
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -59,45 +60,48 @@ const Login = () => {
   }, [auth, navigate])
 
   return (
-    <div className='auth'>
-      <div className='auth__left'>
-        <img src={`${process.env.PUBLIC_URL}/images/auth.jpg`} alt='Learnify Login' />
-      </div>
-      <div className='auth__right'>
-        <h2>Sign In To Learnify</h2>
-        <SocialLogin />
-        <form onSubmit={handleSubmit}>
-          <div className='inputGroup'>
-            <label htmlFor='email'>Email address</label>
-            <input type='text' name='email' id='email' value={userData.email} onChange={handleChange} autoComplete='off' />
-          </div>
-          <div className='inputGroup'>
-            <label htmlFor='password'>Password</label>
-            <div className='inputGroup--password'>
-              <input type={showPassword ? 'text' : 'password'} name='password' id='password' value={userData.password} onChange={handleChange} />
-              {
-                showPassword
-                ? <FaEyeSlash onClick={() => setShowPassword(false)} />
-                : <FaEye onClick={() => setShowPassword(true)} />
-              }
+    <>
+      <HeadInfo title='Login' />
+      <div className='auth'>
+        <div className='auth__left'>
+          <img src={`${process.env.PUBLIC_URL}/images/auth.jpg`} alt='Learnify Login' />
+        </div>
+        <div className='auth__right'>
+          <h2>Sign In To Learnify</h2>
+          <SocialLogin />
+          <form onSubmit={handleSubmit}>
+            <div className='inputGroup'>
+              <label htmlFor='email'>Email address</label>
+              <input type='text' name='email' id='email' value={userData.email} onChange={handleChange} autoComplete='off' />
             </div>
-            <Link style={{ marginTop: '7px', display: 'block' }} to='/forget'>Forget Password</Link>
-          </div>
-          <button type='submit' disabled={alert.loading ? true : false}>
-            {
-              alert.loading
-              ? (
-                <div className='center'>
-                  <Loader width='20px' height='20px' border='2px' />
-                </div>
-              )
-              : 'Sign In'
-            }
-          </button>
-        </form>
-        <p>Don't have an account yet? Click <Link to='/register'>here</Link></p>
+            <div className='inputGroup'>
+              <label htmlFor='password'>Password</label>
+              <div className='inputGroup--password'>
+                <input type={showPassword ? 'text' : 'password'} name='password' id='password' value={userData.password} onChange={handleChange} />
+                {
+                  showPassword
+                  ? <FaEyeSlash onClick={() => setShowPassword(false)} />
+                  : <FaEye onClick={() => setShowPassword(true)} />
+                }
+              </div>
+              <Link style={{ marginTop: '7px', display: 'block' }} to='/forget'>Forget Password</Link>
+            </div>
+            <button type='submit' disabled={alert.loading ? true : false}>
+              {
+                alert.loading
+                ? (
+                  <div className='center'>
+                    <Loader width='20px' height='20px' border='2px' />
+                  </div>
+                )
+                : 'Sign In'
+              }
+            </button>
+          </form>
+          <p>Don't have an account yet? Click <Link to='/register'>here</Link></p>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

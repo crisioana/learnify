@@ -7,6 +7,7 @@ import Navbar from './../../components/global/Navbar'
 import QuestionBox from './../../components/global/QuestionBox'
 import NotFound from './../../components/global/NotFound'
 import Loader from './../../components/global/Loader'
+import HeadInfo from './../../utils/HeadInfo'
 
 const QuizDetail = () => {
   const [onSubmit, setOnSubmit] = useState(false)
@@ -44,6 +45,7 @@ const QuizDetail = () => {
   if (!auth.user || auth.user?.role !== 'Student') return <NotFound />  
   return (
     <>
+      <HeadInfo title={`"${quizDetail.title}" Quiz`} />
       <Navbar />
       <div className='quizDetail container'>
         {
