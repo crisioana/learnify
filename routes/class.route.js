@@ -8,8 +8,6 @@ router.route('/')
 
 router.route('/student').get(isAuthenticated, authorizeRoles('Student'), classCtrl.getStudentClasses)
 
-router.route('/broadcast/:id').post(isAuthenticated, authorizeRoles('Instructor'), classCtrl.sendBroadcast)
-
 router.route('/:id')
   .get(classCtrl.getClassDetail)
   .delete(classCtrl.deleteClass)

@@ -6,4 +6,7 @@ router.route('/')
   .get(isAuthenticated, notificationCtrl.getAllNotifications)
   .post(isAuthenticated, notificationCtrl.createNotification)
 
+router.route('/:id')
+  .patch(isAuthenticated, notificationCtrl.readNotification)
+
 module.exports = router

@@ -1,6 +1,7 @@
 import { GLOBAL_TYPES } from './../types/globalTypes'
 import { CLASS_TYPES } from './../types/classTypes'
 import { getDataAPI, postDataAPI, patchDataAPI, deleteDataAPI }  from './../../utils/fetchData'
+import { createNotification } from './notificationActions'
 
 export const getClasses = (accessToken, page) => async(dispatch) => {
   try {
@@ -214,17 +215,21 @@ export const deleteClass = (id, accessToken) => async(dispatch) => {
   }
 }
 
-export const sendBroadcast = (id, description, accessToken, socket) => async(dispatch) => {
+export const sendBroadcast = (description, people, className, author, accessToken, socket) => async(dispatch) => {
   try {
-    const res = await postDataAPI(`class/broadcast/${id}`, {description}, accessToken)
-    dispatch({
-      type: GLOBAL_TYPES.ALERT,
-      payload: {
-        success: res.data.msg
+    for (let i = 0; i < people.length; i++) {
+      const data = {
+        to: people[i]._id,
+        title: `Class "${className}" broadcast`,
+        description,
+        author: author.id,
+        authorName: author.name
       }
-    })
 
-    socket.emit('sendBroadcast', res.data.broadcast)
+      const notifId = await dispatch(createNotification(data, accessToken))
+
+      socket.emit('sendBroadcast', {...data, _id: notifId})
+    }
   } catch (err) {
     dispatch({
       type: GLOBAL_TYPES.ALERT,

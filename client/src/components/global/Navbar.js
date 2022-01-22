@@ -7,6 +7,7 @@ import { MdLogout } from 'react-icons/md'
 import { BsFillKeyFill } from 'react-icons/bs'
 import { FaBell, FaUserAlt } from 'react-icons/fa'
 import { logout } from './../../redux/actions/authActions'
+import { readNotification } from './../../redux/actions/notificationActions'
 import JoinClass from './../student/dashboard/JoinClass'
 import CreateClass from './../teacher/dashboard/CreateClass'
 import EditProfile from './EditProfile'
@@ -55,18 +56,23 @@ const Navbar = () => {
               auth.user?.role === 'Instructor' && <p onClick={() => setOpenCreateClass(true)}>Create Class</p>
             }
             <div className='navbar__links--notification'>
-              <FaBell onClick={() => setOpenNotification(!openNotification)} />
+              <div className='navbar__links--notificationIcon'>
+                <FaBell onClick={() => setOpenNotification(!openNotification)} />
+                <div>
+                  {notification.reduce((total, item) => item.isRead === false ? total + 1 : total + 0, 0)}
+                </div>
+              </div>
               <div className={`navbar__links--notificationDropdown ${openNotification ? 'active' : undefined}`}>
                 {
                   notification.map(item => (
-                    <Link to={item.link ? item.link : '/'} key={item._id}>
+                    <Link to={item.link ? item.link : '/'} key={item._id} onClick={() => dispatch(readNotification(item._id, auth.accessToken))}>
                       <div className='navbar__links--notificationContent'>
                         <div>
                           <h4>{item.title}</h4>
                           <p>{item.description}</p>
                           <p>By: {item.author?.name}</p>
                         </div>
-                        <div className='circle' />
+                        { !item.isRead && <div className='circle' /> }
                       </div>
                     </Link>
                   ))

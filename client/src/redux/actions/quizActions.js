@@ -17,19 +17,21 @@ export const createQuiz = (quizData, accessToken, socket) => async(dispatch) => 
       type: QUIZ_TYPES.CREATE_QUIZ,
       payload: res.data.quiz
     })
-
-    const data = {
-      to: quizData.people,
-      title: 'New Quiz',
-      description: `New quiz from instructor ${quizData.author.name}`,
-      author: quizData.author._id,
-      authorName: quizData.author.name,
-      link: `/quiz/${res.data.quiz._id}`
-    }
     
-    await dispatch(createNotification(data, accessToken))
-
-    socket.emit('createQuiz', data)
+    for (let i = 0; i < quizData.people.length; i++) {
+      const data = {
+        to: quizData.people[i],
+        title: 'New Quiz',
+        description: `New quiz from instructor ${quizData.author.name}`,
+        author: quizData.author._id,
+        authorName: quizData.author.name,
+        link: `/quiz/${res.data.quiz._id}`
+      }
+       
+      const notifId = await dispatch(createNotification(data, accessToken))
+  
+      socket.emit('createQuiz', {...data, _id: notifId})
+    }
 
     dispatch({
       type: GLOBAL_TYPES.ALERT,
@@ -135,16 +137,16 @@ export const submitQuiz = (answer, student, quizId, instructorId, quizTitle, acc
     })
 
     const data = {
-      to: [instructorId],
+      to: instructorId,
       title: 'New submission',
       description: `New submission from ${student.name} on "${quizTitle}" quiz`,
       author: student.id,
       authorName: student.name,
       link: `/submission/${quizId}`
     }
-    await dispatch(createNotification(data, accessToken))
+    const notifId = await dispatch(createNotification(data, accessToken))
 
-    socket.emit('submitQuiz', data)
+    socket.emit('submitQuiz', {...data, _id: notifId})
   } catch (err) {
     dispatch({
       type: GLOBAL_TYPES.ALERT,

@@ -7,6 +7,7 @@ const notificationReducer = (state = [], action) => {
     case NOTIFICATION_TYPES.CREATE_NOTIFICATION:
       return [
         {
+          _id: action.payload._id,
           title: action.payload.title,
           description: action.payload.description,
           author: { name: action.payload.authorName },
@@ -15,6 +16,8 @@ const notificationReducer = (state = [], action) => {
         },
         ...state
       ]
+    case NOTIFICATION_TYPES.READ_NOTIFICATION:
+      return state.map(item => item._id === action.payload ? {...item, isRead: true} : item)
     default:
       return state
   }

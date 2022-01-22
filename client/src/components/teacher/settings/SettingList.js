@@ -5,7 +5,7 @@ import { GLOBAL_TYPES } from './../../../redux/types/globalTypes'
 import { changeClassStatus, deleteClass, renameClass, sendBroadcast } from './../../../redux/actions/classActions'
 import Loader from './../../global/Loader'
 
-const SettingList = ({id, title, status}) => {
+const SettingList = ({id, student, title, status}) => {
   const [name, setName] = useState('');
   const [broadcast, setBroadcast] = useState('')
   const [loadingBroadcast, setLoadingBroadcast] = useState(false)
@@ -31,7 +31,16 @@ const SettingList = ({id, title, status}) => {
   const handleBroadcast = async e => {
     e.preventDefault()
     setLoadingBroadcast(true)
-    await dispatch(sendBroadcast(id, broadcast, auth.accessToken, socket))
+    await dispatch(sendBroadcast(broadcast, student, title, {id: auth.user?._id, name: auth.user?.name}, auth.accessToken, socket))
+
+    await dispatch({
+      type: GLOBAL_TYPES.ALERT,
+      payload: {
+        success: 'broadcast sent'
+      }
+    })
+
+    setBroadcast('')
     setLoadingBroadcast(false)
   }
 

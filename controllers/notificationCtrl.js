@@ -13,13 +13,28 @@ const notificationCtrl = {
     try {
       const { to, title, description, author, link } = req.body
 
-      for (let i = 0; i < to.length; i++) {
-        await Notification.findOneAndUpdate({user: to[i]}, {
-          $push: { data: { title, description, author, link } }
-        })
-      }
+      const newNotification = await Notification.findOneAndUpdate({user: to}, {
+        $push: { data: { title, description, author, link } }
+      }, {new: true})
 
-      return res.status(200).json({msg: 'Notification has been created.'})
+      return res.status(200).json({
+        id: newNotification.data[newNotification.data.length - 1]._id
+      })
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  },
+  readNotification: async(req, res) => {
+    try {
+      const { id } = req.params
+
+      await Notification.updateOne({user: req.user.id, "data._id": id}, {
+        $set: {
+          'data.$.isRead': true
+        }
+      })
+
+      res.status(200).json({msg: 'Notification is read.'})
     } catch (err) {
       return res.status(500).json({msg: err.message})
     }
