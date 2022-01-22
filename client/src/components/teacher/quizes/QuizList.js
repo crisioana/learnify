@@ -19,6 +19,7 @@ const QuizList = ({quizzes}) => {
                   id={quiz._id}
                   title={quiz.title}
                   status={quiz.status}
+                  submissions={quiz.results}
                 />
               ))
             }

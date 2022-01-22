@@ -28,7 +28,7 @@ const classCtrl = {
                   "let": { quiz_id: "$quizzes" },
                   "pipeline": [
                     { $match: { $expr: { $in: ["$_id", "$$quiz_id"] } } },
-                    { $project: { title: 1, status: 1 } }
+                    { $project: { title: 1, status: 1, results: 1 } }
                   ],
                   "as": "quizzes"
                 }
