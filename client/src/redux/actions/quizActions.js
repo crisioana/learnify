@@ -2,9 +2,13 @@ import { GLOBAL_TYPES } from './../types/globalTypes'
 import { QUIZ_TYPES } from './../types/quizTypes'
 import { postDataAPI, patchDataAPI, getDataAPI, deleteDataAPI } from './../../utils/fetchData'
 import { createNotification } from './notificationActions'
+import { checkTokenExp } from './../../utils/checkTokenExp'
 
 export const createQuiz = (quizData, accessToken, socket) => async(dispatch) => {
   try {
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
     dispatch({
       type: GLOBAL_TYPES.ALERT,
       payload: {
@@ -12,7 +16,7 @@ export const createQuiz = (quizData, accessToken, socket) => async(dispatch) => 
       }
     })
 
-    const res = await postDataAPI('quiz', quizData, accessToken)
+    const res = await postDataAPI('quiz', quizData, access_token)
     dispatch({
       type: QUIZ_TYPES.CREATE_QUIZ,
       payload: res.data.quiz
@@ -51,6 +55,9 @@ export const createQuiz = (quizData, accessToken, socket) => async(dispatch) => 
 
 export const updateQuiz = (id, quizData, accessToken) => async(dispatch) => {
   try {
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
     dispatch({
       type: GLOBAL_TYPES.ALERT,
       payload: {
@@ -58,7 +65,7 @@ export const updateQuiz = (id, quizData, accessToken) => async(dispatch) => {
       }
     })
 
-    const res = await patchDataAPI(`quiz/${id}`, quizData, accessToken)
+    const res = await patchDataAPI(`quiz/${id}`, quizData, access_token)
     dispatch({
       type: QUIZ_TYPES.EDIT_QUIZ,
       payload: res.data.quiz
@@ -82,7 +89,10 @@ export const updateQuiz = (id, quizData, accessToken) => async(dispatch) => {
 
 export const changeQuizStatus = (id, status, accessToken) => async(dispatch) => {
   try {
-    const res = await patchDataAPI(`quiz/status/${id}`, {status}, accessToken)
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
+    const res = await patchDataAPI(`quiz/status/${id}`, {status}, access_token)
     dispatch({
       type: QUIZ_TYPES.CHANGE_QUIZ_STATUS,
       payload: res.data.quiz
@@ -128,7 +138,10 @@ export const getQuizDetail = id => async(dispatch) => {
 
 export const submitQuiz = (answer, student, quizId, instructorId, quizTitle, accessToken, socket) => async(dispatch) => {
   try {
-    const res = await postDataAPI('quiz/submit', {answer, quizId}, accessToken)
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
+    const res = await postDataAPI('quiz/submit', {answer, quizId}, access_token)
     dispatch({
       type: GLOBAL_TYPES.ALERT,
       payload: {
@@ -161,7 +174,10 @@ export const submitQuiz = (answer, student, quizId, instructorId, quizTitle, acc
 
 export const deleteQuiz = (id, accessToken) => async(dispatch) => {
   try {
-    const res = await deleteDataAPI(`quiz/${id}`, accessToken)
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
+    const res = await deleteDataAPI(`quiz/${id}`, access_token)
     dispatch({
       type: QUIZ_TYPES.DELETE_QUIZ,
       payload: {

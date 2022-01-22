@@ -3,14 +3,14 @@ const classCtrl = require('./../controllers/classCtrl')
 const { isAuthenticated, authorizeRoles } = require('./../middlewares/auth')
 
 router.route('/')
-  .get(isAuthenticated, classCtrl.getClassesByInstructor)
+  .get(isAuthenticated, authorizeRoles('Instructor'), classCtrl.getClassesByInstructor)
   .post(isAuthenticated, authorizeRoles('Instructor'), classCtrl.createClass)
 
 router.route('/student').get(isAuthenticated, authorizeRoles('Student'), classCtrl.getStudentClasses)
 
 router.route('/:id')
   .get(classCtrl.getClassDetail)
-  .delete(classCtrl.deleteClass)
+  .delete(isAuthenticated, authorizeRoles('Instructor'), classCtrl.deleteClass)
 
 router.route('/restrict/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.changeRestrictStatus)
 router.route('/rename/:id').patch(isAuthenticated, authorizeRoles('Instructor'), classCtrl.renameClass)

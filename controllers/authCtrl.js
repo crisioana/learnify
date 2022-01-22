@@ -115,6 +115,10 @@ const authCtrl = {
         path: '/api/v1/auth/refresh_token'
       })
 
+      await User.findOneAndUpdate({_id: req.user._id}, {
+        rf_token: ''
+      })
+
       return res.status(200).json({msg: 'Logout success.'})
     } catch (err) {
       return res.status(500).json({msg: err.message})
@@ -130,11 +134,19 @@ const authCtrl = {
       if (!decoded.id)
         return res.status(403).json({msg: 'Invalid authentication.'})
 
-      const user = await User.findById(decoded.id)
+      const user = await User.findById(decoded.id).select('-password +rf_token')
       if (!user)
         return res.status(403).json({msg: 'Invalid authentication.'})
 
+      if (rfToken !== user.rf_token)
+        return res.status(403).json({msg: 'Invalid authentication.'})
+
       const accessToken = generateAccessToken({id: user._id})
+      const refreshToken = generateRefreshToken({id: user._id}, res)
+
+      await User.findOneAndUpdate({_id: user._id}, {
+        rf_token: refreshToken
+      })
       
       return res.status(200).json({
         user: {
@@ -321,12 +333,10 @@ const loginUser = async(res, password, user) => {
     return res.status(403).json({msg})
 
   const accessToken = generateAccessToken({id: user._id})
-  const refreshToken = generateRefreshToken({id: user._id})
+  const refreshToken = generateRefreshToken({id: user._id}, res)
 
-  res.cookie('learnify_rfToken', refreshToken, {
-    httpOnly: true,
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    path: '/api/v1/auth/refresh_token'
+  await User.findOneAndUpdate({_id: user._id}, {
+    rf_token: refreshToken
   })
 
   return res.status(200).json({
@@ -342,19 +352,15 @@ const loginUser = async(res, password, user) => {
 const registerUser = async(newUser, res) => {
   try {
     const user = new User(newUser)
-    await user.save()
 
     const userNotification = new Notification({user: user._id})
     await userNotification.save()
 
     const accessToken = generateAccessToken({id: user._id})
-    const refreshToken = generateRefreshToken({id: user._id})
+    const refreshToken = generateRefreshToken({id: user._id}, res)
 
-    res.cookie('learnify_rfToken', refreshToken, {
-      httpOnly: true,
-      path: '/api/v1/auth/refresh_token',
-      maxAge: 30 * 24 * 60 * 60 * 1000
-    })
+    user.rf_token = refreshToken
+    await user.save()
 
     return res.status(200).json({
       msg: `Authenticated as ${user.name}`,

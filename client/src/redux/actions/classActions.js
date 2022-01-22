@@ -2,9 +2,13 @@ import { GLOBAL_TYPES } from './../types/globalTypes'
 import { CLASS_TYPES } from './../types/classTypes'
 import { getDataAPI, postDataAPI, patchDataAPI, deleteDataAPI }  from './../../utils/fetchData'
 import { createNotification } from './notificationActions'
+import { checkTokenExp } from './../../utils/checkTokenExp'
 
 export const getClasses = (accessToken, page) => async(dispatch) => {
   try {
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
     dispatch({
       type: GLOBAL_TYPES.ALERT,
       payload: {
@@ -12,7 +16,7 @@ export const getClasses = (accessToken, page) => async(dispatch) => {
       }
     })
 
-    const res = await getDataAPI(`class?page=${page}`, accessToken)
+    const res = await getDataAPI(`class?page=${page}`, access_token)
     dispatch({
       type: CLASS_TYPES.GET_CLASSES,
       payload: res.data
@@ -36,7 +40,10 @@ export const getClasses = (accessToken, page) => async(dispatch) => {
 
 export const createClass = (classData, accessToken) => async(dispatch) => {
   try {
-    const res = await postDataAPI('class', classData, accessToken)
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
+    const res = await postDataAPI('class', classData, access_token)
     dispatch({
       type: CLASS_TYPES.CREATE_CLASS,
       payload: res.data.class
@@ -60,7 +67,10 @@ export const createClass = (classData, accessToken) => async(dispatch) => {
 
 export const changeClassStatus = (id, status, accessToken) => async(dispatch) => {
   try {
-    const res = await patchDataAPI(`class/restrict/${id}`, {status}, accessToken)
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
+    const res = await patchDataAPI(`class/restrict/${id}`, {status}, access_token)
     dispatch({
       type: CLASS_TYPES.CHANGE_CLASS_STATUS,
       payload: res.data.class
@@ -77,6 +87,9 @@ export const changeClassStatus = (id, status, accessToken) => async(dispatch) =>
 
 export const renameClass = (id, name, accessToken) => async(dispatch) => {
   try {
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : access_token
+
     dispatch({
       type: GLOBAL_TYPES.ALERT,
       payload: {
@@ -84,7 +97,7 @@ export const renameClass = (id, name, accessToken) => async(dispatch) => {
       }
     })
     
-    const res = await patchDataAPI(`class/rename/${id}`, {name}, accessToken)
+    const res = await patchDataAPI(`class/rename/${id}`, {name}, access_token)
     dispatch({
       type: CLASS_TYPES.RENAME_CLASS,
       payload: res.data.class
@@ -108,6 +121,9 @@ export const renameClass = (id, name, accessToken) => async(dispatch) => {
 
 export const getStudentClasses = (accessToken, page, sort) => async(dispatch) => {
   try {
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
     dispatch({
       type: GLOBAL_TYPES.ALERT,
       payload: {
@@ -120,7 +136,7 @@ export const getStudentClasses = (accessToken, page, sort) => async(dispatch) =>
       url = url + `&sort=descending`
     }
 
-    const res = await getDataAPI(url, accessToken)
+    const res = await getDataAPI(url, access_token)
     dispatch({
       type: CLASS_TYPES.GET_STUDENT_CLASSES,
       payload: res.data
@@ -142,7 +158,10 @@ export const getStudentClasses = (accessToken, page, sort) => async(dispatch) =>
 
 export const joinClass = (id, accessToken) => async(dispatch) => {
   try {
-    const res = await patchDataAPI(`class/join/${id}`, {}, accessToken)
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
+    const res = await patchDataAPI(`class/join/${id}`, {}, access_token)
     dispatch({
       type: CLASS_TYPES.JOIN_CLASS,
       payload: res.data.class
@@ -166,7 +185,10 @@ export const joinClass = (id, accessToken) => async(dispatch) => {
 
 export const kickStudent = (id, classId, accessToken) => async(dispatch) => {
   try {
-    const res = await patchDataAPI(`class/kick/${id}`, {classId}, accessToken)
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token =  tokenExp ? tokenExp : accessToken
+
+    const res = await patchDataAPI(`class/kick/${id}`, {classId}, access_token)
     dispatch({
       type: CLASS_TYPES.KICK_STUDENT,
       payload: {
@@ -193,7 +215,10 @@ export const kickStudent = (id, classId, accessToken) => async(dispatch) => {
 
 export const deleteClass = (id, accessToken) => async(dispatch) => {
   try {
-    const res = await deleteDataAPI(`class/${id}`, accessToken)
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
+    const res = await deleteDataAPI(`class/${id}`, access_token)
     dispatch({
       type: CLASS_TYPES.DELETE_CLASS,
       payload: id
@@ -217,6 +242,9 @@ export const deleteClass = (id, accessToken) => async(dispatch) => {
 
 export const sendBroadcast = (description, people, className, author, accessToken, socket) => async(dispatch) => {
   try {
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
     for (let i = 0; i < people.length; i++) {
       const data = {
         to: people[i]._id,
@@ -226,7 +254,7 @@ export const sendBroadcast = (description, people, className, author, accessToke
         authorName: author.name
       }
 
-      const notifId = await dispatch(createNotification(data, accessToken))
+      const notifId = await dispatch(createNotification(data, access_token))
 
       socket.emit('sendBroadcast', {...data, _id: notifId})
     }

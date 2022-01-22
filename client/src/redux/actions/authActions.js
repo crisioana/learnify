@@ -1,6 +1,7 @@
 import { GLOBAL_TYPES } from './../types/globalTypes'
 import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { uploadImage } from './../../utils/imageHelper'
+import { checkTokenExp } from './../../utils/checkTokenExp'
 
 export const register = userData => async(dispatch) => {
   try {
@@ -101,7 +102,10 @@ export const refreshToken = () => async(dispatch) => {
 
 export const logout = accessToken => async(dispatch) => {
   try {
-    const res = await getDataAPI('auth/logout', accessToken)
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
+    const res = await getDataAPI('auth/logout', access_token)
     localStorage.removeItem('islogged-learnify')
     dispatch({
       type: GLOBAL_TYPES.AUTH,
@@ -196,6 +200,9 @@ export const facebookLogin = (accessToken, userID) => async(dispatch) => {
 
 export const updateProfile = (userData, avatar, accessToken) => async(dispatch) => {
   try {
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
     const data = {
       ...userData
     }
@@ -207,7 +214,7 @@ export const updateProfile = (userData, avatar, accessToken) => async(dispatch) 
       data.avatar = img_url
     }
 
-    const res = await patchDataAPI('auth/edit', data, accessToken)
+    const res = await patchDataAPI('auth/edit', data, access_token)
     dispatch({
       type: GLOBAL_TYPES.AUTH,
       payload: {
@@ -234,7 +241,10 @@ export const updateProfile = (userData, avatar, accessToken) => async(dispatch) 
 
 export const changePassword = (passwordData, accessToken) => async(dispatch) => {
   try {
-    const res = await patchDataAPI('auth/change_password', passwordData, accessToken)
+    const tokenExp = await checkTokenExp(accessToken, dispatch)
+    const access_token = tokenExp ? tokenExp : accessToken
+
+    const res = await patchDataAPI('auth/change_password', passwordData, access_token)
     dispatch({
       type: GLOBAL_TYPES.ALERT,
       payload: {
